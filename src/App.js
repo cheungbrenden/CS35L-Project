@@ -3,7 +3,7 @@ import {Sides} from './pages';
 
 function App() {
   return (
-    <div className="App">
+  <div className="App">
       <header className="App-header">
         <Sides/>
       </header>
