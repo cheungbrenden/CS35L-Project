@@ -15,5 +15,30 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
 
-export const db = firebase.firestore();
+//Useful Functions
+const signInWithEmailAndPassword = async (email, password) => {
+  try {
+    await auth.signInWithEmailAndPassword(email, password);
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+};
+
+const sendPasswordResetEmail = async (email) => {
+  try {
+    await auth.sendPasswordResetEmail(email);
+    alert("Password reset sent!");
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+};
+const logout = () => {
+  auth.signOut();
+};
+
+export { auth, db, signInWithEmailAndPassword, sendPasswordResetEmail, logout };
