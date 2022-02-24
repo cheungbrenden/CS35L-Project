@@ -1,3 +1,4 @@
+// import logo from './logo.svg';
 import './App.css';
 import { ConfirmOrder, Login, Sides } from "./pages";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
