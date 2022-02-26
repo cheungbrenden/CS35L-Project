@@ -37,6 +37,7 @@ const sendPasswordResetEmail = async (email) => {
     alert(err.message);
   }
 };
+
 const logout = () => {
   auth.signOut();
 };
