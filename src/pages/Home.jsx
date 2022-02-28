@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
-
+import Button from "../Components/Button";
 const UseStyles = makeStyles((theme) => ({
     layout: {
       display: 'flex',
@@ -21,14 +21,14 @@ const UseStyles = makeStyles((theme) => ({
   
   }));
 
-function Login() {
+function Home() {
     const login = UseStyles();
     console.log ("login")
 
     return (
       <div className={login.layout}>
         <div className = {login.title}>
-        
+        The Study at Hedrick
         </div>
         <Button>
         get in line
@@ -38,4 +38,4 @@ function Login() {
 
 }; 
 
-export default Login; 
+export default Home; 
