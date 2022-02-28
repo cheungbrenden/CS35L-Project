@@ -11,12 +11,22 @@ const UseStyles = makeStyles((theme) => ({
    
     title: {
       font: theme.font.title,
-      color: theme.color.black,
+      color: theme.color.orange,
       textAlign: 'center',
       margin: '0 0 0 0.9rem',
       fontWeight: 'bold',
       width: '100rem',
      height: '8.5rem',
+
+    subtitle: {
+      font: theme.font.title,
+      color: theme.color.black,
+      textAlign: 'left',
+      margin: '0 0 0 0.9rem',
+      fontWeight: 'medium',
+      width: '50rem',
+     height: '4rem',
+    }
     },
   
   }));
@@ -28,11 +38,22 @@ function Login() {
     return (
       <div className={login.layout}>
         <div className = {login.title}>
-        
+        One Step Away
         </div>
-        <Button>
-        get in line
-        </Button>
+        <div className = {login.subtitle}>
+        Just kidding... you don't have to line up anymore! 
+        </div>
+        <div className = {login.subtitle}>
+        Email
+        </div>
+        <div className = {login.subtitle}>
+        Password
+        </div>
+       <p>Email</p>
+       <input></input>
+       <p>Password</p>
+       <input></input>
+       <button>Sign In</button>
       </div>
     );
 
