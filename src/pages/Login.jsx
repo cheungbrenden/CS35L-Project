@@ -1,6 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
-import { auth,signInWithEmailAndPassword  } from '../firebase/config';
 
 const UseStyles = makeStyles((theme) => ({
     layout: {
