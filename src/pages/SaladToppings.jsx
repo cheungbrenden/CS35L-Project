@@ -50,8 +50,7 @@ function SaladToppings() {
   const getToppings = async () => {
     try{
       const toppArr = [];
-      const q1 = query(collection(db, "Toppings"), where("salad", "==", true));
-      const q = query(q1, orderBy("Name"));
+      const q = query(collection(db, "Toppings"), where("salad", "==", true));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         console.log(doc.data());
