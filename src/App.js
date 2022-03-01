@@ -1,8 +1,7 @@
 // import logo from './logo.svg';
 import './App.css';
-import { ConfirmOrder, Login, Sides } from "./pages";
+import { ConfirmOrder, Login, Sides, History } from "./pages";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import OrderHistory from './pages/OrderHistory';
 
 function App() {
   return (
@@ -15,7 +14,7 @@ function App() {
           <Route exact path="/login" element={<Login/>} />
           {/* <Route exact path="/courses" element={<EnterCourses courses={courses} />} /> */}
           <Route exact path="/sides" element={<Sides/>} />
-          <Route exact path="/history" element={<OrderHistory/>} />
+          <Route exact path="/history" element={<History/>} />
         </Routes>
       </Router>
     </div>
