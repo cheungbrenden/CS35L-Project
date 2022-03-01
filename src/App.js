@@ -1,6 +1,6 @@
 // import logo from './logo.svg';
 import './App.css';
-import { ConfirmOrder, Login, Sides } from "./pages";
+import { ConfirmOrder, Login, Sides, SaladToppings, SaladGreens } from "./pages";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -14,6 +14,8 @@ function App() {
           <Route exact path="/login" element={<Login/>} />
           {/* <Route exact path="/courses" element={<EnterCourses courses={courses} />} /> */}
           <Route exact path="/sides" element={<Sides/>} />
+          <Route exact path="/SaladToppings" element={<SaladToppings/>} />
+          <Route exact path="/SaladGreens" element={<SaladGreens/>} />
         </Routes>
       </Router>
     </div>
