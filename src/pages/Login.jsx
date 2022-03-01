@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState }  from 'react';
 import { makeStyles } from '@mui/styles';
+// import {auth, signInWithEmailAndPassword} from "../firebase/config";
+// import { useRouter } from "next/router";
+
 
 const UseStyles = makeStyles((theme) => ({
     layout: {
@@ -19,7 +22,7 @@ const UseStyles = makeStyles((theme) => ({
      height: '8.5rem',
 
     subtitle: {
-      font: theme.font.title,
+      font: theme.font.subtitle,
       color: theme.color.black,
       textAlign: 'left',
       margin: '0 0 0 0.9rem',
@@ -34,7 +37,9 @@ const UseStyles = makeStyles((theme) => ({
 function Login() {
     const login = UseStyles();
     console.log ("login")
-
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    // const router = useRouter();
     return (
       <div className={login.layout}>
         <div className = {login.title}>
@@ -50,10 +55,22 @@ function Login() {
         Password
         </div>
        <p>Email</p>
-       <input></input>
+       <input>value={email}
+        onChange={(e) => {
+          setEmail(e.target.value);
+        }}</input>
        <p>Password</p>
-       <input></input>
-       <button>Sign In</button>
+       <input>value={password}
+        onChange={(e) => {
+          setPassword(e.target.value);
+        }}</input>
+       <button>Sign In
+       onClick={() =>{
+        //  if(signInWithEmailAndPassword(email,password)){
+        //   // router.push("/Home");
+        //  }
+       }}
+       </button>
       </div>
     );
 
