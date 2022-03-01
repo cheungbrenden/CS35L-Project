@@ -1,6 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
-
 const UseStyles = makeStyles((theme) => ({
     layout: {
       display: 'flex',

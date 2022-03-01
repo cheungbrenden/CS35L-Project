@@ -15,18 +15,17 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
-export const auth = firebase.auth();
-export const db = firebase.firestore();
+const auth = firebase.auth();
+const db = firebase.firestore();
 
-//Useful Functions
-// const signInWithEmailAndPassword = async (email, password) => {
-//   try {
-//     await auth.signInWithEmailAndPassword(email, password);
-//   } catch (err) {
-//     console.error(err);
-//     alert(err.message);
-//   }
-// };
+const signInWithEmailAndPassword = async (email, password) => {
+  try {
+    await auth.signInWithEmailAndPassword(email, password);
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+};
 
 // const sendPasswordResetEmail = async (email) => {
 //   try {
@@ -43,3 +42,4 @@ export const db = firebase.firestore();
 // };
 
 // export default app;
+export { auth, db, signInWithEmailAndPassword };
