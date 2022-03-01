@@ -1,8 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
-import {auth} from "../firebase/config";
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { useState } from 'react';
+import {auth, signInWithEmailAndPassword} from "../firebase/config";
+// import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useState, useEffect } from 'react';
+import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 const UseStyles = makeStyles((theme) => ({
     layout: {
@@ -39,11 +40,20 @@ function Login() {
     console.log ("login")
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [user, loading, error] = useAuthState(auth);
     const navigate = useNavigate();
     const signIn = () => {
       signInWithEmailAndPassword(email, password);
       navigate("/home");
     };
+    useEffect(() => {
+      if (loading) {
+        return;
+      }
+      // if (user) {
+      //     history.replace("/dashboard");
+      // }
+    }, [user, loading]);
     return (
       <div className={login.layout}>
         <div className = {login.title}>

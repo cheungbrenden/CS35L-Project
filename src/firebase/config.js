@@ -21,14 +21,14 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore();
 
-const signInWithEmailAndPassword = async (email, password) => {
-  try {
-    await auth.signInWithEmailAndPassword(email, password);
-  } catch (err) {
-    console.error(err);
-    alert(err.message);
-  }
-};
+// const signInWithEmailAndPassword = async (email, password) => {
+//   try {
+//     await auth.signInWithEmailAndPassword(email, password);
+//   } catch (err) {
+//     console.error(err);
+//     alert(err.message);
+//   }
+// };
 // signInWithEmailAndPassword(auth, email, password)
 //   .then((userCredential) => {
 //     // Signed in
