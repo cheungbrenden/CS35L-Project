@@ -17,6 +17,7 @@ const UseStyles = makeStyles((theme) => ({
       fontWeight: 'bold',
       width: '100rem',
      height: '8.5rem',
+    },
 
     subtitle: {
       font: theme.font.title,
@@ -27,7 +28,6 @@ const UseStyles = makeStyles((theme) => ({
       width: '50rem',
      height: '4rem',
     }
-    },
   
   }));
 
