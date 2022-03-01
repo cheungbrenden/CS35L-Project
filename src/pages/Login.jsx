@@ -1,5 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
+import {auth} from "../firebase/config";
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 const UseStyles = makeStyles((theme) => ({
     layout: {
       display: 'flex',
@@ -33,7 +37,13 @@ const UseStyles = makeStyles((theme) => ({
 function Login() {
     const login = UseStyles();
     console.log ("login")
-
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+    const signIn = () => {
+      signInWithEmailAndPassword(email, password);
+      navigate("/home");
+    };
     return (
       <div className={login.layout}>
         <div className = {login.title}>
@@ -43,10 +53,19 @@ function Login() {
         Just kidding... you don't have to line up anymore! 
         </div>
        <p>Email</p>
-       <input></input>
+       <input
+       value={email}
+        onChange={(e) => {
+          setEmail(e.target.value);
+        }}></input>
        <p>Password</p>
-       <input></input>
-       <button>Sign In</button>
+       <input 
+       value={password}
+        onChange={(e) => {
+          setPassword(e.target.value);
+        }}></input>
+       <button onClick={signIn}>Sign In
+       </button>
       </div>
     );
 

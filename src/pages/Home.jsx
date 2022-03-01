@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
-import Button from "../Components/Button";
+
 const UseStyles = makeStyles((theme) => ({
     layout: {
       display: 'flex',
@@ -30,9 +30,6 @@ function Home() {
         <div className = {login.title}>
         The Study at Hedrick
         </div>
-        <Button>
-        get in line
-        </Button>
       </div>
     );
 
