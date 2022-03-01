@@ -24,34 +24,30 @@ const UseStyles = makeStyles((theme) => ({
   
   }));
 
-// async function getMarker() {
-//     const snapshot = await firebase.firestore().collection('Orders').get()
-//     return snapshot.docs.map(doc => doc.data());
-// }
-
 function History() {
     const history = UseStyles();
     const [users, setUsers] = useState ([]); 
-    const userCollectionRef = collection(db, 'orders'); 
+    const userCollectionRef = collection(db, 'Orders'); 
 
     useEffect(() => {
         const getUsers = async () => {
             const data = await getDocs (userCollectionRef);   //return all documents inside of it 
             console.log (data);
-            console.log ("hello"); 
-        }
+            setUsers (data.docs.map ((doc) => ({ ...doc.data()}))); 
+        };
         getUsers();
-    }, [userCollectionRef])
-    // console.log (firebase)
-    // const ref = firebase.firestore().collection('Orders');
-  //  console.log(ref);
+    }, [])
 
     return (
       <div className={history.layout}>
-        <div className = {history.title}>
-        {/* {getMarker()} */}
         Your past orders!
-        </div>
+          {users.map ((user) => {
+            return (
+              <div>
+                <h1> Entree: {user.Entree} </h1>
+              </div>
+            );
+          })}
       </div>
     );
 
