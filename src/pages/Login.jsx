@@ -1,6 +1,6 @@
 import React, { useState }  from 'react';
 import { makeStyles } from '@mui/styles';
-// import {auth, signInWithEmailAndPassword} from "../firebase/config";
+import {auth, signInWithEmailAndPassword} from "../firebase/config";
 // import { useRouter } from "next/router";
 
 
@@ -20,6 +20,7 @@ const UseStyles = makeStyles((theme) => ({
       fontWeight: 'bold',
       width: '100rem',
      height: '8.5rem',
+    },
 
     subtitle: {
       font: theme.font.subtitle,
@@ -29,7 +30,6 @@ const UseStyles = makeStyles((theme) => ({
       fontWeight: 'medium',
       width: '50rem',
      height: '4rem',
-    }
     },
   
   }));
@@ -66,9 +66,7 @@ function Login() {
         }}</input>
        <button>Sign In
        onClick={() =>{
-        //  if(signInWithEmailAndPassword(email,password)){
-        //   // router.push("/Home");
-        //  }
+        signInWithEmailAndPassword(email,password);
        }}
        </button>
       </div>
