@@ -22,12 +22,12 @@ const UseStyles = makeStyles((theme) => ({
   }));
 
 function Home() {
-    const login = UseStyles();
-    console.log ("login")
+    const home = UseStyles();
+    console.log ("home")
 
     return (
-      <div className={login.layout}>
-        <div className = {login.title}>
+      <div className={home.layout}>
+        <div className = {home.title}>
         The Study at Hedrick
         </div>
       </div>
