@@ -6,7 +6,8 @@ import Stack from '@mui/material/Stack';
 
 import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
-import { collection, getDocs, query } from 'firebase/firestore';
+import { Link } from 'react-router-dom';
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 
 const UseStyles = makeStyles((theme) => ({
     layout: {
@@ -49,7 +50,7 @@ function SaladGreens() {
   const getGreens = async () => {
     try{
       const greensArr = [];
-      const q = query(collection(db, "Greens"));
+      const q = query(collection(db, "Greens"), orderBy("Name"));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         console.log(doc.data());
@@ -75,7 +76,7 @@ function SaladGreens() {
         {greens.map ((greens) => {
         return(
           <ThemeProvider theme={studyTheme}>
-            <Button variant="contained" color= "generic" fontFamily="true">
+            <Button variant="contained" color= "generic" fontFamily="true" component={Link} to="../SaladToppings">
               {greens.Name}
             </Button>
           </ThemeProvider>

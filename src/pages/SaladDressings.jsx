@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 
 import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
-import { collection, getDocs, query} from 'firebase/firestore';
+import { collection, getDocs, query, orderBy} from 'firebase/firestore';
 
 const UseStyles = makeStyles((theme) => ({
     layout: {
@@ -49,7 +49,7 @@ function SaladDressings() {
   const getDressing = async () => {
     try{
       const dressingArr = [];
-      const q = query(collection(db, "Dressings"));
+      const q = query(collection(db, "Dressings"), orderBy("Name"));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         console.log(doc.data());
