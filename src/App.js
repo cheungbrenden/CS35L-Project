@@ -1,6 +1,6 @@
 // import logo from './logo.svg';
 import './App.css';
-import { ConfirmOrder, Login, Sides } from "./pages";
+import { StartOrder, ConfirmOrder, Login, Sides } from "./pages";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -14,6 +14,9 @@ function App() {
           <Route exact path="/login" element={<Login/>} />
           {/* <Route exact path="/courses" element={<EnterCourses courses={courses} />} /> */}
           <Route exact path="/sides" element={<Sides/>} />
+
+          <Route exact path="/start_order" element={<StartOrder/>} />
+
         </Routes>
       </Router>
     </div>

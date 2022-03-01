@@ -9,6 +9,9 @@ const theme = createTheme({
 
   color: {
     black: "#000000",
+    orange: "#F4A950",
+    dark_brown: "#594A47",
+    beige: "#F1ECEC"
   }
 });
 
