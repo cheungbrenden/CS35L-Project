@@ -20,7 +20,7 @@ const UseStyles = makeStyles((theme) => ({
     },
 
     subtitle: {
-      font: theme.font.title,
+      font: theme.font.subtitle,
       color: theme.color.black,
       textAlign: 'left',
       margin: '0 0 0 0.9rem',
@@ -42,12 +42,6 @@ function Login() {
         </div>
         <div className = {login.subtitle}>
         Just kidding... you don't have to line up anymore! 
-        </div>
-        <div className = {login.subtitle}>
-        Email
-        </div>
-        <div className = {login.subtitle}>
-        Password
         </div>
        <p>Email</p>
        <input></input>
