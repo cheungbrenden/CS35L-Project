@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 
 import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
-import { collection, getDocs, query } from 'firebase/firestore';
+import { collection, getDocs, query} from 'firebase/firestore';
 
 const UseStyles = makeStyles((theme) => ({
     layout: {
@@ -41,42 +41,42 @@ const studyTheme = createTheme({
 });
 
 
-function SaladGreens() {
-  const saladGreens = UseStyles();
-  const [greens, setGreens] = useState([]);
-  console.log ("saladGreens")
+function SaladProteins() {
+  const saladProteins = UseStyles();
+  const [protein, setProtein] = useState([]);
+  console.log ("saladProteins")
 
-  const getGreens = async () => {
+  const getProtein = async () => {
     try{
-      const greensArr = [];
-      const q = query(collection(db, "Greens"));
+      const proteinArr = [];
+      const q = query(collection(db, "Proteins"));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         console.log(doc.data());
-        greensArr.push(doc.data());
+        proteinArr.push(doc.data());
       });
-      setGreens([...greensArr]);
+      setProtein([...proteinArr]);
     } catch (error) {
       console.log(error);
     }
   }
 
   useEffect(() => {
-    getGreens();
+    getProtein();
   }, []);
 
 
   return (
-    <div className={saladGreens.layout}>
-      <div className = {saladGreens.title}>
-      Greens
+    <div className={saladProteins.layout}>
+      <div className = {saladProteins.title}>
+      Proteins
       </div>
       <Stack spacing={1}>
-        {greens.map ((greens) => {
+        {protein.map ((protein) => {
         return(
           <ThemeProvider theme={studyTheme}>
             <Button variant="contained" color= "generic" fontFamily="true">
-              {greens.Name}
+              {protein.Name}
             </Button>
           </ThemeProvider>
         )
@@ -87,4 +87,4 @@ function SaladGreens() {
 
 }; 
 
-export default SaladGreens; 
+export default SaladProteins; 

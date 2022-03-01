@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 
 import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
-import { collection, getDocs, query } from 'firebase/firestore';
+import { collection, getDocs, query} from 'firebase/firestore';
 
 const UseStyles = makeStyles((theme) => ({
     layout: {
@@ -41,42 +41,42 @@ const studyTheme = createTheme({
 });
 
 
-function SaladGreens() {
-  const saladGreens = UseStyles();
-  const [greens, setGreens] = useState([]);
-  console.log ("saladGreens")
+function SaladDressings() {
+  const saladDressings = UseStyles();
+  const [dressing, setDressing] = useState([]);
+  console.log ("saladDressings")
 
-  const getGreens = async () => {
+  const getDressing = async () => {
     try{
-      const greensArr = [];
-      const q = query(collection(db, "Greens"));
+      const dressingArr = [];
+      const q = query(collection(db, "Dressings"));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         console.log(doc.data());
-        greensArr.push(doc.data());
+        dressingArr.push(doc.data());
       });
-      setGreens([...greensArr]);
+      setDressing([...dressingArr]);
     } catch (error) {
       console.log(error);
     }
   }
 
   useEffect(() => {
-    getGreens();
+    getDressing();
   }, []);
 
 
   return (
-    <div className={saladGreens.layout}>
-      <div className = {saladGreens.title}>
-      Greens
+    <div className={saladDressings.layout}>
+      <div className = {saladDressings.title}>
+      Dressings
       </div>
       <Stack spacing={1}>
-        {greens.map ((greens) => {
+        {dressing.map ((dressing) => {
         return(
           <ThemeProvider theme={studyTheme}>
             <Button variant="contained" color= "generic" fontFamily="true">
-              {greens.Name}
+              {dressing.Name}
             </Button>
           </ThemeProvider>
         )
@@ -87,4 +87,4 @@ function SaladGreens() {
 
 }; 
 
-export default SaladGreens; 
+export default SaladDressings; 
