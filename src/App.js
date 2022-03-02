@@ -15,7 +15,7 @@ function App() {
           {/* <Route exact path="/courses" element={<EnterCourses courses={courses} />} /> */}
           <Route exact path="/sides" element={<Sides />} />
           <Route exact path="/home" element={<Home />} />
-          <Route exact path="/dashboard" element={Dashboard />} />
+          <Route exact path="/dashboard" element={<Dashboard />} />
         </Routes>
       </Router>
     </div>

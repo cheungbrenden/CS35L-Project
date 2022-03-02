@@ -46,7 +46,7 @@ function Login() {
         // maybe trigger a loading screen
         return;
       }
-      if (user) navigate("/home");
+      if (user) navigate("/dashboard");
     },[user, loading]);
     return (
       <div className={login.layout}>
