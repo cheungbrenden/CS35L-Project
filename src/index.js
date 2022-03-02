@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './theme';
+//import firebase from './utils/firebase';
 
 ReactDOM.render(
   <React.StrictMode>

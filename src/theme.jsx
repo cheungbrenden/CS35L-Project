@@ -9,6 +9,7 @@ const theme = createTheme({
 
   color: {
     black: "#000000",
+    background: "#FDF9F9",
   }
 });
 
