@@ -7,7 +7,7 @@ import Stack from '@mui/material/Stack';
 import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import { collection, getDocs, query, where, orderBy } from 'firebase/firestore';
+import { collection, getDocs, query, where} from 'firebase/firestore';
 
 const UseStyles = makeStyles((theme) => ({
     layout: {

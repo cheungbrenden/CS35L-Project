@@ -31,13 +31,25 @@ const UseStyles = makeStyles((theme) => ({
 
 const studyTheme = createTheme({
   palette: {
-    generic: {
+    primary: {
       main: '#594A47',
       contrastText: '#fff',
     },
   },
   typography: {
-    fontFamily: 'Solway',
+    button: {
+      fontFamily: 'Solway',
+      textTransform:'none',
+    },
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+        },
+      }, 
+    }, 
   },
 });
 
@@ -72,17 +84,32 @@ function SaladGreens() {
       <div className = {saladGreens.title}>
       Greens
       </div>
+      <ThemeProvider theme={studyTheme}>
       <Stack spacing={1}>
         {greens.map ((greens) => {
         return(
-          <ThemeProvider theme={studyTheme}>
-            <Button variant="contained" color= "generic" fontFamily="true" component={Link} to="../SaladToppings">
+            <Button 
+              variant = "contained" 
+              component={Link} to="../SaladToppings"
+            >
               {greens.Name}
             </Button>
-          </ThemeProvider>
         )
       })}
+      <Button 
+              variant = "contained" 
+              component={Link} to="../SaladToppings"
+            >
+              Skip
+            </Button>
+            <Button 
+              variant = "contained" 
+              component={Link} to="../SaladToppings"
+            >
+              Back
+            </Button>
     </Stack>
+    </ThemeProvider>
     </div>
   );
 
