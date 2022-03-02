@@ -25,7 +25,7 @@ const UseStyles = makeStyles((theme) => ({
     subtitle: {
       font: theme.font.subtitle,
       color: theme.color.black,
-      textAlign: 'left',
+      textAlign: 'center',
       margin: '0 0 0 0.9rem',
       fontWeight: 'medium',
       width: '50rem',
