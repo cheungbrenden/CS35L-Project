@@ -11,7 +11,7 @@ const UseStyles = makeStyles((theme) => ({
    
     title: {
       font: theme.font.title,
-      color: theme.color.black,
+      color: theme.color.orange,
       textAlign: 'center',
       margin: '0 0 0 0.9rem',
       fontWeight: 'bold',
