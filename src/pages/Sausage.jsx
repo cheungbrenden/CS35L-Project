@@ -3,12 +3,9 @@ import { makeStyles } from '@mui/styles';
 import { db } from '../firebase/config';
 import { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
-import Checkbox from '@material-ui/core/Checkbox';
-import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
-import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
-import ButtonComponent from '../Components/Button';
 import MouseOverPopover from '../Components/PopoverButton';
 import { useNavigate } from "react-router-dom";
+import {Radio, RadioGroup, FormControl, FormControlLabel, FormLabel, createTheme, ThemeProvider, Button, Grid } from '@mui/material';
 
 const UseStyles = makeStyles((theme) => ({
     layout: {
@@ -20,24 +17,37 @@ const UseStyles = makeStyles((theme) => ({
    
     title: {
       font: theme.font.title,
-      color: theme.color.black,
+      color: theme.color.orange,
       textAlign: 'center',
       margin: '0 0 0 0.9rem',
-      fontWeight: 'bold',
       width: '100rem',
      height: '8.5rem',
     },
     subtitle : {
-      font: theme.font.title,
-      color: theme.color.black,
+      font: theme.font.subtitle,
+      color: theme.color.white,
+      backgroundColor: theme.color.darkBrown,
       textAlign: 'left',
       margin: '0 0 0 0.9rem',
       fontWeight: 'medium',
-      width: '50rem',
+      width: '25',
       height: '4rem',
+      borderRadius: '15px',
     },
   
   }));
+
+  const studyTheme = createTheme({
+    palette: {
+      generic: {
+        main: '#594A47',
+        contrastText: '#fff',
+      },
+    },
+    typography: {
+      fontFamily: 'Solway',
+    },
+  });
   
   function Sausage() {
     let navigate = useNavigate(); 
@@ -85,77 +95,68 @@ const UseStyles = makeStyles((theme) => ({
         <div className = {sausage.title}>
         Craft-Your-Own Sausage
         </div>
-        <div className={sausage.subtitle}>
-          <div><h2> Sausage: </h2>
-        {sausages.map ((sausage) => {
-           return (
-             <div>
-<MouseOverPopover label={sausage.Nutrition}>{sausage.Name}
-<Checkbox icon={<CircleUnchecked />}checkedIcon={<CircleCheckedFilled />}/>
-</MouseOverPopover>
-             </div>
-           );
-         })}</div>
-          </div>
 
-          <div className={sausage.subtitle}>
-          <div><h2> Drink: </h2>
-        {drinks.map ((drink) => {
+            <Grid container spacing={2} columns={15}><Grid item xs={5}>
+          <h2 className={sausage.subtitle}> Sausage: </h2>
+          <FormControl>
+  <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
+  <RadioGroup
+    aria-labelledby="demo-radio-buttons-group-label"
+    name="radio-buttons-group"
+  >
+    {sausages.map ((sausage) => {
            return (
-             <div>
-<MouseOverPopover label={drink.Nutrition}>{drink.Name} 
-<Checkbox icon={<CircleUnchecked />}checkedIcon={<CircleCheckedFilled />}/>
-</MouseOverPopover>
-             </div>
+            <MouseOverPopover label={'Calories: ' + sausage.Nutrition}><FormControlLabel value={sausage.Name} control={<Radio style ={{
+              color: "#F4A950",
+            }}/>} label={sausage.Name} /></MouseOverPopover>
            );
-         })}</div>
-          </div>
+         })}
+  </RadioGroup>
+</FormControl>
+          </Grid>
 
-          <div className={sausage.subtitle}>
-          <div><h2> Side: </h2>
-        {sides.map ((side) => {
-           return (
-             <div>
-<MouseOverPopover label={side.Nutrition}>{side.Name} 
-<Checkbox icon={<CircleUnchecked />}checkedIcon={<CircleCheckedFilled />}/>
-</MouseOverPopover>
-             </div>
-           );
-         })}</div>
-          </div>
-            <ButtonComponent handleClick={routeChange}>Place Order</ButtonComponent>
+          <Grid item xs={5}><h2 className={sausage.subtitle}> Drink: </h2>
+                  <FormControl>
+          <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
+          <RadioGroup
+            aria-labelledby="demo-radio-buttons-group-label"
+            name="radio-buttons-group"
+          >
+            {drinks.map ((drink) => {
+                  return (
+                    <MouseOverPopover label={'Calories: ' + drink.Nutrition}><FormControlLabel value={drink.Name} control={<Radio style ={{
+                      color: "#F4A950",
+                    }}/>} label={drink.Name} /></MouseOverPopover>
+                  );
+                })}
+          </RadioGroup>
+        </FormControl>
+        </Grid>
+          <Grid item xs={5}><h2 className={sausage.subtitle}> Side: </h2>
+                    <FormControl>
+            <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
+            <RadioGroup
+              aria-labelledby="demo-radio-buttons-group-label"
+              name="radio-buttons-group"
+            >
+              {sides.map ((side) => {
+                    return (
+                      <MouseOverPopover label={'Calories: ' + side.Nutrition}><FormControlLabel value={side.Name} control={<Radio style ={{
+                        color: "#F4A950",
+                      }}/>} label={side.Name} /></MouseOverPopover>
+                    );
+                  })}
+            </RadioGroup>
+          </FormControl>
+</Grid></Grid>
+        
+          <ThemeProvider theme={studyTheme}>
+            <Button onClick={routeChange}variant="contained" color= "generic" fontFamily="true">
+              Place Order
+            </Button>
+          </ThemeProvider>
       </div>
     );
 
 }; 
 export default Sausage; 
-// function History() {
-//   const history = UseStyles();
-//   const [users, setUsers] = useState ([]); 
-//   const userCollectionRef = collection(db, 'Orders'); 
-
-//   useEffect(() => {
-//       const getUsers = async () => {
-//           const data = await getDocs (userCollectionRef);   //return all documents inside of it 
-//           console.log (data);
-//           setUsers (data.docs.map ((doc) => ({ ...doc.data()}))); 
-//       };
-//       getUsers();
-//   }, [])
-
-//   return (
-//     <div className={history.layout}>
-//       Your past orders!
-//         {users.map ((user) => {
-//           return (
-//             <div>
-//               <h1> Entree: {user.Entree} </h1>
-//             </div>
-//           );
-//         })}
-//     </div>
-//   );
-
-// }; 
-
-// export default History; 
