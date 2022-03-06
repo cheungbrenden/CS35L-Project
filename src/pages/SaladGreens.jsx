@@ -38,8 +38,10 @@ const studyTheme = createTheme({
       contrastText: '#fff',
     },
     secondary: {
-      main: '#32a852',
-      contrastText: '#32a852'
+      main: '#0f9600',
+    },
+    warning: {
+      main: '#bf0404',
     },
     background: {
       default: '#F1ECEC',
@@ -98,17 +100,38 @@ function SaladGreens() {
       <CssBaseline />
         <Stack spacing={1}>
           {greens.map ((greens) => {
-          return(
-
-            <Button 
-              variant = "contained" 
-              component={Link} to="../SaladToppings"
-              size = "large"
-              endIcon={<PublicIcon color = 'secondary'/>}
-            >
-              {greens.Name}
-            </Button>
-          )
+            if (greens.Footprint === 'low'){
+              return(
+                <Button 
+                  variant = "contained" 
+                  component={Link} to="../SaladToppings"
+                  endIcon={<PublicIcon color = 'secondary'/>}
+                >
+                  {greens.Name}
+                </Button>
+              )
+            }
+            else if (greens.Footprint == 'high'){
+              return(
+                <Button 
+                  variant = "contained" 
+                  component={Link} to="../SaladToppings"
+                  endIcon={<PublicIcon color = 'warning'/>}
+                >
+                  {greens.Name}
+                </Button>
+              )
+            }
+            else {
+              return(
+                <Button 
+                  variant = "contained" 
+                  component={Link} to="../SaladToppings"
+                >
+                  {greens.Name}
+                </Button>
+              )
+            }
         })}
         <Button 
           variant = "contained" 
