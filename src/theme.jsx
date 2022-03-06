@@ -6,7 +6,6 @@ const theme = createTheme({
   font: {
     title: 'normal 500 4.5rem/4.5rem "Solway"',
   },
-
   color: {
     black: "#000000",
   }

@@ -75,7 +75,11 @@ function SaladDressings() {
         {dressing.map ((dressing) => {
         return(
           <ThemeProvider theme={studyTheme}>
-            <Button variant="contained" color= "generic" fontFamily="true">
+            <Button
+            variant="contained" 
+            color= "generic" 
+            fontFamily="true"
+            >
               {dressing.Name}
             </Button>
           </ThemeProvider>

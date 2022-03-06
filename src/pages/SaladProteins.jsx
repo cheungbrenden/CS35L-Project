@@ -76,7 +76,10 @@ function SaladProteins() {
         {protein.map ((protein) => {
         return(
           <ThemeProvider theme={studyTheme}>
-            <Button variant="contained" color= "generic" fontFamily="true" component={Link} to="../SaladDressings">
+            <Button variant="contained" 
+            color= "generic" 
+            fontFamily="true" 
+            component={Link} to="../SaladDressings">
               {protein.Name}
             </Button>
           </ThemeProvider>

@@ -29,18 +29,29 @@ const UseStyles = makeStyles((theme) => ({
   
   }));
 
-const studyTheme = createTheme({
-  palette: {
-    generic: {
-      main: '#594A47',
-      contrastText: '#fff',
+  const studyTheme = createTheme({
+    palette: {
+      primary: {
+        main: '#594A47',
+        contrastText: '#fff',
+      },
     },
-  },
-  typography: {
-    fontFamily: 'Solway',
-  },
-});
-
+    typography: {
+      button: {
+        fontFamily: 'Solway',
+        textTransform:'none',
+      },
+    },
+    components: {
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            borderRadius: 8,
+          },
+        }, 
+      }, 
+    },
+  });
 
 function SaladToppings() {
   const saladToppings = UseStyles();
@@ -73,15 +84,30 @@ function SaladToppings() {
       Toppings
       </div>
       <Stack spacing={1}>
+      <ThemeProvider theme={studyTheme}>
         {toppings.map ((toppings) => {
         return(
-          <ThemeProvider theme={studyTheme}>
-            <Button variant="contained" color= "generic" fontFamily="true" component={Link} to="../SaladProteins">
-              {toppings.Name}
+            <Button 
+              variant="contained" 
+              component={Link} to="../SaladProteins"
+            >
+                {toppings.Name}
             </Button>
-          </ThemeProvider>
         )
-      })}
+        })}
+        <Button 
+          variant = "contained" 
+          component={Link} to="../SaladProteins"
+        >
+          Skip
+        </Button>
+        <Button 
+          variant = "contained" 
+          component={Link} to="../SaladGreens"
+        >
+          Back
+        </Button>
+      </ThemeProvider>
     </Stack>
     </div>
   );
