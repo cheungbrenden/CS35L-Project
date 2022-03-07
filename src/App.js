@@ -1,8 +1,14 @@
 // import logo from './logo.svg';
 import "./App.css";
-import { ConfirmOrder, Login, Sides, Home, Dashboard } from "./pages";
+import {
+  ConfirmOrder,
+  Login,
+  Sides,
+  Home,
+  Dashboard,
+  // SpecialtyDrinks,
+} from "./pages";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import SpecialtyDrinks from "./pages/SpecialtyDrinks";
 
 function App() {
   return (
@@ -17,7 +23,7 @@ function App() {
           <Route exact path="/sides" element={<Sides />} />
           <Route exact path="/home" element={<Home />} />
           <Route exact path="/dashboard" element={<Dashboard />} />
-          <Route exact path="/dashboard" element={<SpecialtyDrinks />} />
+          {/* <Route exact path="/dashboard" element={<SpecialtyDrinks />} /> */}
         </Routes>
       </Router>
     </div>
