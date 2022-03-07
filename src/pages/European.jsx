@@ -8,12 +8,14 @@ import { useNavigate } from "react-router-dom";
 import {Radio, RadioGroup, FormControl, FormControlLabel, FormLabel, createTheme, ThemeProvider, Button, Grid } from '@mui/material';
 
 const UseStyles = makeStyles((theme) => ({
-    layout: {
-      display: 'flex',
-      alignItems: 'center',
-      flexDirection: 'column',
-      width: '100vw',
-    },
+  layout: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    width: '100vw',
+    height: '100vw',
+    backgroundColor: '#FDF9F9',
+  },
    
     title: {
       font: theme.font.title,
@@ -169,7 +171,7 @@ const UseStyles = makeStyles((theme) => ({
           </Grid></Grid>
                   
                     <ThemeProvider theme={studyTheme}>
-                      <Button onClick={routeChange}variant="contained" color= "generic" fontFamily="true">
+                      <Button sx={{mt: 6}}onClick={routeChange}variant="contained" color= "generic" fontFamily="true">
                         Place Order
                       </Button>
                     </ThemeProvider>

@@ -13,6 +13,8 @@ const UseStyles = makeStyles((theme) => ({
       alignItems: 'center',
       flexDirection: 'column',
       width: '100vw',
+      height: '100vw',
+      backgroundColor: '#FDF9F9',
     },
    
     title: {
@@ -113,26 +115,25 @@ const UseStyles = makeStyles((theme) => ({
         Craft-Your-Own Sausage
         </div>
 
-            <Grid container spacing={2} columns={15}><Grid item xs={5}>
-          <h2 className={sausage.subtitle}> Sausage: </h2>
-          <FormControl>
-  <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
-  <RadioGroup
-    aria-labelledby="demo-radio-buttons-group-label"
-    name="radio-buttons-group"
-    defaultValue="noselect"
-    onChange={() => handleChange("sausage")}
-  >
-    {sausages.map ((sausage) => {
-           return (
-            <MouseOverPopover label={'Calories: ' + sausage.Nutrition}><FormControlLabel value={sausage.Name} control={<Radio style ={{
-              color: "#F4A950",
-            }}/>} label={sausage.Name} /></MouseOverPopover>
-           );
-         })}
-  </RadioGroup>
-</FormControl>
-          </Grid>
+            <Grid container spacing={2} columns={15}> <Grid item xs={5}><h2 className={sausage.subtitle}> Sausage: </h2>
+                  <FormControl>
+          <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
+          <RadioGroup
+            aria-labelledby="demo-radio-buttons-group-label"
+            name="radio-buttons-group"
+            defaultValue="noselect"
+            onChange={() => handleChange("drink")}
+          >
+            {sausages.map ((sausage) => {
+                  return (
+                    <MouseOverPopover label={'Calories: ' + sausage.Nutrition}><FormControlLabel value={sausage.Name} control={<Radio style ={{
+                      color: "#F4A950",
+                    }}/>} label={sausage.Name} /></MouseOverPopover>
+                  );
+                })}
+          </RadioGroup>
+        </FormControl>
+        </Grid>
 
           <Grid item xs={5}><h2 className={sausage.subtitle}> Drink: </h2>
                   <FormControl>
@@ -174,7 +175,7 @@ const UseStyles = makeStyles((theme) => ({
 </Grid></Grid>
         
           <ThemeProvider theme={studyTheme}>
-            <Button onClick={routeChange}variant="contained" color= "generic" fontFamily="true">
+            <Button sx={{mt: 6}}onClick={routeChange}variant="contained" color= "generic" fontFamily="true">
               Place Order
             </Button>
           </ThemeProvider>
