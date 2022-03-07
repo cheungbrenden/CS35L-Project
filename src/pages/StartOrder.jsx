@@ -1,6 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {makeStyles, styled} from '@mui/styles';
+import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {Grid, ButtonBase, Button} from "@mui/material";
+
+import { Link } from 'react-router-dom';
 
 const UseStyles = makeStyles((theme) => ({
     layout: {
@@ -8,13 +11,14 @@ const UseStyles = makeStyles((theme) => ({
         alignItems: 'center',
         flexDirection: 'column',
         width: '100vw',
+
     },
 
     title: {
         font: theme.font.title,
         color: theme.color.orange,
         textAlign: 'center',
-        margin: '10rem 0 1rem 0',
+        margin: '4rem 0 3rem 0',
         fontWeight: 'bold',
         width: '100rem',
         height: '6rem',
@@ -23,46 +27,74 @@ const UseStyles = makeStyles((theme) => ({
 
 }));
 
-const ItemButton = styled(Button)({
-    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-    border: 0,
-    borderRadius: 3,
-    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-    color: 'white',
-    height: 48,
-    padding: '0 30px',
-
+const studyTheme = createTheme({
+    palette: {
+        primary: {
+            main: '#594A47',
+            contrastText: '#fff',
+        },
+    },
+    typography: {
+        button: {
+            fontFamily: 'Solway',
+            textTransform: 'none',
+            fontSize: '2em'
+        },
+    },
+    components: {
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    borderRadius: 8,
+                },
+            },
+        },
+    },
 });
+
+// const ItemButton = styled(Button)({
+//     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+//     border: 0,
+//     borderRadius: 3,
+//     boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+//     color: 'white',
+//     height: 48,
+//     padding: '0 30px',
+//
+// });
 
 
 function StartOrder() {
     const startOrder = UseStyles();
+    const [order, setOrder] = useState("");
 
     return (
         <div className={startOrder.layout}>
             <div className={startOrder.title}>
                 Start Your Order
             </div>
+
+
             <div>
-                <Grid container spacing={2}>
-                    <Grid item xs={6}>
-                        <ItemButton>Craft Your Own Pizza</ItemButton>
+                <ThemeProvider theme={studyTheme}>
+                    <Grid container spacing={4}>
+                        <Grid item xs={6}>
+                            <Button variant = "contained" component={Link} to="../PizzaSauce">Craft Your Own Pizza</Button>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Button variant = "contained" component={Link} to="../SaladToppings" >Craft Your Own Sausage</Button>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Button variant = "contained" component={Link} to="../SaladToppings">Craft Your Own Salad</Button>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Button variant = "contained" component={Link} to="../SaladToppings">Craft Your Own Sandwich</Button>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Button variant = "contained" component={Link} to="../SaladToppings">European Dishes</Button>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={6}>
-                        {/*<ButtonBase className={startOrder.itemButton} variant="contained">Craft Your Own*/}
-                        {/*    Sausage</ButtonBase>*/}
-                        <ItemButton>Craft Your Own Sausage</ItemButton>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <ItemButton>Craft Your Own Salad</ItemButton>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <ItemButton>Craft Your Own Sandwich</ItemButton>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <ItemButton>European Dishes</ItemButton>
-                    </Grid>
-                </Grid>
+                </ThemeProvider>
             </div>
         </div>
     );

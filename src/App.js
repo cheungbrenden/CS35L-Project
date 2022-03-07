@@ -1,6 +1,6 @@
 // import logo from './logo.svg';
 import './App.css';
-import { StartOrder, ConfirmOrder, Login, Sides } from "./pages";
+import { StartOrder, ConfirmOrder, Login, Sides, PizzaSauce, PizzaToppings, PizzaCheese, PizzaAddOns } from "./pages";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -15,7 +15,15 @@ function App() {
           {/* <Route exact path="/courses" element={<EnterCourses courses={courses} />} /> */}
           <Route exact path="/sides" element={<Sides/>} />
 
-          <Route exact path="/start_order" element={<StartOrder/>} />
+          <Route exact path="/StartOrder" element={<StartOrder/>} />
+
+          <Route exact path="/PizzaSauce" element={<PizzaSauce/>} />
+
+            <Route exact path="/PizzaToppings" element={<PizzaToppings/>} />
+
+            <Route exact path="/PizzaCheese" element={<PizzaCheese/>} />
+
+            <Route exact path="/PizzaAddOns" element={<PizzaAddOns/>} />
 
         </Routes>
       </Router>
