@@ -5,13 +5,23 @@ import "@fontsource/solway";
 const theme = createTheme({
   font: {
     title: 'normal 500 4.5rem/4.5rem "Solway"',
+solia/menuitems
+    subtitle: 'normal 500 2rem/4.5rem "Solway"',
+
     output: 'normal 100 1rem/1rem "Solway"',
+master
   },
 
   color: {
+    orange: "#F4A950",
+    beige: "#F1ECEC",
+    darkBrown: "#594A47",
     black: "#000000",
     background: "#FDF9F9",
+solia/menuitems
+
     brown: "#594A47",
+master
     white: "#FFFFFF",
   }
 });
