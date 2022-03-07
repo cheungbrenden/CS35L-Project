@@ -9,21 +9,21 @@ function Dashboard() {
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
   const [userid, setUserid] = useState("");
-  const [drinks, setDrinks] = useState([]);
-  const getDrinks = async () => {
+  const [orders, setOrders] = useState([]);
+  const getFavOrders = async () => {
     try{
-      const drinksArr = [];
-      const q = query(collection(db, "Drinks"), orderBy("Name"));
+      const orderArr = [];
+      const q = query(collection(db, "Orders"), where("Favorite", "==", true));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         console.log(doc.data());
-        drinksArr.push(doc.data());
+        orderArr.push(doc.data());
       });
-      setDrinks([...drinksArr]);
+      setOrders([...orderArr]);
     } catch (error) {
       console.log(error);
     }
-  }  
+  }
 // {/* //   const fetchUserName = async () => { */}
 // //     try {
 // //       const q = query(collection(db, "users"), where("uid", "==", user?.uid));
@@ -38,7 +38,7 @@ function Dashboard() {
   useEffect(() => {
     if (loading) return;
     if (!user) return navigate("/home");
-    getDrinks();
+    getFavOrders();
   }, [user, loading]);
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -66,7 +66,7 @@ function Dashboard() {
   return (
     <div>
         <div>
-        Logged in as {drinks.Nutrition}
+        Logged in as
          <button onClick={logout}>
           Logout
          </button>
