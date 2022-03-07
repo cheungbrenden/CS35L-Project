@@ -62,7 +62,13 @@ const studyTheme = createTheme({
 function PizzaAddons() {
     const pizzaAddons = UseStyles();
     const [addons, setAddons] = useState([]);
-    console.log ("saladGreens")
+
+
+    function handleSubmit(specifiedAddon) {
+        db.collection("Orders").doc('asdfasdf').set({
+            addons: specifiedAddon
+        }, {merge: true});
+    }
 
     const getAddons = async () => {
         try{
@@ -91,10 +97,10 @@ function PizzaAddons() {
             </div>
             <ThemeProvider theme={studyTheme}>
                 <Grid container spacing={4}>
-                    {addons.map ((toppings) => {
+                    {addons.map ((addons) => {
                         return(
                             <Grid item xs={6}>
-                                <Button variant = "contained" component={Link} to="../PizzaAddOns" >{toppings.Name}</Button>
+                                <Button onClick={handleSubmit.bind(this, addons.Name)} variant = "contained" component={Link} to="../PizzaAddOns" >{addons.Name}</Button>
                             </Grid>
 
                         )

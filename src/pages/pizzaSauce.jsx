@@ -7,7 +7,7 @@ import {Grid} from '@mui/material';
 import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import { collection, getDocs, query, orderBy, where } from 'firebase/firestore';
+import { collection, getDocs, query, orderBy, doc, setDoc, where } from 'firebase/firestore';
 
 const UseStyles = makeStyles((theme) => ({
     layout: {
@@ -32,6 +32,7 @@ const UseStyles = makeStyles((theme) => ({
 
 
 }));
+
 
 const studyTheme = createTheme({
     palette: {
@@ -60,8 +61,18 @@ const studyTheme = createTheme({
 
 
 function PizzaSauce() {
+
+
+
     const pizzaSauces = UseStyles();
     const [sauce, setSauce] = useState([]);
+
+
+    function handleSubmit(specifiedSauce) {
+        db.collection("Orders").doc('asdfasdf').set({
+            sauce: specifiedSauce
+        });
+    }
 
     const getSauces = async () => {
         try{
@@ -93,10 +104,11 @@ function PizzaSauce() {
                     {sauce.map ((sauce) => {
                         return(
                             <Grid item xs={6}>
-                                <Button variant = "contained" component={Link} to="../PizzaCheese" >{sauce.Name}</Button>
+                                <Button onClick={handleSubmit.bind(this, sauce.Name)} variant = "contained" component={Link} to="../PizzaCheese" >{sauce.Name}</Button>
                             </Grid>
 
                         )
+
                     })}
                     {/*<Grid item xs={6}>*/}
                     {/*    <Button*/}

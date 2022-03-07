@@ -63,6 +63,12 @@ function PizzaToppings() {
     const pizzaToppings = UseStyles();
     const [toppings, setToppings] = useState([]);
 
+    function handleSubmit(specifiedTopping) {
+        db.collection("Orders").doc('asdfasdf').set({
+            topping: specifiedTopping
+        }, {merge: true});
+    }
+
     const getToppings = async () => {
         try{
             const greensArr = [];
@@ -93,7 +99,7 @@ function PizzaToppings() {
                     {toppings.map ((toppings) => {
                         return(
                             <Grid item xs={6}>
-                                <Button variant = "contained" component={Link} to="../PizzaAddOns" >{toppings.Name}</Button>
+                                <Button onClick={handleSubmit.bind(this, toppings.Name)} variant = "contained" component={Link} to="../PizzaAddOns" >{toppings.Name}</Button>
                             </Grid>
 
                         )

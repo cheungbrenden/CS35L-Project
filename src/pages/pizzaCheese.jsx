@@ -62,7 +62,12 @@ const studyTheme = createTheme({
 function PizzaCheese() {
     const pizzaCheese = UseStyles();
     const [cheese, setCheese] = useState([]);
-    console.log ("saladGreens")
+
+    function handleSubmit(specifiedCheese) {
+        db.collection("Orders").doc('asdfasdf').set({
+            cheese: specifiedCheese
+        }, {merge: true});
+    }
 
     // ToDo: separate pizza and sandwich cheeses in database
     const getCheeses = async () => {
@@ -95,7 +100,7 @@ function PizzaCheese() {
                     {cheese.map ((cheese) => {
                         return(
                             <Grid item xs={6}>
-                                <Button variant = "contained" component={Link} to="../PizzaToppings" >{cheese.Name}</Button>
+                                <Button onClick={handleSubmit.bind(this, cheese.Name)} variant = "contained" component={Link} to="../PizzaToppings" >{cheese.Name}</Button>
                             </Grid>
 
                         )
