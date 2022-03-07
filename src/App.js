@@ -6,7 +6,8 @@ import {
   Sides,
   Home,
   Dashboard,
-  SpecialtyDrinks,
+  // SpecialtyDrinks,
+  SaladGreens,
 } from "./pages";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -23,7 +24,8 @@ function App() {
           <Route exact path="/sides" element={<Sides />} />
           <Route exact path="/home" element={<Home />} />
           <Route exact path="/dashboard" element={<Dashboard />} />
-          <Route exact path="/dashboard" element={<SpecialtyDrinks />} />
+          {/* <Route exact path="/dashboard" element={<SpecialtyDrinks />} /> */}
+          <Route exact path="/dashboard" element={<SaladGreens />} />
         </Routes>
       </Router>
     </div>

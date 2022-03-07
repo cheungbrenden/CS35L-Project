@@ -64,40 +64,40 @@ const studyTheme = createTheme({
 });
 
 
-function SpecialtyDrinks() {
-  const specialtydrinks = UseStyles();
-  const [drinks, setDrinks] = useState([]);
-  console.log ("specialtydrinks")
+function SaladGreens() {
+  const style = UseStyles();
+  const [ingredients, setIngredients] = useState([]);
+  console.log ("saladGreens")
 
-  const getDrinks = async () => {
+  const getIngredients = async () => {
     try{
-      const drinksArr = [];
-      const q = query(collection(db, "Drinks"), orderBy("Name"));
+      const ingredientsArr = [];
+      const q = query(collection(db, "Greens"), orderBy("Name"));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         console.log(doc.data());
-        drinksArr.push(doc.data());
+        ingredientsArr.push(doc.data());
       });
-      setDrinks([...drinksArr]);
+      setIngredients([...ingredientsArr]);
     } catch (error) {
       console.log(error);
     }
   }
 
   useEffect(() => {
-    getDrinks();
+    getIngredients();
   }, []);
 
 
   return (
     
-    <div className={specialtydrinks.layout}>
-      <div className = {specialtydrinks.title}>
-      Specialty Drinks
+    <div className={style.layout}>
+      <div className = {style.title}>
+      Greens
       </div>
       <ThemeProvider theme={studyTheme}>
         <Stack spacing={1}>
-          {drinks.map ((ingredients) => {
+          {ingredients.map ((ingredients) => {
             if (ingredients.Footprint === 'low'){
               return(
                 <Button 
@@ -152,4 +152,4 @@ function SpecialtyDrinks() {
 
 }; 
 
-export default SpecialtyDrinks; 
+export default SaladGreens; 
