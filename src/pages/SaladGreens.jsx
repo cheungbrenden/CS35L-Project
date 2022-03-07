@@ -4,29 +4,32 @@ import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import PublicIcon from '@mui/icons-material/Public';
+import Checkbox from '@mui/material/Checkbox';
 
 import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { Box } from '@mui/system';
+import { AirlineSeatFlatAngledSharp } from '@mui/icons-material';
 
 const UseStyles = makeStyles((theme) => ({
-    layout: {
-      display: 'flex',
-      alignItems: 'center',
-      flexDirection: 'column',
-      width: '100vw',
-    },
-   
-    title: {
-      font: 'normal 500 4.5rem/4.5rem "Solway"',
-      color: '#F4A950',
-      textAlign: 'center',
-      margin: '5rem 0 2rem 0',
-      fontWeight: 'bold',
-      width: '100rem',
-      height: '6rem',
-    },
+  layout: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    width: '100vw',
+  },
+  
+  title: {
+    font: 'normal 500 4.5rem/4.5rem "Solway"',
+    color: '#F4A950',
+    textAlign: 'center',
+    margin: '5rem 0 2rem 0',
+    fontWeight: 'bold',
+    width: '100rem',
+    height: '6rem',
+  },
   
   }));
 
@@ -47,10 +50,13 @@ const studyTheme = createTheme({
     }
   },
   typography: {
+    fontFamily: 'Solway',
     button: {
-      fontFamily: 'Solway',
       textTransform:'none',
     },
+  },
+  subtitle1:{
+    fontFamily: 'Solway',
   },
   components: {
     MuiButton: {
@@ -62,7 +68,6 @@ const studyTheme = createTheme({
     }, 
   },
 });
-
 
 function SaladGreens() {
   const style = UseStyles();
@@ -88,9 +93,14 @@ function SaladGreens() {
     getIngredients();
   }, []);
 
+  const [flag, setFlag] = React.useState(true);
+
+  const handleClick = () => {
+    setFlag(!flag);
+  };
+  
 
   return (
-    
     <div className={style.layout}>
       <div className = {style.title}>
       Greens
@@ -101,9 +111,10 @@ function SaladGreens() {
             if (ingredients.Footprint === 'low'){
               return(
                 <Button 
+                  onClick={handleClick}
                   variant = "contained" 
-                  component={Link} to="../SaladToppings"
                   endIcon={<PublicIcon color = 'secondary'/>}
+                  color={flag ? "primary" : "secondary"}
                 >
                   {ingredients.Name}
                 </Button>
@@ -132,24 +143,23 @@ function SaladGreens() {
             }
         })}
         <Stack spacing={5}>
-        <Button 
-          variant = "contained" 
-          component={Link} to="../SaladToppings"
-        >
-          Skip
-        </Button>
-        <Button 
-          variant = "contained" 
-        >
-          Back
-        </Button>
+          <Button 
+            variant = "contained" 
+            component={Link} to="../SaladToppings"
+          >
+            Skip
+          </Button>
+          <Button 
+            variant = "contained" 
+          >
+            Back
+          </Button>
         </Stack>
       </Stack>
     </ThemeProvider>
     </div>
 
   );
-
 }; 
 
 export default SaladGreens; 
