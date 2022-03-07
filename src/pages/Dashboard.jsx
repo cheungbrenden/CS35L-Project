@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
-import { auth, logout } from "../firebase/config";
+import { auth, logout, db } from "../firebase/config";
 import {onAuthStateChanged} from "firebase/auth";
-
+import { collection, addDoc } from "firebase/firestore";
 
 function Dashboard() {
   const [user, loading, error] = useAuthState(auth);
@@ -30,11 +30,23 @@ function Dashboard() {
       // https://firebase.google.com/docs/reference/js/firebase.User
       const uid = user.uid;
       setUserid(uid);
+      
     } else {
       // User is signed out
       // ...
     }
-  });
+  }); 
+  const adduserid  = async () =>{
+    try {
+      const docRef = await addDoc(collection(db, "Users"), {
+        UserID: userid
+      });
+    
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  };
   return (
     <div>
          <div>
