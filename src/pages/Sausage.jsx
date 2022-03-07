@@ -50,10 +50,27 @@ const UseStyles = makeStyles((theme) => ({
   });
   
   function Sausage() {
+    let isChecked1 = false;
+    let isChecked2 = false;
+    let isChecked3 = false;
+    const [errorMessage, setErrorMessage] = useState('');
+    function handleChange(id){
+      if(id == "sausage"){
+        isChecked1 = true;
+      }else if(id == "drink"){
+        isChecked2 = true;
+      }else if(id == "side"){
+        isChecked3 = true;
+      }
+    }
     let navigate = useNavigate(); 
-    const routeChange = () =>{ 
+    const routeChange = () =>{
+      if(!isChecked1 || !isChecked2 || !isChecked3){
+        setErrorMessage('Please select an option');  
+      }
+  else{
     let path = `newPath`; //change to correct path
-    navigate(path);
+  navigate(path);}
   }
     const sausage = UseStyles();
     const [sausages, setSausages] = useState ([]);
@@ -103,6 +120,8 @@ const UseStyles = makeStyles((theme) => ({
   <RadioGroup
     aria-labelledby="demo-radio-buttons-group-label"
     name="radio-buttons-group"
+    defaultValue="noselect"
+    onChange={() => handleChange("sausage")}
   >
     {sausages.map ((sausage) => {
            return (
@@ -121,6 +140,8 @@ const UseStyles = makeStyles((theme) => ({
           <RadioGroup
             aria-labelledby="demo-radio-buttons-group-label"
             name="radio-buttons-group"
+            defaultValue="noselect"
+            onChange={() => handleChange("drink")}
           >
             {drinks.map ((drink) => {
                   return (
@@ -136,8 +157,10 @@ const UseStyles = makeStyles((theme) => ({
                     <FormControl>
             <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
             <RadioGroup
+              defaultValue="noselect"
               aria-labelledby="demo-radio-buttons-group-label"
               name="radio-buttons-group"
+              onChange={() => handleChange("side")}
             >
               {sides.map ((side) => {
                     return (
@@ -155,6 +178,7 @@ const UseStyles = makeStyles((theme) => ({
               Place Order
             </Button>
           </ThemeProvider>
+          {errorMessage && <div className="error"> {errorMessage} </div>}
       </div>
     );
 

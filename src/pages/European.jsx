@@ -49,10 +49,27 @@ const UseStyles = makeStyles((theme) => ({
   });
   // need to add backend config to get specific button data
   function European() {
+    let isChecked1 = false;
+    let isChecked2 = false;
+    let isChecked3 = false;
+    const [errorMessage, setErrorMessage] = useState('');
+    function handleChange(id){
+      if(id == "european"){
+        isChecked1 = true;
+      }else if(id == "drink"){
+        isChecked2 = true;
+      }else if(id == "side"){
+        isChecked3 = true;
+      }
+    }
     let navigate = useNavigate(); 
-    const routeChange = () =>{ 
+    const routeChange = () =>{
+      if(!isChecked1 || !isChecked2 || !isChecked3){
+        setErrorMessage('Please select an option');  
+      }
+  else{
     let path = `newPath`; //change to correct path
-    navigate(path);
+  navigate(path);}
   }
     const european = UseStyles();
     const [europeans, setEuropeans] = useState ([]);
@@ -101,6 +118,7 @@ const UseStyles = makeStyles((theme) => ({
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
               name="radio-buttons-group"
+              onChange={() => handleChange("european")}
             >
               {europeans.map ((european) => {
                      return (
@@ -119,6 +137,7 @@ const UseStyles = makeStyles((theme) => ({
                     <RadioGroup
                       aria-labelledby="demo-radio-buttons-group-label"
                       name="radio-buttons-group"
+                      onChange={() => handleChange("drink")}
                     >
                       {drinks.map ((drink) => {
                             return (
@@ -136,6 +155,7 @@ const UseStyles = makeStyles((theme) => ({
                       <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
                         name="radio-buttons-group"
+                        onChange={() => handleChange("side")}
                       >
                         {sides.map ((side) => {
                               return (
@@ -153,6 +173,7 @@ const UseStyles = makeStyles((theme) => ({
                         Place Order
                       </Button>
                     </ThemeProvider>
+                    {errorMessage && <div className="error"> {errorMessage} </div>}
                 </div>
               );
 
