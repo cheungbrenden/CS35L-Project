@@ -66,7 +66,12 @@ function Dashboard() {
   return (
     <div>
         <div>
-        Logged in as
+        Logged in as 
+        {orders.map ((orders) => {
+          <div>
+            {orders.Name}
+          </div>
+        })}
          <button onClick={logout}>
           Logout
          </button>
