@@ -89,7 +89,7 @@ function SpecialtyDrinks() {
         return(
             <Button 
               variant="contained" 
-              component={Link} to="../SaladProteins"
+              component={Link} to="../Home"
             >
                 {smoothie.Name}
             </Button>
@@ -97,13 +97,13 @@ function SpecialtyDrinks() {
         })}
         <Button 
           variant = "contained" 
-          component={Link} to="../SaladProteins"
+          component={Link} to="../Home"
         >
           Skip
         </Button>
         <Button 
           variant = "contained" 
-          component={Link} to="../SaladGreens"
+          component={Link} to="../Home"
         >
           Back
         </Button>
