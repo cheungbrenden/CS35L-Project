@@ -57,11 +57,11 @@ const UseStyles = makeStyles((theme) => ({
     let isChecked3 = false;
     const [errorMessage, setErrorMessage] = useState('');
     function handleChange(id){
-      if(id == "sausage"){
+      if(id === "sausage"){
         isChecked1 = true;
-      }else if(id == "drink"){
+      }else if(id === "drink"){
         isChecked2 = true;
-      }else if(id == "side"){
+      }else if(id === "side"){
         isChecked3 = true;
       }
     }
@@ -122,7 +122,7 @@ const UseStyles = makeStyles((theme) => ({
             aria-labelledby="demo-radio-buttons-group-label"
             name="radio-buttons-group"
             defaultValue="noselect"
-            onChange={() => handleChange("drink")}
+            onChange={() => handleChange("sausage")}
           >
             {sausages.map ((sausage) => {
                   return (

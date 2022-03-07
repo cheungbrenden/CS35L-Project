@@ -56,11 +56,11 @@ const UseStyles = makeStyles((theme) => ({
     let isChecked3 = false;
     const [errorMessage, setErrorMessage] = useState('');
     function handleChange(id){
-      if(id == "european"){
+      if(id === "european"){
         isChecked1 = true;
-      }else if(id == "drink"){
+      }else if(id === "drink"){
         isChecked2 = true;
-      }else if(id == "side"){
+      }else if(id === "side"){
         isChecked3 = true;
       }
     }
