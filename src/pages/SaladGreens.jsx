@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@mui/styles';
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import CssBaseline from "@material-ui/core/CssBaseline";
 import Stack from '@mui/material/Stack';
 import PublicIcon from '@mui/icons-material/Public';
 
@@ -66,59 +65,58 @@ const studyTheme = createTheme({
 
 
 function SaladGreens() {
-  const saladGreens = UseStyles();
-  const [greens, setGreens] = useState([]);
+  const style = UseStyles();
+  const [ingredients, setIngredients] = useState([]);
   console.log ("saladGreens")
 
-  const getGreens = async () => {
+  const getIngredients = async () => {
     try{
-      const greensArr = [];
+      const ingredientsArr = [];
       const q = query(collection(db, "Greens"), orderBy("Name"));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         console.log(doc.data());
-        greensArr.push(doc.data());
+        ingredientsArr.push(doc.data());
       });
-      setGreens([...greensArr]);
+      setIngredients([...ingredientsArr]);
     } catch (error) {
       console.log(error);
     }
   }
 
   useEffect(() => {
-    getGreens();
+    getIngredients();
   }, []);
 
 
   return (
     
-    <div className={saladGreens.layout}>
-      <div className = {saladGreens.title}>
+    <div className={style.layout}>
+      <div className = {style.title}>
       Greens
       </div>
       <ThemeProvider theme={studyTheme}>
-      <CssBaseline />
         <Stack spacing={1}>
-          {greens.map ((greens) => {
-            if (greens.Footprint === 'low'){
+          {ingredients.map ((ingredients) => {
+            if (ingredients.Footprint === 'low'){
               return(
                 <Button 
                   variant = "contained" 
                   component={Link} to="../SaladToppings"
                   endIcon={<PublicIcon color = 'secondary'/>}
                 >
-                  {greens.Name}
+                  {ingredients.Name}
                 </Button>
               )
             }
-            else if (greens.Footprint == 'high'){
+            else if (ingredients.Footprint == 'high'){
               return(
                 <Button 
                   variant = "contained" 
                   component={Link} to="../SaladToppings"
                   endIcon={<PublicIcon color = 'warning'/>}
                 >
-                  {greens.Name}
+                  {ingredients.Name}
                 </Button>
               )
             }
@@ -128,11 +126,12 @@ function SaladGreens() {
                   variant = "contained" 
                   component={Link} to="../SaladToppings"
                 >
-                  {greens.Name}
+                  {ingredients.Name}
                 </Button>
               )
             }
         })}
+        <Stack spacing={5}>
         <Button 
           variant = "contained" 
           component={Link} to="../SaladToppings"
@@ -144,6 +143,7 @@ function SaladGreens() {
         >
           Back
         </Button>
+        </Stack>
       </Stack>
     </ThemeProvider>
     </div>
