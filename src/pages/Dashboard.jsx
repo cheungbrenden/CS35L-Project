@@ -3,7 +3,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { auth, logout, db } from "../firebase/config";
 import {onAuthStateChanged} from "firebase/auth";
-import { collection, addDoc, getDocs, query, orderBy } from "firebase/firestore";
+import { collection, addDoc, getDocs, query,where } from "firebase/firestore";
 
 function Dashboard() {
   const [user, loading, error] = useAuthState(auth);
