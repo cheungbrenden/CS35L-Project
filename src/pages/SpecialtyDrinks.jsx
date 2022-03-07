@@ -53,35 +53,35 @@ const UseStyles = makeStyles((theme) => ({
     },
   });
 
-function SaladToppings() {
-  const saladToppings = UseStyles();
-  const [toppings, setToppings] = useState([]);
-  console.log ("saladToppings")
+function SpecialtyDrinks() {
+  const specialtyDrinks = UseStyles();
+  const [smoothie, setSmoothie] = useState([]);
+  console.log ("SpecialtyDrinks")
 
-  const getToppings = async () => {
+  const getSmoothies = async () => {
     try{
       const toppArr = [];
-      const q = query(collection(db, "Toppings"), where("salad", "==", true));
+      const q = query(collection(db, "Drinks"), where("spdrink", "==", true));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         console.log(doc.data());
         toppArr.push(doc.data());
       });
-      setToppings([...toppArr]);
+      setSmoothie([...toppArr]);
     } catch (error) {
       console.log(error);
     }
   }
 
   useEffect(() => {
-    getToppings();
+    getSmoothies();
   }, []);
 
 
   return (
-    <div className={saladToppings.layout}>
-      <div className = {saladToppings.title}>
-      Toppings
+    <div className={SpecialtyDrinks.layout}>
+      <div className = {SpecialtyDrinks.title}>
+      Specialty Drinks
       </div>
       <Stack spacing={1}>
       <ThemeProvider theme={studyTheme}>
@@ -114,4 +114,4 @@ function SaladToppings() {
 
 }; 
 
-export default SaladToppings; 
+export default SpecialtyDrinks; 
