@@ -36,9 +36,9 @@ function Dashboard() {
 // //     }
 // //   };
   useEffect(() => {
+    getFavOrders();
     if (loading) return;
     if (!user) return navigate("/home");
-    getFavOrders();
   }, [user, loading]);
   onAuthStateChanged(auth, (user) => {
     if (user) {
