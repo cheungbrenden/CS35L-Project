@@ -29,7 +29,6 @@ import Typography from '@mui/material/Typography';
         variant="outlined"
       >
           {props.children}
-        Hover with a Popover. Hey besties
       </Button>
       <Popover
         id="mouse-over-popover"
@@ -49,7 +48,7 @@ import Typography from '@mui/material/Typography';
         onClose={handlePopoverClose}
         disableRestoreFocus
       >
-        <Typography sx={{ p: 1 }}>{props.children}</Typography>
+        <Typography sx={{ p: 1 }}>{props.label}</Typography>
       </Popover>
     </div>
   ); }
