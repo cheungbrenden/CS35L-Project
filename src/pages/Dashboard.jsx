@@ -39,7 +39,7 @@ function Dashboard() {
     getFavOrders();
     if (loading) return;
     if (!user) return navigate("/home");
-  }, [user, loading]);
+  }, [user,loading]);
   onAuthStateChanged(auth, (user) => {
     if (user) {
       // User is signed in, see docs for a list of available properties
@@ -68,9 +68,10 @@ function Dashboard() {
         <div>
         Logged in as 
         {orders.map ((orders) => {
-          <div>
+          return(
+          <button>
             {orders.Name}
-          </div>
+          </button>)
         })}
          <button onClick={logout}>
           Logout
