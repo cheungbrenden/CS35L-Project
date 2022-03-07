@@ -54,9 +54,9 @@ const UseStyles = makeStyles((theme) => ({
   });
 
 function SpecialtyDrinks() {
-  const specialtyDrinks = UseStyles();
+  const specialtydrinks = UseStyles();
+  console.log ("specialtydrinks")
   const [smoothie, setSmoothie] = useState([]);
-  console.log ("SpecialtyDrinks")
 
   const getSmoothies = async () => {
     try{
@@ -79,19 +79,19 @@ function SpecialtyDrinks() {
 
 
   return (
-    <div className={SpecialtyDrinks.layout}>
-      <div className = {SpecialtyDrinks.title}>
+    <div className={specialtydrinks.layout}>
+      <div className = {specialtydrinks.title}>
       Specialty Drinks
       </div>
       <Stack spacing={1}>
       <ThemeProvider theme={studyTheme}>
-        {toppings.map ((toppings) => {
+        {smoothie.map ((smoothie) => {
         return(
             <Button 
               variant="contained" 
               component={Link} to="../SaladProteins"
             >
-                {toppings.Name}
+                {smoothie.Name}
             </Button>
         )
         })}
