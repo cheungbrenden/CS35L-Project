@@ -22,7 +22,7 @@ function Dashboard() {
 //   };
   useEffect(() => {
     if (loading) return;
-    if (!user) return navigate("/login");
+    if (!user) return navigate("/home");
   }, [user, loading]);
   onAuthStateChanged(auth, (user) => {
     if (user) {
