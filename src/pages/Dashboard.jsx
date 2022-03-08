@@ -13,7 +13,7 @@ function Dashboard() {
   const getFavOrders = async () => {
     try{
       const orderArr = [];
-      const q = query(collection(db, "Orders"), where("Favorite", "==", true));
+      const q = query(collection(db, "Orders"), where("Favorite", "==", userid));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         console.log(doc.data());
@@ -36,6 +36,7 @@ function Dashboard() {
 // //     }
 // //   };
   useEffect(() => {
+    adduserid();
     getFavOrders();
     if (loading) return;
     if (!user) return navigate("/home");
