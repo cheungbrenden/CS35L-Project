@@ -18,6 +18,7 @@ const UseStyles = makeStyles((theme) => ({
     },
    
     title: {
+      marginTop: '100px',
       font: theme.font.title,
       color: theme.color.orange,
       textAlign: 'center',
@@ -26,6 +27,7 @@ const UseStyles = makeStyles((theme) => ({
      height: '8.5rem',
     },
     subtitle : {
+      paddingLeft: '30px',
       font: theme.font.subtitle,
       color: theme.color.white,
       backgroundColor: theme.color.darkBrown,
@@ -111,9 +113,9 @@ const UseStyles = makeStyles((theme) => ({
 
     return (
       <div className={sausage.layout}>
-        <div className = {sausage.title}>
+        <h2 className = {sausage.title}>
         Craft-Your-Own Sausage
-        </div>
+        </h2>
 
             <Grid container spacing={2} columns={15}> <Grid item xs={5}><h2 className={sausage.subtitle}> Sausage: </h2>
                   <FormControl>
