@@ -11,7 +11,6 @@ const theme = createTheme({
     output: 'normal 100 1rem/1rem "Solway"',
 
   },
-
   color: {
     orange: "#F4A950",
     beige: "#F1ECEC",
