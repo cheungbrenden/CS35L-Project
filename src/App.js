@@ -1,6 +1,6 @@
 // import logo from './logo.svg';
 import './App.css';
-import { ConfirmOrder, Login, Sides, SaladToppings, SaladGreens, SaladProteins, SaladDressings } from "./pages";
+import { ConfirmOrder, Login, Sides, SaladToppings, SaladGreens, SaladProteins, SaladDressings, Sausage } from "./pages";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -18,6 +18,7 @@ function App() {
           <Route exact path="/SaladGreens" element={<SaladGreens/>} />
           <Route exact path="/SaladProteins" element={<SaladProteins/>} />
           <Route exact path="/SaladDressings" element={<SaladDressings/>} />
+          <Route exact path="/Sausage" element={<Sausage/>} />
         </Routes>
       </Router>
     </div>

@@ -5,3 +5,4 @@ export { default as SaladGreens } from "./SaladGreens";
 export { default as SaladToppings } from "./SaladToppings";
 export { default as SaladProteins } from "./SaladProteins";
 export { default as SaladDressings } from "./SaladDressings";
+export { default as Sausage } from "./Sausage";

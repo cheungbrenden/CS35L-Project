@@ -4,14 +4,11 @@ import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import PublicIcon from '@mui/icons-material/Public';
-import Checkbox from '@mui/material/Checkbox';
 
 import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
-import { Box } from '@mui/system';
-import { AirlineSeatFlatAngledSharp } from '@mui/icons-material';
 
 const UseStyles = makeStyles((theme) => ({
   layout: {
@@ -92,14 +89,7 @@ function SaladGreens() {
   useEffect(() => {
     getIngredients();
   }, []);
-
-  const [flag, setFlag] = React.useState(true);
-
-  const handleClick = () => {
-    setFlag(!flag);
-  };
   
-
   return (
     <div className={style.layout}>
       <div className = {style.title}>
@@ -111,10 +101,9 @@ function SaladGreens() {
             if (ingredients.Footprint === 'low'){
               return(
                 <Button 
-                  onClick={handleClick}
                   variant = "contained" 
                   endIcon={<PublicIcon color = 'secondary'/>}
-                  color={flag ? "primary" : "secondary"}
+                  component={Link} to="../SaladToppings"
                 >
                   {ingredients.Name}
                 </Button>

@@ -2,9 +2,24 @@ import React from 'react'
 import Button from '@mui/material/Button';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
-// import { makeStyles } from '@mui/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-// import { getThemeProps } from '@mui/system';
+const studyTheme = createTheme({
+  palette: {
+    generic: {
+      main: '#594A47',
+      contrastText: '#fff',
+    },
+    baseline: {
+      main: '#FFFFFF',
+      contrastText: '#fff',
+    },
+  },
+  typography: {
+    fontFamily: 'Solway',
+    color: '#000000',
+  },
+});
     export default function MouseOverPopover(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -20,17 +35,23 @@ import Typography from '@mui/material/Typography';
 
   return (
     <div>
-      <Button
+       <ThemeProvider theme={studyTheme}>
+       <Button
+      style={{maxWidth: '300px', maxHeight: '75px', minWidth: '300px', minHeight: '75px'}}
+       sx={{
+        color: 'black',
+      }}
         aria-owns={open ? 'mouse-over-popover' : undefined}
         aria-haspopup="true"
         onMouseEnter={handlePopoverOpen}
         onMouseLeave={handlePopoverClose}
         onClick={props.handleClick}
-        variant="outlined"
+        variant="contained"
+        color="baseline"
       >
           {props.children}
-        Hover with a Popover. Hey besties
       </Button>
+       </ThemeProvider>
       <Popover
         id="mouse-over-popover"
         sx={{
@@ -49,7 +70,7 @@ import Typography from '@mui/material/Typography';
         onClose={handlePopoverClose}
         disableRestoreFocus
       >
-        <Typography sx={{ p: 1 }}>{props.children}</Typography>
+        <Typography sx={{ p: 1 }}>{props.label}</Typography>
       </Popover>
     </div>
   ); }
