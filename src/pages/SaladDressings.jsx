@@ -38,10 +38,10 @@ const studyTheme = createTheme({
       main: '#594A47',
       contrastText: '#fff',
     },
-    secondary: {
+    low: {
       main: '#0f9600',
     },
-    warning: {
+    high: {
       main: '#bf0404',
     },
     background: {
@@ -104,7 +104,7 @@ function SaladDressings() {
               return(
                 <Button 
                   variant = "contained" 
-                  endIcon={<PublicIcon color = 'secondary'/>}
+                  endIcon={<PublicIcon color = 'low'/>}
                   component={Link} to="../SaladDressings"
                 >
                   {ingredients.Name}
@@ -116,7 +116,7 @@ function SaladDressings() {
                 <Button 
                   variant = "contained" 
                   component={Link} to="../SaladDressings"
-                  endIcon={<PublicIcon color = 'warning'/>}
+                  endIcon={<PublicIcon color = 'high'/>}
                 >
                   {ingredients.Name}
                 </Button>

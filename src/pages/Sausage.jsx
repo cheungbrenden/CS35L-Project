@@ -6,6 +6,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import MouseOverPopover from '../Components/PopoverButton';
 import { useNavigate } from "react-router-dom";
 import {Radio, RadioGroup, FormControl, FormControlLabel, FormLabel, createTheme, ThemeProvider, Button, Grid } from '@mui/material';
+import PublicIcon from '@mui/icons-material/Public';
 
 const UseStyles = makeStyles((theme) => ({
     layout: {
@@ -133,6 +134,7 @@ function Sausage() {
                                 }}/>
                                 } 
                                 label={sausage.Name} />
+                                {<PublicIcon color = 'secondary'/>}
                             </MouseOverPopover>
                         );
                     }
