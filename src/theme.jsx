@@ -21,9 +21,6 @@ const theme = createTheme({
 
     brown: "#594A47",
     white: "#FFFFFF",
-    orange: "#F4A950",
-    dark_brown: "#594A47",
-    beige: "#F1ECEC"
   }
 });
 
