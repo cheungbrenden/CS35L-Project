@@ -16,19 +16,21 @@ const UseStyles = makeStyles((theme) => ({
     alignItems: 'center',
     flexDirection: 'column',
     width: '100vw',
+    height: '100vw',
+    backgroundColor: '#FDF9F9',
   },
   
   title: {
     font: 'normal 500 4.5rem/4.5rem "Solway"',
     color: '#F4A950',
     textAlign: 'center',
-    margin: '5rem 0 2rem 0',
+    margin: '3rem 0 2rem 0',
     fontWeight: 'bold',
     width: '100rem',
     height: '6rem',
   },
   
-  }));
+}));
 
 const studyTheme = createTheme({
   palette: {
@@ -146,8 +148,7 @@ function SaladGreens() {
         </Stack>
       </Stack>
     </ThemeProvider>
-    </div>
-
+  </div>
   );
 }; 
 

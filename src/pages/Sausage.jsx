@@ -123,37 +123,20 @@ function Sausage() {
                     onChange={() => handleChange("drink")}
                 >
                     {sausages.map ((sausage) => {
-                        if (sausage.Footprint == 'low') {
-                            return (
-                                <MouseOverPopover 
-                                label={'Calories: ' + sausage.Nutrition}>
-                                    <FormControlLabel 
-                                    value={sausage.Name}    
-                                    control={
-                                    <Radio style ={{
-                                        color: "#F4A950",
-                                    }}/>
-                                    
-                                    } 
-                                    label={sausage.Name} />
-                                </MouseOverPopover>
-                            );
-                        }
-                        else {  
-                            return (
-                                <MouseOverPopover label={'Calories: ' + sausage.Nutrition}>
-                                    <FormControlLabel 
-                                    value={sausage.Name} 
-                                    control={
-                                    <Radio style ={{
-                                        color: "#F4A950",
-                                    }}/>
-                                    } 
-                                    label={sausage.Name} />
-                                </MouseOverPopover>
-                            );
-                        }
-                        })}
+                        return (
+                            <MouseOverPopover label={'Calories: ' + sausage.Nutrition}>
+                                <FormControlLabel 
+                                value={sausage.Name} 
+                                control={
+                                <Radio style ={{
+                                    color: "#F4A950",
+                                }}/>
+                                } 
+                                label={sausage.Name} />
+                            </MouseOverPopover>
+                        );
+                    }
+                )}
                 </RadioGroup>
             </FormControl>
             </Grid>
