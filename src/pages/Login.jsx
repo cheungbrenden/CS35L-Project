@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth, logInWithEmailAndPassword } from "../firebase/config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { makeStyles } from '@mui/styles';
-// import  signInWithEmailAndPassword } from 'firebase/auth';
 const UseStyles = makeStyles((theme) => ({
     layout: {
       display: 'flex',
