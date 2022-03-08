@@ -17,7 +17,6 @@ const UseStyles = makeStyles((theme) => ({
       height: '100vw',
       backgroundColor: '#FDF9F9',
     },
-   
     title: {
       font: theme.font.title,
       color: theme.color.orange,
@@ -42,15 +41,39 @@ const UseStyles = makeStyles((theme) => ({
 
   const studyTheme = createTheme({
     palette: {
-      generic: {
-        main: '#594A47',
-        contrastText: '#fff',
+        primary: {
+          main: '#594A47',
+          contrastText: '#fff',
+        },
+        low: {
+          main: '#0f9600',
+        },
+        high: {
+          main: '#bf0404',
+        },
+        background: {
+          default: '#F1ECEC',
+        }
       },
-    },
-    typography: {
-      fontFamily: 'Solway',
-    },
-  });
+      typography: {
+        fontFamily: 'Solway',
+        button: {
+          textTransform:'none',
+        },
+      },
+      subtitle1:{
+        fontFamily: 'Solway',
+      },
+      components: {
+        MuiButton: {
+          styleOverrides: {
+            root: {
+              borderRadius: 8,
+            },
+          }, 
+        }, 
+      },
+    });
   
 function Sausage() {
     let isChecked1 = false;
@@ -114,6 +137,7 @@ function Sausage() {
         <div className = {sausage.title}>
         Craft-Your-Own Sausage
         </div>
+
             <Grid container spacing={2} columns={15}> <Grid item xs={5}><h2 className={sausage.subtitle}> Sausage: </h2>
                   <FormControl>
             <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
@@ -124,19 +148,60 @@ function Sausage() {
                     onChange={() => handleChange("drink")}
                 >
                     {sausages.map ((sausage) => {
-                        return (
-                            <MouseOverPopover label={'Calories: ' + sausage.Nutrition}>
-                                <FormControlLabel 
-                                value={sausage.Name} 
-                                control={
-                                <Radio style ={{
-                                    color: "#F4A950",
-                                }}/>
-                                } 
-                                label={sausage.Name} />
-                                {<PublicIcon color = 'secondary'/>}
-                            </MouseOverPopover>
-                        );
+                        if (sausage.Footprint == 'low'){
+                            return (
+                                <ThemeProvider theme={studyTheme}>
+                                    <MouseOverPopover label={'Calories: ' + sausage.Nutrition}>
+                                        <FormControlLabel 
+                                        value={sausage.Name} 
+                                        control={
+                                        <Radio style ={{
+                                            color: "#F4A950",
+                                        }}/>
+                                        } 
+                                        label={sausage.Name} />
+                                        <ThemeProvider theme={studyTheme}>
+                                            {<PublicIcon color = 'low'/>}
+                                        </ThemeProvider>
+                                    </MouseOverPopover>
+                                </ThemeProvider>
+                            );
+                        }
+                        else if (sausage.Footprint == 'high'){
+                            return (
+                                <ThemeProvider theme={studyTheme}>
+                                <MouseOverPopover label={'Calories: ' + sausage.Nutrition}>
+                                    <FormControlLabel 
+                                    value={sausage.Name} 
+                                    control={
+                                    <Radio style ={{
+                                        color: "#F4A950",
+                                    }}/>
+                                    } 
+                                    label={sausage.Name} />
+                                    <ThemeProvider theme={studyTheme}>
+                                        {<PublicIcon color = 'high'/>}
+                                    </ThemeProvider>
+                                </MouseOverPopover>
+                                </ThemeProvider>
+                            );
+                        }
+                        else {
+                            return (
+                                <ThemeProvider theme={studyTheme}>
+                                    <MouseOverPopover label={'Calories: ' + sausage.Nutrition}>
+                                        <FormControlLabel 
+                                        value={sausage.Name} 
+                                        control={
+                                        <Radio style ={{
+                                            color: "#F4A950",
+                                        }}/>
+                                        } 
+                                        label={sausage.Name} />
+                                    </MouseOverPopover>
+                                </ThemeProvider>
+                            );
+                        }
                     }
                 )}
                 </RadioGroup>
@@ -152,11 +217,54 @@ function Sausage() {
                         onChange={() => handleChange("drink")}
                     >
                         {drinks.map ((drink) => {
-                        return (
-                            <MouseOverPopover label={'Calories: ' + drink.Nutrition}><FormControlLabel value={drink.Name} control={<Radio style ={{
-                            color: "#F4A950",
-                            }}/>} label={drink.Name} /></MouseOverPopover>
-                        );
+                            if (drink.Footprint == 'low'){
+                                return (
+                                    <ThemeProvider theme={studyTheme}>
+                                        <MouseOverPopover label={'Calories: ' + drink.Nutrition}>
+                                            <FormControlLabel 
+                                            value={drink.Name} 
+                                            control={<Radio style ={{
+                                            color: "#F4A950",
+                                            }}/>} 
+                                            label={drink.Name} />
+                                            <ThemeProvider theme={studyTheme}>
+                                                {<PublicIcon color = 'low'/>}
+                                            </ThemeProvider>
+                                        </MouseOverPopover>
+                                    </ThemeProvider>
+                                );
+                            }
+                            else if (drink.Footprint == 'high') {
+                                return (
+                                    <ThemeProvider theme={studyTheme}>
+                                        <MouseOverPopover label={'Calories: ' + drink.Nutrition}>
+                                            <FormControlLabel 
+                                            value={drink.Name} 
+                                            control={<Radio style ={{
+                                            color: "#F4A950",
+                                            }}/>} 
+                                            label={drink.Name} />
+                                            <ThemeProvider theme={studyTheme}>
+                                                {<PublicIcon color = 'high'/>}
+                                            </ThemeProvider>
+                                        </MouseOverPopover>
+                                    </ThemeProvider>
+                                );
+                            }
+                            else{
+                                return (
+                                    <ThemeProvider theme={studyTheme}>
+                                        <MouseOverPopover label={'Calories: ' + drink.Nutrition}>
+                                            <FormControlLabel 
+                                            value={drink.Name} 
+                                            control={<Radio style ={{
+                                            color: "#F4A950",
+                                            }}/>} 
+                                            label={drink.Name} />
+                                        </MouseOverPopover>
+                                    </ThemeProvider>
+                                );
+                            }
                         })}
                     </RadioGroup>
                 </FormControl>
@@ -171,18 +279,54 @@ function Sausage() {
                         onChange={() => handleChange("side")}
                     >
                         {sides.map ((side) => {
+                            if (side.Footprint == 'low'){
                                 return (
-                                <MouseOverPopover label={'Calories: ' + side.Nutrition}><FormControlLabel value={side.Name} control={<Radio style ={{
-                                    color: "#F4A950",
-                                }}/>} label={side.Name} /></MouseOverPopover>
+                                    <ThemeProvider theme={studyTheme}>
+                                        <MouseOverPopover label={'Calories: ' + side.Nutrition}>
+                                        <FormControlLabel value={side.Name} control={<Radio style ={{
+                                        color: "#F4A950",
+                                        }}/>} 
+                                        label={side.Name} />
+                                        <ThemeProvider theme={studyTheme}>
+                                            {<PublicIcon color = 'low'/>}
+                                        </ThemeProvider>
+                                        </MouseOverPopover>
+                                    </ThemeProvider>
                                 );
-                            })}
+                            }
+                            else if (side.Footprint == 'high'){
+                                return (
+                                    <ThemeProvider theme={studyTheme}>
+                                        <MouseOverPopover label={'Calories: ' + side.Nutrition}>
+                                        <FormControlLabel value={side.Name} control={<Radio style ={{
+                                        color: "#F4A950",
+                                        }}/>} 
+                                        label={side.Name} />
+                                        <ThemeProvider theme={studyTheme}>
+                                            {<PublicIcon color = 'high'/>}
+                                        </ThemeProvider>
+                                        </MouseOverPopover>
+                                    </ThemeProvider>
+                                );
+                            }
+                            else {
+                                return (
+                                    <ThemeProvider theme={studyTheme}>
+                                        <MouseOverPopover label={'Calories: ' + side.Nutrition}>
+                                        <FormControlLabel value={side.Name} control={<Radio style ={{
+                                        color: "#F4A950",
+                                        }}/>} 
+                                        label={side.Name} />
+                                        </MouseOverPopover>
+                                    </ThemeProvider>
+                                );
+                            }
+                        })}
                     </RadioGroup>
                 </FormControl>
             </Grid></Grid>
-        
             <ThemeProvider theme={studyTheme}>
-                <Button sx={{mt: 6}}onClick={routeChange}variant="contained" color= "generic" fontFamily="true">
+                <Button sx={{mt: 6}}onClick={routeChange}variant="contained" color= "primary" fontFamily="true">
                     Place Order
                 </Button>
             </ThemeProvider>
