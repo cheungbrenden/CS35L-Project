@@ -52,23 +52,26 @@ const UseStyles = makeStyles((theme) => ({
       fontFamily: 'Solway',
     },
   });
-  
-function Sausage() {
-    let isChecked1 = false;
+  let isChecked1 = false;
     let isChecked2 = false;
     let isChecked3 = false;
+function Sausage() {
     const [errorMessage, setErrorMessage] = useState('');
     function handleChange(id){
-        if(id == "sausage"){
-            isChecked1 = true;
-        }else if(id == "drink"){
-            isChecked2 = true;
-        }else if(id == "side"){
-            isChecked3 = true;
-        }
+      if(id === "sausage"){
+        isChecked1 = true;
+      }else if(id === "drink"){
+        isChecked2 = true;
+      }else if(id === "side"){
+        isChecked3 = true;
+      }
     }
     let navigate = useNavigate(); 
     const routeChange = () =>{
+      console.log("checked1: " + isChecked1);
+      console.log("checked2: " + isChecked2);
+      console.log("checked3: " + isChecked3);
+
       if(!isChecked1 || !isChecked2 || !isChecked3){
         setErrorMessage('Please select an option');  
       }
@@ -112,100 +115,74 @@ function Sausage() {
 
     return (
       <div className={sausage.layout}>
-        <h2 className = {sausage.title}>
+        <div className = {sausage.title}>
         Craft-Your-Own Sausage
-        </h2>
-
-            <Grid container spacing={2} columns={15}> <Grid item xs={5}><h2 className={sausage.subtitle}> Sausage: </h2>
-                  <FormControl>
-            <FormLabel id="demo-radio-buttons-group-label" ></FormLabel>
-                <RadioGroup
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    name="radio-buttons-group"
-                    defaultValue="noselect"
-                    onChange={() => handleChange("drink")}
-                >
-                    {sausages.map ((sausage) => {
-                        if (sausage.Footprint == 'low') {
-                            return (
-                                <MouseOverPopover 
-                                label={'Calories: ' + sausage.Nutrition}>
-                                    <FormControlLabel 
-                                    value={sausage.Name}    
-                                    control={
-                                    <Radio style ={{
-                                        color: "#F4A950",
-                                    }}/>
-                                    
-                                    } 
-                                    label={sausage.Name} />
-                                </MouseOverPopover>
-                            );
-                        }
-                        else {  
-                            return (
-                                <MouseOverPopover label={'Calories: ' + sausage.Nutrition}>
-                                    <FormControlLabel 
-                                    value={sausage.Name} 
-                                    control={
-                                    <Radio style ={{
-                                        color: "#F4A950",
-                                    }}/>
-                                    } 
-                                    label={sausage.Name} />
-                                </MouseOverPopover>
-                            );
-                        }
-                        })}
-                </RadioGroup>
-            </FormControl>
-            </Grid>
-            <Grid item xs={5}><h2 className={sausage.subtitle}> Drink: </h2>
-                <FormControl>
-                    <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
-                    <RadioGroup
-                        aria-labelledby="demo-radio-buttons-group-label"
-                        name="radio-buttons-group"
-                        defaultValue="noselect"
-                        onChange={() => handleChange("drink")}
-                    >
-                        {drinks.map ((drink) => {
-                        return (
-                            <MouseOverPopover label={'Calories: ' + drink.Nutrition}><FormControlLabel value={drink.Name} control={<Radio style ={{
-                            color: "#F4A950",
-                            }}/>} label={drink.Name} /></MouseOverPopover>
-                        );
-                        })}
-                    </RadioGroup>
-                </FormControl>
-            </Grid>
-            <Grid item xs={5}><h2 className={sausage.subtitle}> Side: </h2>
-                <FormControl>
-                    <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
-                    <RadioGroup
-                        defaultValue="noselect"
-                        aria-labelledby="demo-radio-buttons-group-label"
-                        name="radio-buttons-group"
-                        onChange={() => handleChange("side")}
-                    >
-                        {sides.map ((side) => {
-                                return (
-                                <MouseOverPopover label={'Calories: ' + side.Nutrition}><FormControlLabel value={side.Name} control={<Radio style ={{
-                                    color: "#F4A950",
-                                }}/>} label={side.Name} /></MouseOverPopover>
-                                );
-                            })}
-                    </RadioGroup>
-                </FormControl>
-            </Grid></Grid>
-        
-            <ThemeProvider theme={studyTheme}>
-                <Button sx={{mt: 6}}onClick={routeChange}variant="contained" color= "generic" fontFamily="true">
-                    Place Order
-                </Button>
-            </ThemeProvider>
-            {errorMessage && <div className="error"> {errorMessage} </div>}
         </div>
+
+            <Grid container spacing={2} columns={15}><Grid item xs={5}>
+          <h2 className={sausage.subtitle}> Entrees: </h2>
+          <FormControl>
+  <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
+  <RadioGroup
+    aria-labelledby="demo-radio-buttons-group-label"
+    name="radio-buttons-group"
+    onChange={() => handleChange("sausage")}
+  >
+    {sausages.map ((sausage) => {
+           return (
+            <MouseOverPopover label={'Calories: ' + sausage.Nutrition}><FormControlLabel value={sausage.Name} control={<Radio style ={{
+              color: "#F4A950",
+            }}/>} label={sausage.Name} /></MouseOverPopover>
+           );
+         })}
+  </RadioGroup>
+</FormControl>
+          </Grid>
+
+          <Grid item xs={5}><h2 className={sausage.subtitle}> Drink: </h2>
+                  <FormControl>
+          <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
+          <RadioGroup
+            aria-labelledby="demo-radio-buttons-group-label"
+            name="radio-buttons-group"
+            onChange={() => handleChange("drink")}
+          >
+            {drinks.map ((drink) => {
+                  return (
+                    <MouseOverPopover label={'Calories: ' + drink.Nutrition}><FormControlLabel value={drink.Name} control={<Radio style ={{
+                      color: "#F4A950",
+                    }}/>} label={drink.Name} /></MouseOverPopover>
+                  );
+                })}
+          </RadioGroup>
+        </FormControl>
+        </Grid>
+          <Grid item xs={5}><h2 className={sausage.subtitle}> Side: </h2>
+                    <FormControl>
+            <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
+            <RadioGroup
+              aria-labelledby="demo-radio-buttons-group-label"
+              name="radio-buttons-group"
+              onChange={() => handleChange("side")}
+            >
+              {sides.map ((side) => {
+                    return (
+                      <MouseOverPopover label={'Calories: ' + side.Nutrition}><FormControlLabel value={side.Name} control={<Radio style ={{
+                        color: "#F4A950",
+                      }}/>} label={side.Name} /></MouseOverPopover>
+                    );
+                  })}
+            </RadioGroup>
+          </FormControl>
+</Grid></Grid>
+        
+          <ThemeProvider theme={studyTheme}>
+            <Button sx={{mt: 6}}onClick={routeChange}variant="contained" color= "generic" fontFamily="true">
+              Place Order
+            </Button>
+          </ThemeProvider>
+          {errorMessage && <div className="error"> {errorMessage} </div>}
+      </div>
     );
 
 }; 

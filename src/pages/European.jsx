@@ -51,11 +51,9 @@ const UseStyles = makeStyles((theme) => ({
       fontFamily: 'Solway',
     },
   });
-  // need to add backend config to get specific button data
-  function European() {
-    let isChecked1 = false;
-    let isChecked2 = false;
-    let isChecked3 = false;
+  let isChecked1 = false;
+  let isChecked2 = false;
+  let isChecked3 = false;  function European() {
     const [errorMessage, setErrorMessage] = useState('');
     function handleChange(id){
       if(id === "european"){
