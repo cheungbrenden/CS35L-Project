@@ -10,12 +10,17 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
 
+
 const UseStyles = makeStyles((theme) => ({
     layout: {
       display: 'flex',
       alignItems: 'center',
       flexDirection: 'column',
       width: '100vw',
+      background: theme.color.background,
+      backgroundPosition: 'center', 
+      backgroundSize: 'cover', 
+      backgroundRepeat: 'no-repeat',
       height: '60vw',
     },
 
