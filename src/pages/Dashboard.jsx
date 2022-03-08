@@ -4,6 +4,65 @@ import { useNavigate } from "react-router-dom";
 import { auth, logout, db } from "../firebase/config";
 import {onAuthStateChanged} from "firebase/auth";
 import { collection, addDoc, getDocs, query,where } from "firebase/firestore";
+import { makeStyles } from '@mui/styles';
+import Button from '@mui/material/Button';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Link } from "react-router-dom";
+import Stack from '@mui/material/Stack';
+import PublicIcon from '@mui/icons-material/Public';
+
+const UseStyles = makeStyles((theme) => ({
+  layout: {
+      display: 'flex',
+      alignItems: 'center',
+      flexDirection: 'column',
+      width: '100vw',
+    },
+   
+    title: {
+      font: 'normal 500 4.5rem/4.5rem "Solway"',
+      color: '#F4A950',
+      textAlign: 'center',
+      margin: '5rem 0 2rem 0',
+      fontWeight: 'bold',
+      width: '100rem',
+      height: '6rem',
+    },
+  
+  }));
+
+const studyTheme = createTheme({
+  palette: {
+    primary: {
+      main: '#594A47',
+      contrastText: '#fff',
+    },
+    secondary: {
+      main: '#0f9600',
+    },
+    warning: {
+      main: '#bf0404',
+    },
+    background: {
+      default: '#F1ECEC',
+    }
+  },
+  typography: {
+    button: {
+      fontFamily: 'Solway',
+      textTransform:'none',
+    },
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+        },
+      }, 
+    }, 
+  },
+});
 
 function Dashboard() {
   const [user, loading, error] = useAuthState(auth);
@@ -64,19 +123,23 @@ function Dashboard() {
       console.error("Error adding document: ", e);
     }
   };
+  const dashboard = UseStyles();
+  console.log ("dashboard")
   return (
-    <div>
-        <div>
-        Logged in as 
+    <div className={dashboard.layout}>
+      <div className = {dashboard.title}> 
+      <ThemeProvider theme={studyTheme}>
         {orders.map ((orders) => {
           return(
-          <button>
+          <Button variant = "contained">
             {orders.Name}
-          </button>)
+          </Button>)
         })}
-         <button onClick={logout}>
-          Logout
-         </button>
+         <Button onClick={logout}
+         variant = "contained">
+          Logout 
+         </Button>
+         </ThemeProvider>
        </div>
     </div>
   );
