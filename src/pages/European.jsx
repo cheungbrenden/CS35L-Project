@@ -70,7 +70,7 @@ const UseStyles = makeStyles((theme) => ({
         setErrorMessage('Please select an option');  
       }
   else{
-    let path = `newPath`; //change to correct path
+    let path = `/postorder`; //change to correct path
   navigate(path);}
   }
     const european = UseStyles();

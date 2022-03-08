@@ -67,14 +67,13 @@ function Sausage() {
     }
     let navigate = useNavigate(); 
     const routeChange = () =>{
-        if(!isChecked1 || !isChecked2 || !isChecked3){
-            setErrorMessage('Please select an option');  
-        }
-    else{
-        let path = `newPath`; //change to correct path
-    navigate(path);}
-    }
-
+      if(!isChecked1 || !isChecked2 || !isChecked3){
+        setErrorMessage('Please select an option');  
+      }
+  else{
+    let path = `/postorder`; //change to correct path
+  navigate(path);}
+  }
     const sausage = UseStyles();
     const [sausages, setSausages] = useState ([]);
     const sausageCollectionRef = collection(db, 'Sausage');
