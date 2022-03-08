@@ -18,6 +18,7 @@ const UseStyles = makeStyles((theme) => ({
   },
    
     title: {
+      marginTop: '100px',
       font: theme.font.title,
       color: theme.color.orange,
       textAlign: 'center',
@@ -26,6 +27,7 @@ const UseStyles = makeStyles((theme) => ({
      height: '8.5rem',
     },
     subtitle : {
+      paddingLeft: '30px',
       font: theme.font.subtitle,
       color: theme.color.white,
       backgroundColor: theme.color.darkBrown,
