@@ -28,7 +28,6 @@ function App() {
           {/* <Route exact path="/minors" element={<WhatMajor majmin={"minors"} />} /> */}
           <Route exact path="/login" element={<Login/>} />
           {/* <Route exact path="/courses" element={<EnterCourses courses={courses} />} /> */}
-          <Route exact path="/sides" element={<Sides/>} />
           <Route exact path="/SaladToppings" element={<SaladToppings/>} />
           <Route exact path="/SaladGreens" element={<SaladGreens/>} />
           <Route exact path="/SaladProteins" element={<SaladProteins/>} />

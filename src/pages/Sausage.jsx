@@ -115,7 +115,7 @@ function Sausage() {
         </div>
             <Grid container spacing={2} columns={15}> <Grid item xs={5}><h2 className={sausage.subtitle}> Sausage: </h2>
                   <FormControl>
-            <FormLabel id="demo-radio-buttons-group-label" endIcon={<PublicIcon color = 'secondary'/>}></FormLabel>
+            <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
                 <RadioGroup
                     aria-labelledby="demo-radio-buttons-group-label"
                     name="radio-buttons-group"
