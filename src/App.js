@@ -8,7 +8,7 @@ function App() {
     <div className="App">
        <Router>
         <Routes>
-         
+        
           <Route exact path="/history" element={<History/>} />
         </Routes>
       </Router>
