@@ -32,41 +32,56 @@ const UseStyles = makeStyles((theme) => ({
   
   }));
 
-const studyTheme = createTheme({
-  palette: {
-    primary: {
-      main: '#594A47',
-      contrastText: '#fff',
+  const studyTheme = createTheme({
+    palette: {
+      primary: {
+        main: '#594A47',
+        contrastText: '#fff',
+      },
+      low: {
+        main: '#0f9600',
+      },
+      high: {
+        main: '#bf0404',
+      },
+      background: {
+        default: '#F1ECEC',
+      }
     },
-    low: {
-      main: '#0f9600',
+    typography: {
+      fontFamily: 'Solway',
+      fontSize: 14,
+      button: {
+        textTransform:'none',
+      },
     },
-    high: {
-      main: '#bf0404',
+    subtitle1:{
+      fontFamily: 'Solway',
     },
-    background: {
-      default: '#F1ECEC',
-    }
-  },
-  typography: {
-    fontFamily: 'Solway',
-    button: {
-      textTransform:'none',
-    },
-  },
-  subtitle1:{
-    fontFamily: 'Solway',
-  },
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          borderRadius: 8,
-        },
+    components: {
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            borderRadius: 8,
+            minWidth: '250px', 
+            maxHeight: '35px',
+            minHeight: '35px',
+          },
+        }, 
       }, 
-    }, 
-  },
-});
+      MuiCheckbox: {
+        styleOverrides: {
+          root: {
+            color: '#fff',
+            '&.Mui-checked': {
+              color: '#fff',
+            },
+            transform: "scale(0.85)",
+          }
+        }
+      }
+    },
+  });
 
 function SaladProteins() {
   const style = UseStyles();

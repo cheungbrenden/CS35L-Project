@@ -4,6 +4,10 @@ import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import PublicIcon from '@mui/icons-material/Public';
+import Checkbox from '@mui/material/Checkbox';
+import FormControl from '@mui/material/FormControl';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
@@ -50,6 +54,7 @@ const studyTheme = createTheme({
   },
   typography: {
     fontFamily: 'Solway',
+    fontSize: 12,
     button: {
       textTransform:'none',
     },
@@ -62,16 +67,30 @@ const studyTheme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 8,
+          minWidth: '250px', 
+          maxHeight: '35px',
+          minHeight: '35px',
         },
       }, 
     }, 
+    MuiCheckbox: {
+      styleOverrides: {
+        root: {
+          color: '#fff',
+          '&.Mui-checked': {
+            color: '#fff',
+          },
+          transform: "scale(0.85)",
+        }
+      }
+    }
   },
 });
 
 function SaladToppings() {
   const style = UseStyles();
   const [ingredients, setIngredients] = useState([]);
-  console.log ("saladGreens")
+  console.log ("saladToppings")
 
   const getIngredients = async () => {
     try{
@@ -79,7 +98,6 @@ function SaladToppings() {
       const q = query(collection(db, "Toppings"), where("salad", "==", true));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
-        console.log(doc.data());
         ingredientsArr.push(doc.data());
       });
       setIngredients([...ingredientsArr]);
@@ -88,10 +106,36 @@ function SaladToppings() {
     }
   }
 
+  const [count, setCount] = useState(0);
+
   useEffect(() => {
     getIngredients();
+    console.log("test")
   }, []);
-  
+
+  // var checked = {} //dict of names and booleans
+  // var options = [] //array of names
+  // {ingredients.map ((ingredients) => {
+  //   checked[ingredients.Name] = false;
+  //   options.push(ingredients.Name);
+  // })}
+
+  // const checkedObject = () => {
+
+  // }
+  // const [state, setState] = React.useState();
+
+  // const handleChange = (event) => {
+  //   setState({
+  //     ...state,
+  //     [event.target.name]: event.target.checked,
+  //   });
+  // };
+  // console.log('state: ' + state);
+  // options = state;
+  // console.log('options: ' + options)
+  // //const error = options.filter((v) => v).length !== 2;
+
   return (
     <div className={style.layout}>
       <div className = {style.title}>
@@ -105,9 +149,15 @@ function SaladToppings() {
                 <Button 
                   variant = "contained" 
                   endIcon={<PublicIcon color = 'low'/>}
-                  component={Link} to="../SaladProteins"
+                  onChange={() => setCount(count + 1)}
                 >
-                  {ingredients.Name}
+                  <FormGroup>
+                    <FormControlLabel 
+                    control = {<Checkbox 
+                      size = "small"
+                      />} 
+                    label = {ingredients.Name} />
+                  </FormGroup>
                 </Button>
               )
             }
@@ -115,10 +165,15 @@ function SaladToppings() {
               return(
                 <Button 
                   variant = "contained" 
-                  component={Link} to="../SaladProteins"
                   endIcon={<PublicIcon color = 'high'/>}
                 >
-                  {ingredients.Name}
+                  <FormGroup>
+                    <FormControlLabel 
+                    control = {<Checkbox 
+                      size = "small"
+                      />} 
+                      label = {ingredients.Name} />
+                  </FormGroup>
                 </Button>
               )
             }
@@ -126,9 +181,14 @@ function SaladToppings() {
               return(
                 <Button 
                   variant = "contained" 
-                  component={Link} to="../SaladProteins"
                 >
-                  {ingredients.Name}
+                  <FormGroup>
+                    <FormControlLabel 
+                    control = {<Checkbox 
+                      size = "small"
+                    />} 
+                      label = {ingredients.Name} />
+                  </FormGroup>
                 </Button>
               )
             }
@@ -138,7 +198,7 @@ function SaladToppings() {
             variant = "contained" 
             component={Link} to="../SaladProteins"
           >
-            Skip
+            Next
           </Button>
           <Button 
             variant = "contained" 

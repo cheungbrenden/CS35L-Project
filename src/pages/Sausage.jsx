@@ -25,6 +25,7 @@ const UseStyles = makeStyles((theme) => ({
       width: '100rem',
      height: '8.5rem',
     },
+    
     subtitle : {
       font: theme.font.subtitle,
       color: theme.color.white,

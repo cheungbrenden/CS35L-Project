@@ -50,6 +50,7 @@ const studyTheme = createTheme({
   },
   typography: {
     fontFamily: 'Solway',
+    fontSize: 14,
     button: {
       textTransform:'none',
     },
@@ -62,9 +63,23 @@ const studyTheme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 8,
+          minWidth: '250px', 
+          maxHeight: '35px',
+          minHeight: '35px',
         },
       }, 
     }, 
+    MuiCheckbox: {
+      styleOverrides: {
+        root: {
+          color: '#fff',
+          '&.Mui-checked': {
+            color: '#fff',
+          },
+          transform: "scale(0.85)",
+        }
+      }
+    }
   },
 });
 
