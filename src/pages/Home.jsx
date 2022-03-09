@@ -6,19 +6,23 @@ import PublicIcon from '@mui/icons-material/Public';
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 const UseStyles = makeStyles((theme) => ({
-    layout: {
-      display: 'flex',
-      alignItems: 'center',
-      flexDirection: 'column',
-      width: '100vw',
-    },
+  layout: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    width: '100vw',
+    height: '100vw',
+    backgroundImage: "url(/Study.png)",
+    backgroundPosition: 'top',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'contain',
+  },
    
     title: {
       font: theme.font.title,
       color: theme.color.orange,
       textAlign: 'center',
       margin: '0 0 0 0.9rem',
-      fontWeight: 'bold',
       width: '100rem',
      height: '8.5rem',
     },
@@ -26,13 +30,21 @@ const UseStyles = makeStyles((theme) => ({
     subtitle: {
       font: theme.font.subtitle,
       color: theme.color.black,
+      fontSize: '40px',
       textAlign: 'center',
       margin: '0 0 0 0.9rem',
       fontWeight: 'medium',
       width: '50rem',
      height: '4rem',
-    }
-  
+     position:'relative',
+     left:'400px',
+     bottom: '50px',
+    },
+  body:{
+    position:'relative',
+    top:'400px',
+    right:'400px',
+  },
   
   }));
 
@@ -55,6 +67,7 @@ const UseStyles = makeStyles((theme) => ({
     typography: {
       button: {
         fontFamily: 'Solway',
+        fontSize: '30px',
         textTransform:'none',
       },
     },
@@ -74,6 +87,7 @@ function Home() {
     const navigate = useNavigate(); 
     return (
       <div className={home.layout}>
+        <div className = {home.body}>
         <div className = {home.title}>
         The Study
         </div>
@@ -82,10 +96,11 @@ function Home() {
         </div>
         <ThemeProvider theme={studyTheme}>
         <Button onClick={() => navigate("/login")}
-        variant = "contained">
+        variant = "contained"style={{maxWidth: '300px', maxHeight: '75px', minWidth: '300px', minHeight: '75px'}}>
           get in line
        </Button>
        </ThemeProvider>
+        </div>
       </div>
     );
 

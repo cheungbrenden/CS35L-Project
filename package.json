@@ -48,13 +48,13 @@
     ]
   },
   "devDependencies": {
-    "parser": "@babel/eslint-parser",
-    "eslint": "^8.10.0"
+    "eslint": "^8.10.0",
+    "parser": "@babel/eslint-parser"
   },
   "parserOptions": {
-   "requireConfigFile": false,
-   "babelOptions": {
-    "presets": "@babel/preset-react"
+    "requireConfigFile": false,
+    "babelOptions": {
+      "presets": "@babel/preset-react"
     }
-   }
+  }
 }
