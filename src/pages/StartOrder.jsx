@@ -94,7 +94,7 @@ function StartOrder() {
                             <Button variant = "contained" component={Link} to="../SaladGreens">Craft Your Own Salad</Button>
                         </Grid>
                         <Grid item xs={6}>
-                            <Button variant = "contained" component={Link} to="../European">Craft Your Own Sandwich</Button>
+                            <Button variant = "contained" component={Link} to="../SandwichBread">Craft Your Own Sandwich</Button>
                         </Grid>
                         <Grid item xs={6}>
                             <Button variant = "contained" component={Link} to="../European">European Dishes</Button>

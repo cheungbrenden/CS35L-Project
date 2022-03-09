@@ -8,7 +8,7 @@ import PublicIcon from '@mui/icons-material/Public';
 import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import { collection, getDocs, query, orderBy, doc, setDoc } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 
 const UseStyles = makeStyles((theme) => ({
   layout: {
@@ -30,68 +30,68 @@ const UseStyles = makeStyles((theme) => ({
     height: '6rem',
   },
   
-  }));
+}));
 
-  const studyTheme = createTheme({
-    palette: {
-      primary: {
-        main: '#594A47',
-        contrastText: '#fff',
-      },
-      low: {
-        main: '#0f9600',
-      },
-      high: {
-        main: '#bf0404',
-      },
-      background: {
-        default: '#F1ECEC',
-      }
+const studyTheme = createTheme({
+  palette: {
+    primary: {
+      main: '#594A47',
+      contrastText: '#fff',
     },
-    typography: {
-      fontFamily: 'Solway',
-      fontSize: 14,
-      button: {
-        textTransform:'none',
-      },
+    low: {
+      main: '#0f9600',
     },
-    subtitle1:{
-      fontFamily: 'Solway',
+    high: {
+      main: '#bf0404',
     },
-    components: {
-      MuiButton: {
-        styleOverrides: {
-          root: {
-            borderRadius: 8,
-            minWidth: '250px', 
-            maxHeight: '35px',
-            minHeight: '35px',
-          },
-        }, 
+    background: {
+      default: '#F1ECEC',
+    }
+  },
+  typography: {
+    fontFamily: 'Solway',
+    fontSize: 14,
+    button: {
+      textTransform:'none',
+    },
+  },
+  subtitle1:{
+    fontFamily: 'Solway',
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+          minWidth: '250px', 
+          maxHeight: '35px',
+          minHeight: '35px',
+        },
       }, 
-      MuiCheckbox: {
-        styleOverrides: {
-          root: {
+    }, 
+    MuiCheckbox: {
+      styleOverrides: {
+        root: {
+          color: '#fff',
+          '&.Mui-checked': {
             color: '#fff',
-            '&.Mui-checked': {
-              color: '#fff',
-            },
-            transform: "scale(0.85)",
-          }
+          },
+          transform: "scale(0.85)",
         }
       }
-    },
-  });
+    }
+  },
+});
 
-function SaladDressings() {
+function SandwichCheese() {
   const style = UseStyles();
   const [ingredients, setIngredients] = useState([]);
-  console.log ("saladGreens")
+  console.log ("sandwichCheese")
 
   const getIngredients = async () => {
     try{
       const ingredientsArr = [];
-      const q = query(collection(db, "Dressings"), orderBy("Name"));
+      const q = query(collection(db, "Cheese"), where("sandwich", "==", true));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         console.log(doc.data());
@@ -110,7 +110,7 @@ function SaladDressings() {
   return (
     <div className={style.layout}>
       <div className = {style.title}>
-      Dressings
+      Cheese
       </div>
       <ThemeProvider theme={studyTheme}>
         <Stack spacing={1}>
@@ -120,8 +120,7 @@ function SaladDressings() {
                 <Button 
                   variant = "contained" 
                   endIcon={<PublicIcon color = 'low'/>}
-                  component={Link} to="../SaladDressings"
-                  onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Dressing: ingredients.Name}, {merge: true})}
+                  component={Link} to="../SandwichToppings"
                 >
                   {ingredients.Name}
                 </Button>
@@ -131,9 +130,8 @@ function SaladDressings() {
               return(
                 <Button 
                   variant = "contained" 
-                  component={Link} to="../SaladDressings"
+                  component={Link} to="../SandwichToppings"
                   endIcon={<PublicIcon color = 'high'/>}
-                  onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Dressing: ingredients.Name}, {merge: true})}
                 >
                   {ingredients.Name}
                 </Button>
@@ -143,8 +141,7 @@ function SaladDressings() {
               return(
                 <Button 
                   variant = "contained" 
-                  component={Link} to="../SaladDressings"
-                  onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Dressing: ingredients.Name}, {merge: true})}
+                  component={Link} to="../SandwichToppings"
                 >
                   {ingredients.Name}
                 </Button>
@@ -154,22 +151,21 @@ function SaladDressings() {
         <Stack spacing={5}>
           <Button 
             variant = "contained" 
-            component={Link} to="../PostOrder"
+            component={Link} to="../SandwichToppings"
           >
             Skip
           </Button>
           <Button 
-            variant = "contained" 
-            component={Link} to="../SaladProteins"
+            variant = "contained"
+            component={Link} to="../SandwichBread" 
           >
             Back
           </Button>
         </Stack>
       </Stack>
     </ThemeProvider>
-    </div>
-
+  </div>
   );
 }; 
 
-export default SaladDressings;
+export default SandwichCheese; 

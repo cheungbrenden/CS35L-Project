@@ -15,7 +15,7 @@ const UseStyles = makeStyles((theme) => ({
     alignItems: 'center',
     flexDirection: 'column',
     width: '100vw',
-    height: '100vw',
+    height: '50rem',
     backgroundImage: "url(/Bread.png)",
     backgroundPosition: 'top',
     backgroundRepeat: 'no-repeat',

@@ -4,11 +4,15 @@ import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import PublicIcon from '@mui/icons-material/Public';
+import Checkbox from '@mui/material/Checkbox';
+import FormControl from '@mui/material/FormControl';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { collection, getDocs, query, orderBy, doc, setDoc } from 'firebase/firestore';
 
 const UseStyles = makeStyles((theme) => ({
   layout: {
@@ -30,7 +34,7 @@ const UseStyles = makeStyles((theme) => ({
     height: '6rem',
   },
   
-}));
+  }));
 
 const studyTheme = createTheme({
   palette: {
@@ -50,7 +54,7 @@ const studyTheme = createTheme({
   },
   typography: {
     fontFamily: 'Solway',
-    fontSize: 14,
+    fontSize: 12,
     button: {
       textTransform:'none',
     },
@@ -83,18 +87,17 @@ const studyTheme = createTheme({
   },
 });
 
-function SandwichBread() {
+function SandwichSpreads() {
   const style = UseStyles();
   const [ingredients, setIngredients] = useState([]);
-  console.log ("saladGreens")
+  console.log ("sandwichSpreads")
 
   const getIngredients = async () => {
     try{
       const ingredientsArr = [];
-      const q = query(collection(db, "Bread"), orderBy("Name"));
+      const q = query(collection(db, "Spreads"), orderBy("Name"));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
-        console.log(doc.data());
         ingredientsArr.push(doc.data());
       });
       setIngredients([...ingredientsArr]);
@@ -103,14 +106,40 @@ function SandwichBread() {
     }
   }
 
+  const [count, setCount] = useState(0);
+
   useEffect(() => {
     getIngredients();
+    console.log("test")
   }, []);
-  
+
+  // var checked = {} //dict of names and booleans
+  // var options = [] //array of names
+  // {ingredients.map ((ingredients) => {
+  //   checked[ingredients.Name] = false;
+  //   options.push(ingredients.Name);
+  // })}
+
+  // const checkedObject = () => {
+
+  // }
+  // const [state, setState] = React.useState();
+
+  // const handleChange = (event) => {
+  //   setState({
+  //     ...state,
+  //     [event.target.name]: event.target.checked,
+  //   });
+  // };
+  // console.log('state: ' + state);
+  // options = state;
+  // console.log('options: ' + options)
+  // //const error = options.filter((v) => v).length !== 2;
+
   return (
     <div className={style.layout}>
       <div className = {style.title}>
-      Bread
+      Spreads & Condiments 
       </div>
       <ThemeProvider theme={studyTheme}>
         <Stack spacing={1}>
@@ -120,9 +149,15 @@ function SandwichBread() {
                 <Button 
                   variant = "contained" 
                   endIcon={<PublicIcon color = 'low'/>}
-                  component={Link} to="../SandwichCheese"
+                  onChange={() => setCount(count + 1)}
                 >
-                  {ingredients.Name}
+                  <FormGroup>
+                    <FormControlLabel 
+                    control = {<Checkbox 
+                      size = "small"
+                      />} 
+                    label = {ingredients.Name} />
+                  </FormGroup>
                 </Button>
               )
             }
@@ -130,10 +165,15 @@ function SandwichBread() {
               return(
                 <Button 
                   variant = "contained" 
-                  component={Link} to="../SandwichCheese"
                   endIcon={<PublicIcon color = 'high'/>}
                 >
-                  {ingredients.Name}
+                  <FormGroup>
+                    <FormControlLabel 
+                    control = {<Checkbox 
+                      size = "small"
+                      />} 
+                      label = {ingredients.Name} />
+                  </FormGroup>
                 </Button>
               )
             }
@@ -141,9 +181,14 @@ function SandwichBread() {
               return(
                 <Button 
                   variant = "contained" 
-                  component={Link} to="../SandwichCheese"
                 >
-                  {ingredients.Name}
+                  <FormGroup>
+                    <FormControlLabel 
+                    control = {<Checkbox 
+                      size = "small"
+                    />} 
+                      label = {ingredients.Name} />
+                  </FormGroup>
                 </Button>
               )
             }
@@ -151,20 +196,22 @@ function SandwichBread() {
         <Stack spacing={5}>
           <Button 
             variant = "contained" 
-            component={Link} to="../SandwichCheese"
+            component={Link} to="../SaladProteins"
           >
-            Skip
+            Next
           </Button>
           <Button 
             variant = "contained" 
+            component={Link} to="../SandwichAddOns"
           >
             Back
           </Button>
         </Stack>
       </Stack>
     </ThemeProvider>
-  </div>
+    </div>
+
   );
 }; 
 
-export default SandwichBread; 
+export default SandwichSpreads; 
