@@ -4,7 +4,7 @@ import { db, auth } from '../firebase/config';
 import { useState, useEffect } from 'react';
 import { addDoc, collection, doc, getDocs, setDoc } from 'firebase/firestore';
 import MouseOverPopover from '../Components/PopoverButton';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {Radio, RadioGroup, FormControl, FormControlLabel, FormLabel, createTheme, ThemeProvider, Button, Grid } from '@mui/material';
 import PublicIcon from '@mui/icons-material/Public';
 import {onAuthStateChanged} from "firebase/auth";
@@ -375,6 +375,12 @@ function Sausage() {
                 <Button sx={{mt: 6}} onClick={routeChange} variant="contained" color= "primary" fontFamily="true">
                     Place Order
                 </Button>
+                <Button 
+            variant = "contained" 
+            component={Link} to="../StartOrder"
+          >
+            Back
+          </Button>
             </ThemeProvider>
             {errorMessage && <div className="error"> {errorMessage} </div>}
         </div>
