@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
 //import {doc} from "../firebase/config";
-import { db } from '../firebase/config';
+import { db, auth } from '../firebase/config';
 import { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import InputLabel from '@mui/material/InputLabel';
@@ -9,7 +9,47 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {onAuthStateChanged} from "firebase/auth";
 
+
+const studyTheme = createTheme({
+  palette: {
+    primary: {
+      main: '#594A47',
+      contrastText: '#fff',
+    },
+    secondary: {
+      main: '#0f9600',
+    },
+    warning: {
+      main: '#bf0404',
+    },
+    background: {
+      default: '#F1ECEC',
+    }
+  },
+  typography: {
+    fontFamily: 'Solway',
+    button: {
+      textTransform:'none',
+    },
+  },
+  subtitle1:{
+    fontFamily: 'Solway',
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+        },
+      }, 
+    }, 
+  },
+});
 
 const UseStyles = makeStyles((theme) => ({
     layout: {
@@ -17,11 +57,12 @@ const UseStyles = makeStyles((theme) => ({
       alignItems: 'center',
       flexDirection: 'column',
       width: '100vw',
-      background: theme.color.background,
-      backgroundPosition: 'center', 
-      backgroundSize: 'cover', 
+      height: '50rem',
+      backgroundImage: "url(/pizza.png)",
+      backgroundPosition: 'top',
       backgroundRepeat: 'no-repeat',
-      height: '60vw',
+      backgroundSize: 'contain',
+      verticalAlign: 'top',
     },
 
     output: {
@@ -32,7 +73,7 @@ const UseStyles = makeStyles((theme) => ({
 
     title: {
       font: theme.font.title,
-      color: theme.color.black,
+      color: theme.color.orange,
       margin: '0 0 0 0 rem',
       marginTop: '2.4rem',
     },
@@ -61,6 +102,7 @@ const UseStyles = makeStyles((theme) => ({
   }));
 
 function History() {
+    // const [userid, setUserid]  = useState("")
     const history = UseStyles();
     const [users, setUsers] = useState ([]); 
     const userCollectionRef = collection(db, 'Orders'); 
@@ -68,14 +110,59 @@ function History() {
     const [order, setOrder] = useState('Start')
     const [filtered, setFiltered] = useState ([]);
 
+
+  //   onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //         // User is signed in, see docs for a list of available properties
+  //         // https://firebase.google.com/docs/reference/js/firebase.User
+  //         const uid = user.uid;
+  //         setUserid(uid);
+
+  //     } else {
+  //         // User is signed out
+  //         // ...
+  //     }
+  // });
+
     useEffect(() => {
         const getUsers = async () => {
             const data = await getDocs (userCollectionRef);   //return all documents inside of it 
-            console.log (data);
-            setUsers (data.docs.map ((doc) => ({ ...doc.data()}))); 
+            // console.log (data);
+            // setUsers (data.docs.map ((doc) => ({ ...doc.data()}))); 
+            // auth();
+            // console.log ("userid", userid)
+
+          onAuthStateChanged(auth, (user) => {
+              if (user) {
+                  const uid = user.uid;
+                  console.log (uid)
+                  console.log (typeof(uid))
+                  // console.log (data)
+                  // console.log ("data.docs: " + data.docs)
+                  const temp = data.docs.map ((doc) => ({ ...doc.data()}));
+                  console.log (temp)
+                  console.log (temp[6].UID)
+                  console.log (typeof (temp[0].UID))
+                  const temp2 = temp.filter ((doc) => doc.UID === uid);
+                  setUsers (temp2)
+                  // const temp = data.docs.filter((doc) => (doc.UID === uid));
+                  console.log (temp2)
+                  // setUserid(uid);
+        
+              } else {
+                  // User is signed out
+                  // ...
+              }
+          })
+
+            // const temp = data.docs.filter((doc) => doc.uid === uid);
+            // setUsers (temp.docs.map ((doc) => ({ ...doc.data()}))); 
+            // setUsers (data.docs.filter((doc) => doc.uid === userid));
         };
         getUsers();
     }, [])
+
+
 
     const filter = (event) => {
       console.log ("event", event.target.value)
@@ -131,10 +218,20 @@ function History() {
         if (MyArray[i].startsWith('Entree')){
           var foundIdx = i;
         }
+
+        if (MyArray[i].startsWith('UI')){
+          var foundUID = i;
+        }
       }
       console.log("foundIDx", foundIdx)
       MyArray.unshift(MyArray[foundIdx])
+      // console.log ("", MyArray)
       MyArray.splice(foundIdx+1,1)
+      MyArray.splice (foundUID,1)
+
+      // MyArray.unshift (MyArray[foundUID])
+      // MyArray.splice(foundUID+1,1)
+
       var details = MyArray.slice(1, MyArray.length)
       console.log ("details", details)
 
@@ -159,6 +256,7 @@ function History() {
     return (
       <div className = {history.layout}>
         <div className = {history.title}>Your past orders! </div>
+        {/* <div> User {userid}</div> */}
          <FormControl sx={{ m:3, minWidth: 500 }}>
         <InputLabel id="demo-simple-select">Order </InputLabel>
         <Select
@@ -172,13 +270,27 @@ function History() {
           <MenuItem value={"All"}>All</MenuItem>
           <MenuItem value={"Pizza"}>Pizza</MenuItem>
           <MenuItem value={"Sandwich"}>Sandwich</MenuItem>
+          <MenuItem value={"Salad"}>Salad</MenuItem>
+          <MenuItem value={"Sausage"}>Sausage</MenuItem>
+          <MenuItem value={"European"}>European</MenuItem>
         </Select>
         
       </FormControl>
       {order === 'Start' && (usersmap())}
       {order === 'Pizza' && (usersmap())}
       {order === 'Sandwich' && (usersmap())}
-     
+      {order === 'Salad' && (usersmap())}
+      {order === 'Sausage' && (usersmap())}
+      {order === 'European' && (usersmap())}
+
+      <ThemeProvider theme={studyTheme}>
+        <Button 
+              variant = "contained" 
+              component={Link} to="../Home"
+            >
+        Back to Home
+        </Button>    
+      </ThemeProvider>
       </div>
     );
 

@@ -8,7 +8,7 @@ import PublicIcon from '@mui/icons-material/Public';
 import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import {collection, getDocs, query, orderBy, setDoc, doc} from 'firebase/firestore';
+import { collection, getDocs, query, orderBy, setDoc, doc } from 'firebase/firestore';
 
 const UseStyles = makeStyles((theme) => ({
   layout: {
@@ -16,19 +16,21 @@ const UseStyles = makeStyles((theme) => ({
     alignItems: 'center',
     flexDirection: 'column',
     width: '100vw',
+    height: '100vw',
+    backgroundColor: '#FDF9F9',
   },
   
   title: {
     font: 'normal 500 4.5rem/4.5rem "Solway"',
     color: '#F4A950',
     textAlign: 'center',
-    margin: '5rem 0 2rem 0',
+    margin: '3rem 0 2rem 0',
     fontWeight: 'bold',
     width: '100rem',
     height: '6rem',
   },
   
-  }));
+}));
 
 const studyTheme = createTheme({
   palette: {
@@ -36,10 +38,10 @@ const studyTheme = createTheme({
       main: '#594A47',
       contrastText: '#fff',
     },
-    secondary: {
+    low: {
       main: '#0f9600',
     },
-    warning: {
+    high: {
       main: '#bf0404',
     },
     background: {
@@ -48,6 +50,7 @@ const studyTheme = createTheme({
   },
   typography: {
     fontFamily: 'Solway',
+    fontSize: 14,
     button: {
       textTransform:'none',
     },
@@ -60,9 +63,23 @@ const studyTheme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 8,
+          minWidth: '250px', 
+          maxHeight: '35px',
+          minHeight: '35px',
         },
       }, 
     }, 
+    MuiCheckbox: {
+      styleOverrides: {
+        root: {
+          color: '#fff',
+          '&.Mui-checked': {
+            color: '#fff',
+          },
+          transform: "scale(0.85)",
+        }
+      }
+    }
   },
 });
 
@@ -102,9 +119,8 @@ function SaladGreens() {
               return(
                 <Button 
                   variant = "contained" 
-                  endIcon={<PublicIcon color = 'secondary'/>}
-                  component={Link}
-                  to="../SaladToppings"
+                  endIcon={<PublicIcon color = 'low'/>}
+                  component={Link} to="../SaladToppings"
                   onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Green: ingredients.Name})}
                 >
                   {ingredients.Name}
@@ -116,7 +132,7 @@ function SaladGreens() {
                 <Button 
                   variant = "contained" 
                   component={Link} to="../SaladToppings"
-                  endIcon={<PublicIcon color = 'warning'/>}
+                  endIcon={<PublicIcon color = 'high'/>}
                   onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Green: ingredients.Name})}
                 >
                   {ingredients.Name}
@@ -150,8 +166,7 @@ function SaladGreens() {
         </Stack>
       </Stack>
     </ThemeProvider>
-    </div>
-
+  </div>
   );
 }; 
 

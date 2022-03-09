@@ -5,7 +5,7 @@ import {auth, db} from '../firebase/config';
 import {useState, useEffect} from 'react';
 import {collection, getDocs} from 'firebase/firestore';
 import MouseOverPopover from '../Components/PopoverButton';
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {
     Radio,
     RadioGroup,
@@ -114,7 +114,7 @@ function European() {
         } else {
 
             addDoc(collection(db, 'Orders'), {Entree: euroMeal[0], Drink: euroMeal[1], Side: euroMeal[2], UID: userid});
-            let path = `newPath`; //change to correct path
+            let path = `/PostOrder`; //change to correct path
             navigate(path);
         }
     }
@@ -238,6 +238,7 @@ function European() {
                 <Button sx={{mt: 6}} onClick={routeChange} variant="contained" color="generic" fontFamily="true">
                     Place Order
                 </Button>
+                <Button variant = "contained" component={Link} to="../StartOrder" color="generic" fontFamily="true"> Back</Button>
             </ThemeProvider>
             {errorMessage && <div className="error"> {errorMessage} </div>}
         </div>
