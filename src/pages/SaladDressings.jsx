@@ -154,7 +154,7 @@ function SaladDressings() {
         <Stack spacing={5}>
           <Button 
             variant = "contained" 
-            component={Link} to="../SaladDressings"
+            component={Link} to="../PostOrder"
           >
             Skip
           </Button>

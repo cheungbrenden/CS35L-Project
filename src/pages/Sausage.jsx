@@ -4,7 +4,7 @@ import { db } from '../firebase/config';
 import { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import MouseOverPopover from '../Components/PopoverButton';
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate } from "react-router-dom";
 import {Radio, RadioGroup, FormControl, FormControlLabel, FormLabel, createTheme, ThemeProvider, Button, Grid } from '@mui/material';
 import PublicIcon from '@mui/icons-material/Public';
 
@@ -96,7 +96,7 @@ function Sausage() {
         setErrorMessage('Please select an option');  
       }
   else{
-    let path = `/postorder`; //change to correct path
+    let path = `/PostOrder`; //change to correct path
   navigate(path);}
   }
     const sausage = UseStyles();
@@ -329,6 +329,9 @@ function Sausage() {
             <ThemeProvider theme={studyTheme}>
                 <Button sx={{mt: 6}}onClick={routeChange}variant="contained" color= "primary" fontFamily="true">
                     Place Order
+                </Button>
+                <Button variant="contained" color= "primary" fontFamily="true"component={Link} to="../StartOrder">
+                    Back
                 </Button>
             </ThemeProvider>
             {errorMessage && <div className="error"> {errorMessage} </div>}
