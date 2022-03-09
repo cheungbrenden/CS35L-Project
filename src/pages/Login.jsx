@@ -10,24 +10,43 @@ import Stack from '@mui/material/Stack';
 import PublicIcon from '@mui/icons-material/Public';
 
 const UseStyles = makeStyles((theme) => ({
-    layout: {
-      display: 'flex',
-      alignItems: 'center',
-      flexDirection: 'column',
-      width: '100vw',
-    },
-   
+  layout: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    width: '100vw',
+    height: '100vw',
+    backgroundImage: "url(/Bread.png)",
+    backgroundPosition: 'top',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'contain',
+  },
+  textFields:{
+    position:'relative',
+    width: '50rem',
+    top:'100px',
+  },
+  button:{
+    position: 'relative',
+    left: '250px',
+    top:'100px',
+  },
     title: {
+      position:'relative',
+      top: '100px',
       font: theme.font.title,
+      fontSize: '150px',
       color: theme.color.orange,
       textAlign: 'center',
       margin: '0 0 0 0.9rem',
-      fontWeight: 'bold',
+      marginTop: '50px',
       width: '100rem',
      height: '8.5rem',
     },
 
     subtitle: {
+      position:'relative',
+      top:'100px',
       font: theme.font.subtitle,
       color: theme.color.black,
       textAlign: 'center',
@@ -35,7 +54,7 @@ const UseStyles = makeStyles((theme) => ({
       fontWeight: 'medium',
       width: '50rem',
      height: '4rem',
-    }
+    },
   
   }));
 
@@ -58,6 +77,7 @@ const UseStyles = makeStyles((theme) => ({
     typography: {
       button: {
         fontFamily: 'Solway',
+        fontSize: '30px',
         textTransform:'none',
       },
     },
@@ -95,25 +115,25 @@ function Login() {
         Just kidding... you don't have to line up anymore! 
         </div>
         <ThemeProvider theme={studyTheme}>
-       <p>Email</p>
+       <p className={login.subtitle}>Email</p>
        <Input
         type="text"
-        className="login__textBox"
+        className={login.textFields}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="E-mail Address"
        ></Input>
-       <p>Password</p>
+       <p className={login.subtitle}>Password</p>
        <Stack spacing={5}>
        <Input 
+       className={login.textFields}
         type="password"
-        className="login__textBox"
         value={password}
          onChange={(e) => setPassword(e.target.value)}
          placeholder="Password">
        </Input>
-       <Button onClick={() =>logInWithEmailAndPassword(email, password)}
-       variant = "contained">
+       <Button style={{maxWidth: '300px', maxHeight: '75px', minWidth: '300px', minHeight: '75px'}} onClick={() =>logInWithEmailAndPassword(email, password)}
+       variant = "contained" className={login.button}>
          Sign In
        </Button>
        </Stack>
