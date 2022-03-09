@@ -113,12 +113,20 @@ function SaladToppings() {
     console.log("test")
   }, []);
 
-  // var checked = {} //dict of names and booleans
-  // var options = [] //array of names
-  // {ingredients.map ((ingredients) => {
-  //   checked[ingredients.Name] = false;
-  //   options.push(ingredients.Name);
-  // })}
+  var options = [] //array of names
+  {ingredients.map ((ingredients) => {
+    options.push(ingredients.Name);
+  })}
+
+  const [ checkedBoxes, setCheckedBoxes ] = React.useState([])
+  const onChange = (name, e) => {
+    const isChecked = e.target.checked
+    if (isChecked) {
+      setCheckedBoxes(checkedBoxes.concat(name))
+    } else {
+      setCheckedBoxes(checkedBoxes.filter(x => x !== name))
+    }
+  }
 
   // const checkedObject = () => {
 
@@ -135,6 +143,8 @@ function SaladToppings() {
   // options = state;
   // console.log('options: ' + options)
   // //const error = options.filter((v) => v).length !== 2;
+
+  
 
   return (
     <div className={style.layout}>
@@ -156,9 +166,11 @@ function SaladToppings() {
                     <FormControlLabel 
                     control = {<Checkbox 
                       size = "small"
+                      onChange={onChange.bind(undefined, ingredients.Name)}
                       />} 
                     label = {ingredients.Name} />
                   </FormGroup>
+                  count: {checkedBoxes.length}
                 </Button>
               )
             }
@@ -173,9 +185,11 @@ function SaladToppings() {
                     <FormControlLabel 
                     control = {<Checkbox 
                       size = "small"
+                      onChange={onChange.bind(undefined, ingredients.Name)}
                       />} 
                       label = {ingredients.Name} />
                   </FormGroup>
+                  count: {checkedBoxes.length}
                 </Button>
               )
             }
@@ -189,9 +203,11 @@ function SaladToppings() {
                     <FormControlLabel 
                     control = {<Checkbox 
                       size = "small"
+                      onChange={onChange.bind(undefined, ingredients.Name)}
                     />} 
                       label = {ingredients.Name} />
                   </FormGroup>
+                  count: {checkedBoxes.length}
                 </Button>
               )
             }

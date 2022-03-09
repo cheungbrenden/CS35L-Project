@@ -3,6 +3,8 @@ import { makeStyles } from '@mui/styles';
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {Grid} from '@mui/material';
+import Stack from '@mui/material/Stack';
+import PublicIcon from '@mui/icons-material/Public';
 
 import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
@@ -16,7 +18,7 @@ const UseStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         width: '100vw',
         margin: '0 0 10em 0',
-
+        backgroundColor: '#FDF9F9',
     },
 
     title: {
@@ -35,28 +37,43 @@ const UseStyles = makeStyles((theme) => ({
 
 const studyTheme = createTheme({
     palette: {
-        primary: {
-            main: '#594A47',
-            contrastText: '#fff',
-        },
+      primary: {
+        main: '#594A47',
+        contrastText: '#fff',
+      },
+      low: {
+        main: '#0f9600',
+      },
+      high: {
+        main: '#bf0404',
+      },
+      background: {
+        default: '#F1ECEC',
+      }
     },
     typography: {
-        button: {
-            fontFamily: 'Solway',
-            textTransform:'none',
-            fontSize: '2em',
-        },
+      fontFamily: 'Solway',
+      fontSize: 16,
+      button: {
+        textTransform:'none',
+      },
+    },
+    subtitle1:{
+      fontFamily: 'Solway',
     },
     components: {
-        MuiButton: {
-            styleOverrides: {
-                root: {
-                    borderRadius: 8,
-                },
-            },
-        },
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            borderRadius: 8,
+            minWidth: '250px', 
+            maxHeight: '35px',
+            minHeight: '35px',
+          },
+        }, 
+      }, 
     },
-});
+  });
 
 
 function PizzaCheese() {
@@ -96,14 +113,49 @@ function PizzaCheese() {
                 Pizza Cheeses
             </div>
             <ThemeProvider theme={studyTheme}>
-                <Grid container spacing={4}>
-                    {cheese.map ((cheese) => {
-                        return(
-                            <Grid item xs={6}>
-                                <Button onClick={handleSubmit.bind(this, cheese.Name)} variant = "contained" component={Link} to="../PizzaToppings" >{cheese.Name}</Button>
-                            </Grid>
-
-                        )
+            <Grid container spacing={2} columns={{xs: 12}}>
+                    {cheese.map ((cheese) => {   
+                        if (cheese.Footprint == 'low') {
+                            return (
+                                <Grid item xs={6}>
+                                    <Button 
+                                        onClick={handleSubmit.bind(this, cheese.Name)} 
+                                        variant = "contained" 
+                                        component={Link} to="../PizzaToppings" 
+                                        endIcon={<PublicIcon color = 'low'/>}
+                                    >
+                                    {cheese.Name}
+                                    </Button>
+                                </Grid>
+                            )
+                        }
+                        else if (cheese.Footprint == 'high'){
+                            return (
+                                <Grid item xs={6}>
+                                    <Button 
+                                        onClick={handleSubmit.bind(this, cheese.Name)} 
+                                        variant = "contained" 
+                                        component={Link} to="../PizzaToppings" 
+                                        endIcon={<PublicIcon color = 'high'/>}
+                                    >
+                                    {cheese.Name}
+                                    </Button>
+                                </Grid>
+                            )
+                        }
+                        else {
+                            return (
+                                <Grid item xs={6}>
+                                    <Button 
+                                        onClick={handleSubmit.bind(this, cheese.Name)} 
+                                        variant = "contained" 
+                                        component={Link} to="../PizzaToppings" 
+                                    >
+                                    {cheese.Name}
+                                    </Button>
+                                </Grid>
+                            )
+                        }
                     })}
                     {/*<Grid item xs={6}>*/}
                     {/*    <Button*/}
@@ -122,9 +174,28 @@ function PizzaCheese() {
                     {/*        Back*/}
                     {/*    </Button>*/}
                     {/*</Grid>*/}
-                </Grid>
+                
+            
+            </Grid>
+            <Grid item p = {9}>
+            <Stack spacing = {2}>
+            <Button 
+                variant = "contained" 
+                component={Link} to="../PizzaToppings"
+            >
+            Skip
+            </Button>
+            <Button 
+                variant = "contained" 
+                component={Link} to="../PizzaSauce"
+            >
+                Back
+            </Button>
+            </Stack>
+            </Grid>
             </ThemeProvider>
         </div>
+
     );
 
 };
