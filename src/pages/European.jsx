@@ -61,13 +61,15 @@ const studyTheme = createTheme({
     },
 });
 
+let isChecked1 = false;
+let isChecked2 = false;
+let isChecked3 = false;
+const euroMeal = [];
 // need to add backend config to get specific button data
 function European() {
-    let isChecked1 = false;
-    let isChecked2 = false;
-    let isChecked3 = false;
+
     const [errorMessage, setErrorMessage] = useState('');
-    const euroMeal = [];
+
 
     function addEntree(value) {
         console.log(value);
@@ -97,10 +99,14 @@ function European() {
         } else if (id === "side") {
             isChecked3 = true;
         }
+
     }
 
     let navigate = useNavigate();
     const routeChange = () => {
+        console.log(isChecked1);
+        console.log(isChecked2);
+        console.log(isChecked3);
         if (!isChecked1 || !isChecked2 || !isChecked3) {
             setErrorMessage('Please select an option');
         } else {

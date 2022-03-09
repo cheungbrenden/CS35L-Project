@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 
 import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
-import { collection, getDocs, query, orderBy} from 'firebase/firestore';
+import {collection, getDocs, query, orderBy, setDoc, doc} from 'firebase/firestore';
 
 const UseStyles = makeStyles((theme) => ({
     layout: {
@@ -76,9 +76,10 @@ function SaladDressings() {
         return(
           <ThemeProvider theme={studyTheme}>
             <Button
-            variant="contained" 
-            color= "generic" 
+            variant="contained"
+            color= "generic"
             fontFamily="true"
+            onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Dressing: dressing.Name}, {merge: true})}
             >
               {dressing.Name}
             </Button>
@@ -89,6 +90,6 @@ function SaladDressings() {
     </div>
   );
 
-}; 
+}
 
-export default SaladDressings; 
+export default SaladDressings;

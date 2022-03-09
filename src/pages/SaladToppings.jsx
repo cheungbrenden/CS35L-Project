@@ -7,7 +7,7 @@ import Stack from '@mui/material/Stack';
 import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import { collection, getDocs, query, where} from 'firebase/firestore';
+import {collection, doc, getDocs, query, setDoc, where} from 'firebase/firestore';
 
 const UseStyles = makeStyles((theme) => ({
     layout: {
@@ -90,6 +90,7 @@ function SaladToppings() {
             <Button 
               variant="contained" 
               component={Link} to="../SaladProteins"
+              onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Toppings: toppings.Name}, {merge: true})}
             >
                 {toppings.Name}
             </Button>
