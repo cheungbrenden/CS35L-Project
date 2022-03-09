@@ -8,7 +8,7 @@ import PublicIcon from '@mui/icons-material/Public';
 import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 
 const UseStyles = makeStyles((theme) => ({
   layout: {
@@ -83,15 +83,15 @@ const studyTheme = createTheme({
   },
 });
 
-function SandwichBread() {
+function SandwichCheese() {
   const style = UseStyles();
   const [ingredients, setIngredients] = useState([]);
-  console.log ("saladGreens")
+  console.log ("sandwichCheese")
 
   const getIngredients = async () => {
     try{
       const ingredientsArr = [];
-      const q = query(collection(db, "Bread"), orderBy("Name"));
+      const q = query(collection(db, "Cheese"), where("sandwich", "==", true));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         console.log(doc.data());
@@ -110,7 +110,7 @@ function SandwichBread() {
   return (
     <div className={style.layout}>
       <div className = {style.title}>
-      Bread
+      Cheese
       </div>
       <ThemeProvider theme={studyTheme}>
         <Stack spacing={1}>
@@ -120,7 +120,7 @@ function SandwichBread() {
                 <Button 
                   variant = "contained" 
                   endIcon={<PublicIcon color = 'low'/>}
-                  component={Link} to="../SandwichCheese"
+                  component={Link} to="../SandwichToppings"
                 >
                   {ingredients.Name}
                 </Button>
@@ -130,7 +130,7 @@ function SandwichBread() {
               return(
                 <Button 
                   variant = "contained" 
-                  component={Link} to="../SandwichCheese"
+                  component={Link} to="../SandwichToppings"
                   endIcon={<PublicIcon color = 'high'/>}
                 >
                   {ingredients.Name}
@@ -141,7 +141,7 @@ function SandwichBread() {
               return(
                 <Button 
                   variant = "contained" 
-                  component={Link} to="../SandwichCheese"
+                  component={Link} to="../SandwichToppings"
                 >
                   {ingredients.Name}
                 </Button>
@@ -151,12 +151,13 @@ function SandwichBread() {
         <Stack spacing={5}>
           <Button 
             variant = "contained" 
-            component={Link} to="../SandwichCheese"
+            component={Link} to="../SandwichToppings"
           >
             Skip
           </Button>
           <Button 
-            variant = "contained" 
+            variant = "contained"
+            component={Link} to="../SandwichBread" 
           >
             Back
           </Button>
@@ -167,4 +168,4 @@ function SandwichBread() {
   );
 }; 
 
-export default SandwichBread; 
+export default SandwichCheese; 

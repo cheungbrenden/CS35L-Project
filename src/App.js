@@ -14,11 +14,15 @@ import {
   SaladProteins, 
   SaladDressings,
   StartOrder,
-    PizzaSauce,
-    PizzaCheese,
-    PizzaAddons,
-    PizzaToppings,
-  SandwichBread
+  PizzaSauce,
+  PizzaCheese,
+  PizzaAddons,
+  PizzaToppings,
+  SandwichBread,
+  SandwichCheese,
+  SandwichToppings,
+  SandwichAddOns,
+  SandwichSpreads,
 } from "./pages";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
@@ -38,6 +42,10 @@ function App() {
           <Route exact path="/SaladProteins" element={<SaladProteins/>} />
           <Route exact path="/SaladDressings" element={<SaladDressings/>} />
           <Route exact path="/SandwichBread" element={<SandwichBread/>} />
+          <Route exact path="/SandwichCheese" element={<SandwichCheese/>} />
+          <Route exact path="/SandwichToppings" element={<SandwichToppings/>} />
+          <Route exact path="/SandwichAddOns" element={<SandwichAddOns/>} />
+          <Route exact path="/SandwichSpreads" element={<SandwichSpreads/>} />
           {/* <Route exact path="/minors" element={<WhatMajor majmin={"minors"} />} /> */}
           {/* <Route exact path="/courses" element={<EnterCourses courses={courses} />} /> */}
           <Route exact path="/home" element={<Home />} />
