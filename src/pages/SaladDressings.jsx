@@ -143,7 +143,7 @@ function SaladDressings() {
               return(
                 <Button 
                   variant = "contained" 
-                  component={Link} to="../SaladDressings"
+                  component={Link} to="../PostOrder"
                   onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Dressing: ingredients.Name}, {merge: true})}
                 >
                   {ingredients.Name}
@@ -157,12 +157,6 @@ function SaladDressings() {
             component={Link} to="../PostOrder"
           >
             Skip
-          </Button>
-          <Button 
-            variant = "contained" 
-            component={Link} to="../PostOrder"
-          >
-            Place Order
           </Button>
           <Button 
             variant = "contained" 
