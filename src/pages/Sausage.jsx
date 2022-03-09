@@ -1,12 +1,13 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
-import { db } from '../firebase/config';
+import { db, auth } from '../firebase/config';
 import { useState, useEffect } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { addDoc, collection, doc, getDocs, setDoc } from 'firebase/firestore';
 import MouseOverPopover from '../Components/PopoverButton';
-import {Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {Radio, RadioGroup, FormControl, FormControlLabel, FormLabel, createTheme, ThemeProvider, Button, Grid } from '@mui/material';
 import PublicIcon from '@mui/icons-material/Public';
+import {onAuthStateChanged} from "firebase/auth";
 
 const UseStyles = makeStyles((theme) => ({
     layout: {
@@ -14,7 +15,7 @@ const UseStyles = makeStyles((theme) => ({
       alignItems: 'center',
       flexDirection: 'column',
       width: '100vw',
-      height: '50rem',
+      height: '100vw',
       backgroundColor: '#FDF9F9',
     },
     title: {
@@ -75,30 +76,67 @@ const UseStyles = makeStyles((theme) => ({
         }, 
       },
     });
-  
+
+let isChecked1 = false;
+let isChecked2 = false;
+let isChecked3 = false;
+let sausageMeal = [];
+
 function Sausage() {
-    let isChecked1 = false;
-    let isChecked2 = false;
-    let isChecked3 = false;
-    const [errorMessage, setErrorMessage] = useState('');
+
+    const [userid, setUserid] = useState("");
+    const [errorMessage, setErrorMessage] = useState('')
+
+    function addEntree(value) {
+        console.log(value);
+        sausageMeal[0] = value;
+        console.log(sausageMeal)
+    }
+    function addDrink(value) {
+        console.log(value);
+        sausageMeal[1] = value;
+        console.log(sausageMeal)
+    }
+    function addSide(value) {
+        console.log(value);
+        sausageMeal[2] = value;
+        console.log(sausageMeal);
+        console.log("userid: " + userid);
+    }
+
     function handleChange(id){
-        if(id == "sausage"){
+        if(id === "sausage"){
             isChecked1 = true;
-        }else if(id == "drink"){
+        } else if(id === "drink"){
             isChecked2 = true;
-        }else if(id == "side"){
+        } else if(id === "side"){
             isChecked3 = true;
         }
     }
-    let navigate = useNavigate(); 
+    let navigate = useNavigate();
     const routeChange = () =>{
       if(!isChecked1 || !isChecked2 || !isChecked3){
         setErrorMessage('Please select an option');  
       }
-  else{
-    let path = `/PostOrder`; //change to correct path
-  navigate(path);}
-  }
+      else{
+          addDoc(collection(db, 'Orders'), {Entree: sausageMeal[0], Drink: sausageMeal[1], Side: sausageMeal[2], UID: userid});
+          let path = `/PostOrder`; //change to correct path
+          navigate(path);
+      }
+    }
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // User is signed in, see docs for a list of available properties
+            // https://firebase.google.com/docs/reference/js/firebase.User
+            const uid = user.uid;
+            setUserid(uid);
+        } else {
+            // User is signed out
+            // ...
+        }
+    });
+
     const sausage = UseStyles();
     const [sausages, setSausages] = useState ([]);
     const sausageCollectionRef = collection(db, 'Sausage');
@@ -146,7 +184,7 @@ function Sausage() {
                     aria-labelledby="demo-radio-buttons-group-label"
                     name="radio-buttons-group"
                     defaultValue="noselect"
-                    onChange={() => handleChange("drink")}
+                    onChange={() => handleChange("sausage")}
                 >
                     {sausages.map ((sausage) => {
                         if (sausage.Footprint == 'low'){
@@ -160,7 +198,9 @@ function Sausage() {
                                             color: "#F4A950",
                                         }}/>
                                         } 
-                                        label={sausage.Name} />
+                                        label={sausage.Name}
+                                        onChange={(e) => addEntree(sausage.Name)}
+                                        />
                                         <ThemeProvider theme={studyTheme}>
                                             {<PublicIcon color = 'low'/>}
                                         </ThemeProvider>
@@ -179,7 +219,8 @@ function Sausage() {
                                         color: "#F4A950",
                                     }}/>
                                     } 
-                                    label={sausage.Name} />
+                                    label={sausage.Name}
+                                    onChange={(e) => addEntree(sausage.Name)}/>
                                     <ThemeProvider theme={studyTheme}>
                                         {<PublicIcon color = 'high'/>}
                                     </ThemeProvider>
@@ -198,7 +239,8 @@ function Sausage() {
                                             color: "#F4A950",
                                         }}/>
                                         } 
-                                        label={sausage.Name} />
+                                        label={sausage.Name}
+                                        onChange={(e) => addEntree(sausage.Name)}/>
                                     </MouseOverPopover>
                                 </ThemeProvider>
                             );
@@ -227,7 +269,8 @@ function Sausage() {
                                             control={<Radio style ={{
                                             color: "#F4A950",
                                             }}/>} 
-                                            label={drink.Name} />
+                                            label={drink.Name}
+                                            onChange={(e) => addDrink(drink.Name)}/>
                                             <ThemeProvider theme={studyTheme}>
                                                 {<PublicIcon color = 'low'/>}
                                             </ThemeProvider>
@@ -244,7 +287,8 @@ function Sausage() {
                                             control={<Radio style ={{
                                             color: "#F4A950",
                                             }}/>} 
-                                            label={drink.Name} />
+                                            label={drink.Name}
+                                            onChange={(e) => addDrink(drink.Name)}/>
                                             <ThemeProvider theme={studyTheme}>
                                                 {<PublicIcon color = 'high'/>}
                                             </ThemeProvider>
@@ -261,7 +305,8 @@ function Sausage() {
                                             control={<Radio style ={{
                                             color: "#F4A950",
                                             }}/>} 
-                                            label={drink.Name} />
+                                            label={drink.Name}
+                                            onChange={(e) => addDrink(drink.Name)}/>
                                         </MouseOverPopover>
                                     </ThemeProvider>
                                 );
@@ -287,7 +332,7 @@ function Sausage() {
                                         <FormControlLabel value={side.Name} control={<Radio style ={{
                                         color: "#F4A950",
                                         }}/>} 
-                                        label={side.Name} />
+                                        label={side.Name} onChange={(e) => addSide(side.Name)}/>
                                         <ThemeProvider theme={studyTheme}>
                                             {<PublicIcon color = 'low'/>}
                                         </ThemeProvider>
@@ -302,7 +347,7 @@ function Sausage() {
                                         <FormControlLabel value={side.Name} control={<Radio style ={{
                                         color: "#F4A950",
                                         }}/>} 
-                                        label={side.Name} />
+                                        label={side.Name} onChange={(e) => addSide(side.Name)}/>
                                         <ThemeProvider theme={studyTheme}>
                                             {<PublicIcon color = 'high'/>}
                                         </ThemeProvider>
@@ -317,7 +362,7 @@ function Sausage() {
                                         <FormControlLabel value={side.Name} control={<Radio style ={{
                                         color: "#F4A950",
                                         }}/>} 
-                                        label={side.Name} />
+                                        label={side.Name} onChange={(e) => addSide(side.Name)}/>
                                         </MouseOverPopover>
                                     </ThemeProvider>
                                 );
@@ -327,11 +372,8 @@ function Sausage() {
                 </FormControl>
             </Grid></Grid>
             <ThemeProvider theme={studyTheme}>
-                <Button sx={{mt: 6}}onClick={routeChange}variant="contained" color= "primary" fontFamily="true">
+                <Button sx={{mt: 6}} onClick={routeChange} variant="contained" color= "primary" fontFamily="true">
                     Place Order
-                </Button>
-                <Button variant="contained" color= "primary" fontFamily="true"component={Link} to="../StartOrder">
-                    Back
                 </Button>
             </ThemeProvider>
             {errorMessage && <div className="error"> {errorMessage} </div>}
