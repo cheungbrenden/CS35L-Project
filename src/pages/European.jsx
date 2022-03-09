@@ -113,7 +113,7 @@ function European() {
             setErrorMessage('Please select an option');
         } else {
 
-            addDoc(collection(db, 'Orders'), {Entree: euroMeal[0], Drink: euroMeal[1], Side: euroMeal[2], UID: userid});
+            addDoc(collection(db, 'Orders'), {Entree: "Pizza", European: euroMeal[0], Drink: euroMeal[1], Side: euroMeal[2], UID: userid});
             let path = `/PostOrder`; //change to correct path
             navigate(path);
         }

@@ -141,8 +141,8 @@ function History() {
                   // console.log ("data.docs: " + data.docs)
                   const temp = data.docs.map ((doc) => ({ ...doc.data()}));
                   console.log (temp)
-                  console.log (temp[6].UID)
-                  console.log (typeof (temp[0].UID))
+                  // console.log (temp[6].UID)
+                  // console.log (typeof (temp[0].UID))
                   const temp2 = temp.filter ((doc) => doc.UID === uid);
                   setUsers (temp2)
                   // const temp = data.docs.filter((doc) => (doc.UID === uid));

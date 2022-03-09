@@ -2,12 +2,13 @@ import React from 'react';
 import { makeStyles } from '@mui/styles';
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {Grid} from '@mui/material';
+import Stack from '@mui/material/Stack';
+import PublicIcon from '@mui/icons-material/Public';
 
 import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import {collection, getDocs, query, orderBy, where} from 'firebase/firestore';
+import { collection, getDocs, query, orderBy, doc, setDoc, where } from 'firebase/firestore';
 
 const UseStyles = makeStyles((theme) => ({
     layout: {
@@ -15,21 +16,19 @@ const UseStyles = makeStyles((theme) => ({
         alignItems: 'center',
         flexDirection: 'column',
         width: '100vw',
-        margin: '0 0 10em 0',
-
+        height: '100vw',
+        backgroundColor: '#FDF9F9',
     },
 
     title: {
-        font: theme.font.title,
-        color: theme.color.orange,
+        font: 'normal 500 4.5rem/4.5rem "Solway"',
+        color: '#F4A950',
         textAlign: 'center',
-        margin: '4rem 0 3rem 0',
+        margin: '3rem 0 2rem 0',
         fontWeight: 'bold',
         width: '100rem',
         height: '6rem',
     },
-
-
 
 }));
 
@@ -39,28 +38,54 @@ const studyTheme = createTheme({
             main: '#594A47',
             contrastText: '#fff',
         },
+        low: {
+            main: '#0f9600',
+        },
+        high: {
+            main: '#bf0404',
+        },
+        background: {
+            default: '#F1ECEC',
+        }
     },
     typography: {
+        fontFamily: 'Solway',
+        fontSize: 14,
         button: {
-            fontFamily: 'Solway',
             textTransform:'none',
-            fontSize: '2em',
         },
+    },
+    subtitle1:{
+        fontFamily: 'Solway',
     },
     components: {
         MuiButton: {
             styleOverrides: {
                 root: {
                     borderRadius: 8,
+                    minWidth: '250px',
+                    maxHeight: '35px',
+                    minHeight: '35px',
                 },
             },
         },
+        MuiCheckbox: {
+            styleOverrides: {
+                root: {
+                    color: '#fff',
+                    '&.Mui-checked': {
+                        color: '#fff',
+                    },
+                    transform: "scale(0.85)",
+                }
+            }
+        }
     },
 });
 
 
 function PizzaCheese() {
-    const pizzaCheese = UseStyles();
+    const style = UseStyles();
     const [cheese, setCheese] = useState([]);
 
     function handleSubmit(specifiedCheese) {
@@ -89,44 +114,68 @@ function PizzaCheese() {
         getCheeses();
     }, []);
 
-
     return (
-        <div className={pizzaCheese.layout}>
-            <div className = {pizzaCheese.title}>
-                Pizza Cheeses
+        <div className={style.layout}>
+            <div className = {style.title}>
+                Cheese
             </div>
             <ThemeProvider theme={studyTheme}>
-                <Grid container spacing={4}>
+                <Stack spacing={1}>
                     {cheese.map ((cheese) => {
-                        return(
-                            <Grid item xs={6}>
-                                <Button onClick={handleSubmit.bind(this, cheese.Name)} variant = "contained" component={Link} to="../PizzaToppings" >{cheese.Name}</Button>
-                            </Grid>
-
-                        )
+                        if (cheese.Footprint === 'low'){
+                            return(
+                                <Button
+                                    variant = "contained"
+                                    endIcon={<PublicIcon color = 'low'/>}
+                                    component={Link} to="../PizzaToppings"
+                                    onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Cheese: cheese.Name})}
+                                >
+                                    {cheese.Name}
+                                </Button>
+                            )
+                        }
+                        else if (cheese.Footprint === 'high'){
+                            return(
+                                <Button
+                                    variant = "contained"
+                                    component={Link} to="../PizzaToppings"
+                                    endIcon={<PublicIcon color = 'high'/>}
+                                    onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Cheese: cheese.Name})}
+                                >
+                                    {cheese.Name}
+                                </Button>
+                            )
+                        }
+                        else {
+                            return(
+                                <Button
+                                    variant = "contained"
+                                    component={Link} to="../PizzaToppings"
+                                    onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Cheese: cheese.Name})}
+                                >
+                                    {cheese.Name}
+                                </Button>
+                            )
+                        }
                     })}
-                    {/*<Grid item xs={6}>*/}
-                    {/*    <Button*/}
-                    {/*        variant = "contained"*/}
-                    {/*        component={Link} to="../SaladToppings"*/}
-                    {/*    >*/}
-                    {/*        Skip*/}
-                    {/*    </Button>*/}
-                    {/*</Grid>*/}
-
-                    {/*<Grid item xs={6}>*/}
-                    {/*    <Button*/}
-                    {/*        variant = "contained"*/}
-                    {/*        component={Link} to="../SaladToppings"*/}
-                    {/*    >*/}
-                    {/*        Back*/}
-                    {/*    </Button>*/}
-                    {/*</Grid>*/}
-                </Grid>
+                    <Stack spacing={5}>
+                        <Button
+                            variant = "contained"
+                            component={Link} to="../PizzaToppings"
+                        >
+                            Skip
+                        </Button>
+                        <Button
+                            variant = "contained"
+                            component={Link} to="../PizzaSauce"
+                        >
+                            Back
+                        </Button>
+                    </Stack>
+                </Stack>
             </ThemeProvider>
         </div>
     );
-
 };
 
 export default PizzaCheese;

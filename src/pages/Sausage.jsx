@@ -119,7 +119,7 @@ function Sausage() {
         setErrorMessage('Please select an option');  
       }
       else{
-          addDoc(collection(db, 'Orders'), {Entree: sausageMeal[0], Drink: sausageMeal[1], Side: sausageMeal[2], UID: userid});
+          addDoc(collection(db, 'Orders'), {Entree: "Sausage", Sausage: sausageMeal[0], Drink: sausageMeal[1], Side: sausageMeal[2], UID: userid});
           let path = `/PostOrder`; //change to correct path
           navigate(path);
       }

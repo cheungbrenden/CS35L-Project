@@ -2,9 +2,10 @@ import React, {useEffect, useState} from 'react';
 import {makeStyles, styled} from '@mui/styles';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {Grid, ButtonBase, Button} from "@mui/material";
-import { auth} from "../firebase/config";
+import {auth, db} from "../firebase/config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from 'react-router-dom';
+import {addDoc, collection, doc, setDoc} from "firebase/firestore";
 
 const UseStyles = makeStyles((theme) => ({
     layout: {
@@ -53,17 +54,11 @@ const studyTheme = createTheme({
     },
 });
 
-// const ItemButton = styled(Button)({
-//     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-//     border: 0,
-//     borderRadius: 3,
-//     boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-//     color: 'white',
-//     height: 48,
-//     padding: '0 30px',
-//
-// });
 
+function orderID(entree) {
+    console.log('testest')
+    addDoc(collection(db, 'Orders', 'aaaa'), {Entree: entree})
+}
 
 function StartOrder() {
     const startOrder = UseStyles();
@@ -73,7 +68,16 @@ function StartOrder() {
     useEffect(() => {
         if (loading) return;
         if (!user) return navigate("/home");
-      }, [user,loading]);
+      }, [user, loading, navigate]);
+
+
+
+    function orderID(entree) {
+        console.log('testest')
+        addDoc(collection(db, 'Orders', 'aaaa'), {Entree: entree})
+    }
+
+
     return (
         <div className={startOrder.layout}>
             <div className={startOrder.title}>
@@ -85,7 +89,9 @@ function StartOrder() {
                 <ThemeProvider theme={studyTheme}>
                     <Grid container spacing={4}>
                         <Grid item xs={6}>
-                            <Button variant = "contained" component={Link} to="../pizzaSauce">Craft Your Own Pizza</Button>
+                            <Button variant = "contained" component={Link} to="../pizzaSauce"
+                                    onClick={e => orderID(e,"Pizza")}>
+                                Craft Your Own Pizza</Button>
                         </Grid>
                         <Grid item xs={6}>
                             <Button variant = "contained" component={Link} to="../Sausage" >Craft Your Own Sausage</Button>
