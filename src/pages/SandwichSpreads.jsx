@@ -191,10 +191,10 @@ function SandwichSpreads() {
         <Stack spacing={5}>
           <Button 
             variant = "contained" 
-            component={Link} to="../SandwichSpreads"
+            component={Link} to="../PostOrder"
             disabled = {checkedBoxes.length > 2}
           >
-            Next (Pick up to 2)
+            Place Order (Pick up to 2)
           </Button>
           <Button 
             variant = "contained" 
