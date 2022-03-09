@@ -114,7 +114,7 @@ function European() {
         } else {
 
             addDoc(collection(db, 'Orders'), {Entree: euroMeal[0], Drink: euroMeal[1], Side: euroMeal[2], UID: userid});
-            let path = `newPath`; //change to correct path
+            let path = `/PostOrder`; //change to correct path
             navigate(path);
         }
     }
