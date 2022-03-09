@@ -110,7 +110,7 @@ function SaladProteins() {
   return (
     <div className={style.layout}>
       <div className = {style.title}>
-      Proteins
+      Salad Proteins
       </div>
       <ThemeProvider theme={studyTheme}>
         <Stack spacing={1}>

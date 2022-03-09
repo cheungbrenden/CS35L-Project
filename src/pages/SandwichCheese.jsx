@@ -110,7 +110,7 @@ function SandwichCheese() {
   return (
     <div className={style.layout}>
       <div className = {style.title}>
-      Cheese
+      Sandwich Cheese
       </div>
       <ThemeProvider theme={studyTheme}>
         <Stack spacing={1}>
