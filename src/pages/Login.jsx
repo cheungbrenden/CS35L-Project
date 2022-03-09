@@ -24,18 +24,18 @@ const UseStyles = makeStyles((theme) => ({
   textFields:{
     position:'relative',
     width: '50rem',
-    top:'100px',
+    top:'25px',
   },
   button:{
     position: 'relative',
     left: '250px',
-    top:'100px',
+    top:'25px',
   },
     title: {
       position:'relative',
-      top: '100px',
+      top: '25px',
       font: theme.font.title,
-      fontSize: '150px',
+      fontSize: '100px',
       color: theme.color.orange,
       textAlign: 'center',
       margin: '0 0 0 0.9rem',
@@ -46,7 +46,7 @@ const UseStyles = makeStyles((theme) => ({
 
     subtitle: {
       position:'relative',
-      top:'100px',
+      top:'25px',
       font: theme.font.subtitle,
       color: theme.color.black,
       textAlign: 'center',
