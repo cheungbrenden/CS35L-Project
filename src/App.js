@@ -12,7 +12,8 @@ import {
   SaladToppings, 
   SaladGreens, 
   SaladProteins, 
-  SaladDressings
+  SaladDressings,
+  SandwichBread
 } from "./pages";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -32,6 +33,7 @@ function App() {
           <Route exact path="/SaladGreens" element={<SaladGreens/>} />
           <Route exact path="/SaladProteins" element={<SaladProteins/>} />
           <Route exact path="/SaladDressings" element={<SaladDressings/>} />
+          <Route exact path="/SandwichBread" element={<SandwichBread/>} />
           {/* <Route exact path="/minors" element={<WhatMajor majmin={"minors"} />} /> */}
           {/* <Route exact path="/courses" element={<EnterCourses courses={courses} />} /> */}
           <Route exact path="/home" element={<Home />} />

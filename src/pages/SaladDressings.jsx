@@ -8,7 +8,7 @@ import PublicIcon from '@mui/icons-material/Public';
 import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { collection, getDocs, query, orderBy, doc, setDoc } from 'firebase/firestore';
 
 const UseStyles = makeStyles((theme) => ({
   layout: {
@@ -121,6 +121,7 @@ function SaladDressings() {
                   variant = "contained" 
                   endIcon={<PublicIcon color = 'low'/>}
                   component={Link} to="../SaladDressings"
+                  onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Dressing: ingredients.Name}, {merge: true})}
                 >
                   {ingredients.Name}
                 </Button>
@@ -132,6 +133,7 @@ function SaladDressings() {
                   variant = "contained" 
                   component={Link} to="../SaladDressings"
                   endIcon={<PublicIcon color = 'high'/>}
+                  onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Dressing: ingredients.Name}, {merge: true})}
                 >
                   {ingredients.Name}
                 </Button>
@@ -142,6 +144,7 @@ function SaladDressings() {
                 <Button 
                   variant = "contained" 
                   component={Link} to="../SaladDressings"
+                  onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Dressing: ingredients.Name}, {merge: true})}
                 >
                   {ingredients.Name}
                 </Button>
