@@ -102,7 +102,7 @@ function Welcome() {
             variant = "contained">
             New Order
         </Button>
-        <Button onClick={() => navigate("/Home")}
+        <Button onClick={logout}
             variant = "contained">
             Logout
         </Button>
