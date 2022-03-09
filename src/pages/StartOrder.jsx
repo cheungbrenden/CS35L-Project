@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {makeStyles, styled} from '@mui/styles';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {Grid, ButtonBase, Button} from "@mui/material";
-
-import { Link } from 'react-router-dom';
+import { auth, logout} from "../firebase/config";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { Link, useNavigate } from 'react-router-dom';
 
 const UseStyles = makeStyles((theme) => ({
     layout: {
@@ -67,7 +68,12 @@ const studyTheme = createTheme({
 function StartOrder() {
     const startOrder = UseStyles();
     const [order, setOrder] = useState("");
-
+    const navigate = useNavigate();
+    const [user, loading, error] = useAuthState(auth);
+    useEffect(() => {
+        if (loading) return;
+        if (!user) return navigate("/home");
+      }, [user,loading]);
     return (
         <div className={startOrder.layout}>
             <div className={startOrder.title}>
@@ -94,6 +100,7 @@ function StartOrder() {
                             <Button variant = "contained" component={Link} to="../European">European Dishes</Button>
                         </Grid>
                     </Grid>
+                    <Button onClick={logout} variant = "contained">Logout</Button>
                 </ThemeProvider>
             </div>
         </div>
