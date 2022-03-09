@@ -106,11 +106,8 @@ function SaladToppings() {
     }
   }
 
-  const [count, setCount] = useState(0);
-
   useEffect(() => {
     getIngredients();
-    console.log("test")
   }, []);
 
   var options = [] //array of names
@@ -119,32 +116,18 @@ function SaladToppings() {
   })}
 
   const [ checkedBoxes, setCheckedBoxes ] = React.useState([])
+  const [flag, setFlag] = React.useState(true) //disable next button
+  
   const onChange = (name, e) => {
     const isChecked = e.target.checked
     if (isChecked) {
+      console.log(checkedBoxes)
       setCheckedBoxes(checkedBoxes.concat(name))
+      console.log(checkedBoxes)
     } else {
       setCheckedBoxes(checkedBoxes.filter(x => x !== name))
     }
   }
-
-  // const checkedObject = () => {
-
-  // }
-  // const [state, setState] = React.useState();
-
-  // const handleChange = (event) => {
-  //   setState({
-  //     ...state,
-  //     [event.target.name]: event.target.checked,
-  //   });
-  // };
-  // console.log('state: ' + state);
-  // options = state;
-  // console.log('options: ' + options)
-  // //const error = options.filter((v) => v).length !== 2;
-
-  
 
   return (
     <div className={style.layout}>
@@ -159,18 +142,15 @@ function SaladToppings() {
                 <Button 
                   variant = "contained" 
                   endIcon={<PublicIcon color = 'low'/>}
-                  onChange={() => setCount(count + 1)}
-                  onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Toppings: ingredients.Name}, {merge: true})}
                 >
                   <FormGroup>
                     <FormControlLabel 
                     control = {<Checkbox 
                       size = "small"
-                      onChange={onChange.bind(undefined, ingredients.Name)}
+                      onChange={onChange.bind(ingredients.Name, ingredients.Name)}
                       />} 
                     label = {ingredients.Name} />
                   </FormGroup>
-                  count: {checkedBoxes.length}
                 </Button>
               )
             }
@@ -179,17 +159,15 @@ function SaladToppings() {
                 <Button 
                   variant = "contained" 
                   endIcon={<PublicIcon color = 'high'/>}
-                  onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Toppings: ingredients.Name}, {merge: true})}
                 >
                   <FormGroup>
                     <FormControlLabel 
                     control = {<Checkbox 
                       size = "small"
-                      onChange={onChange.bind(undefined, ingredients.Name)}
+                      onChange={onChange.bind(ingredients.Name, ingredients.Name)}
                       />} 
                       label = {ingredients.Name} />
                   </FormGroup>
-                  count: {checkedBoxes.length}
                 </Button>
               )
             }
@@ -197,17 +175,15 @@ function SaladToppings() {
               return(
                 <Button 
                   variant = "contained" 
-                  onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Toppings: ingredients.Name}, {merge: true})}
                 >
                   <FormGroup>
                     <FormControlLabel 
                     control = {<Checkbox 
                       size = "small"
-                      onChange={onChange.bind(undefined, ingredients.Name)}
+                      onChange={onChange.bind(ingredients.Name, ingredients.Name)}
                     />} 
                       label = {ingredients.Name} />
                   </FormGroup>
-                  count: {checkedBoxes.length}
                 </Button>
               )
             }
@@ -216,6 +192,7 @@ function SaladToppings() {
           <Button 
             variant = "contained" 
             component={Link} to="../SaladProteins"
+            disabled = {checkedBoxes.length > 4}
           >
             Next
           </Button>
