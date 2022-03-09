@@ -56,7 +56,7 @@ const UseStyles = makeStyles((theme) => ({
           default: '#F1ECEC',
         }
       },
-    },
+
     typography: {
       fontFamily: 'Solway',
     },
