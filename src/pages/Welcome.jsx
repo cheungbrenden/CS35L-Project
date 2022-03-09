@@ -91,7 +91,7 @@ function Welcome() {
             variant = "contained">
             Past Orders
         </Button>
-        <Button onClick={() => navigate("/PostOrder")}
+        <Button onClick={() => navigate("/StartOrder")}
             variant = "contained">
             New Order
         </Button>

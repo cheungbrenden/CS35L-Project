@@ -81,7 +81,7 @@ function PostOrder() {
         <ThemeProvider theme={studyTheme}>
         <Stack spacing={5}>
             <Button 
-            component={Link} to="../StartOrder"
+            component={Link} to="../Welcome"
             variant = "contained">
                 Go Back Home
             </Button>
