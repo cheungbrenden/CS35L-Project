@@ -9,7 +9,47 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+
+
+const studyTheme = createTheme({
+  palette: {
+    primary: {
+      main: '#594A47',
+      contrastText: '#fff',
+    },
+    secondary: {
+      main: '#0f9600',
+    },
+    warning: {
+      main: '#bf0404',
+    },
+    background: {
+      default: '#F1ECEC',
+    }
+  },
+  typography: {
+    fontFamily: 'Solway',
+    button: {
+      textTransform:'none',
+    },
+  },
+  subtitle1:{
+    fontFamily: 'Solway',
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+        },
+      }, 
+    }, 
+  },
+});
 
 const UseStyles = makeStyles((theme) => ({
     layout: {
@@ -17,11 +57,12 @@ const UseStyles = makeStyles((theme) => ({
       alignItems: 'center',
       flexDirection: 'column',
       width: '100vw',
-      background: theme.color.background,
-      backgroundPosition: 'center', 
-      backgroundSize: 'cover', 
+      height: '50rem',
+      backgroundImage: "url(/pizza.png)",
+      backgroundPosition: 'top',
       backgroundRepeat: 'no-repeat',
-      height: '60vw',
+      backgroundSize: 'contain',
+      verticalAlign: 'top',
     },
 
     output: {
@@ -32,7 +73,7 @@ const UseStyles = makeStyles((theme) => ({
 
     title: {
       font: theme.font.title,
-      color: theme.color.black,
+      color: theme.color.orange,
       margin: '0 0 0 0 rem',
       marginTop: '2.4rem',
     },
@@ -172,13 +213,25 @@ function History() {
           <MenuItem value={"All"}>All</MenuItem>
           <MenuItem value={"Pizza"}>Pizza</MenuItem>
           <MenuItem value={"Sandwich"}>Sandwich</MenuItem>
+          <MenuItem value={"Salad"}>Salad</MenuItem>
+          <MenuItem value={"Sausage"}>Sausage</MenuItem>
         </Select>
         
       </FormControl>
       {order === 'Start' && (usersmap())}
       {order === 'Pizza' && (usersmap())}
       {order === 'Sandwich' && (usersmap())}
-     
+      {order === 'Salad' && (usersmap())}
+      {order === 'Sausage' && (usersmap())}
+
+      <ThemeProvider theme={studyTheme}>
+        <Button 
+              variant = "contained" 
+              component={Link} to="../Home"
+            >
+        Back to Home
+        </Button>    
+      </ThemeProvider>
       </div>
     );
 
