@@ -100,6 +100,7 @@ function StartOrder() {
                             <Button variant = "contained" component={Link} to="../European">European Dishes</Button>
                         </Grid>
                     </Grid>
+                    <Button variant = "contained" component={Link} to="../Welcome">Back</Button>
                 </ThemeProvider>
             </div>
         </div>
