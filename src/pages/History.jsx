@@ -286,7 +286,7 @@ function History() {
       <ThemeProvider theme={studyTheme}>
         <Button 
               variant = "contained" 
-              component={Link} to="../Home"
+              component={Link} to="../Welcome"
             >
         Back to Home
         </Button>    

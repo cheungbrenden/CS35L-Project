@@ -159,7 +159,8 @@ function SaladGreens() {
             Skip
           </Button>
           <Button 
-            variant = "contained" 
+            variant = "contained"
+            component={Link} to="../StartOrder" 
           >
             Back
           </Button>

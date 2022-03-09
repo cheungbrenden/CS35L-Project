@@ -160,6 +160,12 @@ function SaladDressings() {
           </Button>
           <Button 
             variant = "contained" 
+            component={Link} to="../PostOrder"
+          >
+            Place Order
+          </Button>
+          <Button 
+            variant = "contained" 
             component={Link} to="../SaladProteins"
           >
             Back
