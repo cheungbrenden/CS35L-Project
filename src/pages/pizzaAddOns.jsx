@@ -8,6 +8,7 @@ import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import { collection, getDocs, query, orderBy, where } from 'firebase/firestore';
+import { orderRefID } from './StartOrder'
 
 const UseStyles = makeStyles((theme) => ({
     layout: {
@@ -105,23 +106,7 @@ function PizzaAddons() {
 
                         )
                     })}
-                    {/*<Grid item xs={6}>*/}
-                    {/*    <Button*/}
-                    {/*        variant = "contained"*/}
-                    {/*        component={Link} to="../SaladToppings"*/}
-                    {/*    >*/}
-                    {/*        Skip*/}
-                    {/*    </Button>*/}
-                    {/*</Grid>*/}
 
-                    {/*<Grid item xs={6}>*/}
-                    {/*    <Button*/}
-                    {/*        variant = "contained"*/}
-                    {/*        component={Link} to="../SaladToppings"*/}
-                    {/*    >*/}
-                    {/*        Back*/}
-                    {/*    </Button>*/}
-                    {/*</Grid>*/}
                 </Grid>
             </ThemeProvider>
         </div>

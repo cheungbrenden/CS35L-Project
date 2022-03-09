@@ -6,6 +6,7 @@ import {auth, db} from "../firebase/config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from 'react-router-dom';
 import {addDoc, collection, doc, setDoc} from "firebase/firestore";
+import {onAuthStateChanged} from "firebase/auth";
 
 const UseStyles = makeStyles((theme) => ({
     layout: {
@@ -55,16 +56,39 @@ const studyTheme = createTheme({
 });
 
 
-function orderID(entree) {
-    console.log('testest')
-    addDoc(collection(db, 'Orders', 'aaaa'), {Entree: entree})
-}
+
+
+export let orderRefID = "";
+
 
 function StartOrder() {
+    const [userid, setUserid] = useState("");
     const startOrder = UseStyles();
     const [order, setOrder] = useState("");
     const navigate = useNavigate();
     const [user, loading, error] = useAuthState(auth);
+    let uid = ""
+// TODO: add UID with order
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // User is signed in, see docs for a list of available properties
+            // https://firebase.google.com/docs/reference/js/firebase.User
+            uid = user.uid;
+            setUserid(uid);
+        } else {
+            // User is signed out
+            // ...
+        }
+    });
+
+    async function orderID(entree) {
+
+        const orderRef = await addDoc(collection(db, 'Orders'), {Entree: entree, UID: uid});
+        orderRefID = orderRef.id;
+    }
+
+
     useEffect(() => {
         if (loading) return;
         if (!user) return navigate("/home");
@@ -72,10 +96,9 @@ function StartOrder() {
 
 
 
-    function orderID(entree) {
-        console.log('testest')
-        addDoc(collection(db, 'Orders', 'aaaa'), {Entree: entree})
-    }
+
+
+
 
 
     return (
@@ -90,17 +113,21 @@ function StartOrder() {
                     <Grid container spacing={4}>
                         <Grid item xs={6}>
                             <Button variant = "contained" component={Link} to="../pizzaSauce"
-                                    onClick={e => orderID(e,"Pizza")}>
+                                    onClick={e => orderID("Pizza")}>
                                 Craft Your Own Pizza</Button>
                         </Grid>
                         <Grid item xs={6}>
                             <Button variant = "contained" component={Link} to="../Sausage" >Craft Your Own Sausage</Button>
                         </Grid>
                         <Grid item xs={6}>
-                            <Button variant = "contained" component={Link} to="../SaladGreens">Craft Your Own Salad</Button>
+                            <Button variant = "contained" component={Link} to="../SaladGreens"
+                                    onClick={e => orderID("Salad")}>
+                                Craft Your Own Salad</Button>
                         </Grid>
                         <Grid item xs={6}>
-                            <Button variant = "contained" component={Link} to="../SandwichBread">Craft Your Own Sandwich</Button>
+                            <Button variant = "contained" component={Link} to="../SandwichBread"
+                                    onClick={e => orderID("Sandwich")}>
+                                Craft Your Own Sandwich</Button>
                         </Grid>
                         <Grid item xs={6}>
                             <Button variant = "contained" component={Link} to="../European">European Dishes</Button>

@@ -9,6 +9,7 @@ import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import { collection, getDocs, query, orderBy, doc, setDoc, where } from 'firebase/firestore';
+import { orderRefID } from './StartOrder'
 
 const UseStyles = makeStyles((theme) => ({
     layout: {
@@ -85,7 +86,7 @@ const studyTheme = createTheme({
 
 
 function PizzaSauce() {
-
+    console.log(orderRefID)
     const style = UseStyles();
     const [sauce, setSauce] = useState([]);
 
@@ -122,7 +123,7 @@ function PizzaSauce() {
                                     variant = "contained"
                                     endIcon={<PublicIcon color = 'low'/>}
                                     component={Link} to="../PizzaCheese"
-                                    onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Sauce: sauce.Name})}
+                                    onClick={() => setDoc(doc(db, 'Orders', orderRefID), {Sauce: sauce.Name}, {merge: true})}
                                 >
                                     {sauce.Name}
                                 </Button>
@@ -134,7 +135,7 @@ function PizzaSauce() {
                                     variant = "contained"
                                     component={Link} to="../PizzaCheese"
                                     endIcon={<PublicIcon color = 'high'/>}
-                                    onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Sauce: sauce.Name})}
+                                    onClick={() => setDoc(doc(db, 'Orders', orderRefID), {Sauce: sauce.Name}, {merge: true})}
                                 >
                                     {sauce.Name}
                                 </Button>
@@ -145,7 +146,7 @@ function PizzaSauce() {
                                 <Button
                                     variant = "contained"
                                     component={Link} to="../PizzaCheese"
-                                    onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Sauce: sauce.Name})}
+                                    onClick={() => setDoc(doc(db, 'Orders', orderRefID), {Sauce: sauce.Name}, {merge: true})}
                                 >
                                     {sauce.Name}
                                 </Button>

@@ -9,6 +9,7 @@ import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import { collection, getDocs, query, orderBy, doc, setDoc, where } from 'firebase/firestore';
+import { orderRefID } from './StartOrder'
 
 const UseStyles = makeStyles((theme) => ({
     layout: {
@@ -122,7 +123,7 @@ function PizzaToppings() {
                                     variant = "contained"
                                     endIcon={<PublicIcon color = 'low'/>}
                                     component={Link} to="../PizzaAddons"
-                                    onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Topping: toppings.Name})}
+                                    onClick={() => setDoc(doc(db, 'Orders', orderRefID), {Topping: toppings.Name}, {merge: true})}
                                 >
                                     {toppings.Name}
                                 </Button>
@@ -134,7 +135,7 @@ function PizzaToppings() {
                                     variant = "contained"
                                     component={Link} to="../PizzaAddons"
                                     endIcon={<PublicIcon color = 'high'/>}
-                                    onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Topping: toppings.Name})}
+                                    onClick={() => setDoc(doc(db, 'Orders', orderRefID), {Topping: toppings.Name}, {merge: true})}
                                 >
                                     {toppings.Name}
                                 </Button>
@@ -145,7 +146,7 @@ function PizzaToppings() {
                                 <Button
                                     variant = "contained"
                                     component={Link} to="../PizzaAddons"
-                                    onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Topping: toppings.Name})}
+                                    onClick={() => setDoc(doc(db, 'Orders', orderRefID), {Topping: toppings.Name}, {merge: true})}
                                 >
                                     {toppings.Name}
                                 </Button>
