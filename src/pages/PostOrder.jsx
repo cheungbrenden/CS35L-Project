@@ -28,8 +28,8 @@ const UseStyles = makeStyles((theme) => ({
         font: 'normal 500 3.5rem/3.5rem "Solway"',
         color: '#F4A950',
         textAlign: 'center',
-        marginLeft: '35rem',
-        marginTop: '15rem',
+        marginLeft: '37rem',
+        marginTop: '20rem',
         fontWeight: 'bold',
         width: '100rem',
         height: '6rem',
@@ -85,14 +85,9 @@ function PostOrder() {
             variant = "contained">
                 Go Back Home
             </Button>
-            <Button 
-            variant = "contained">
-                Add to Favorites
-            </Button>
         </Stack>
       </ThemeProvider>
       </div>
-  
     );
   
     
