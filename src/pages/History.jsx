@@ -4,11 +4,12 @@ import { makeStyles } from '@mui/styles';
 import { db } from '../firebase/config';
 import { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
-import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Grid from '@mui/material/Grid';
+
 
 const UseStyles = makeStyles((theme) => ({
     layout: {
@@ -16,6 +17,11 @@ const UseStyles = makeStyles((theme) => ({
       alignItems: 'center',
       flexDirection: 'column',
       width: '100vw',
+      background: theme.color.background,
+      backgroundPosition: 'center', 
+      backgroundSize: 'cover', 
+      backgroundRepeat: 'no-repeat',
+      height: '60vw',
     },
 
     output: {
@@ -35,6 +41,7 @@ const UseStyles = makeStyles((theme) => ({
       font: theme.font.output,
       color: theme.color.white, 
       background: theme.color.brown,
+      width: '20rem',
       textAlign: 'center',
       padding: '0.5rem',
       margin: '1 rem',
@@ -43,11 +50,11 @@ const UseStyles = makeStyles((theme) => ({
     details: {
       font: theme.font.output,
       color: theme.color.black, 
-      background: theme.color.background,
+      background: theme.color.white,
       margin: '1 rem',
       width: '20rem',
-      padding: '0.3rem',
-      borderColor: theme.color.black,
+      padding: '0.5rem',
+      borderColor: theme.color.white,
       border: '0.1rem',
       textAlign: 'center',
     }
@@ -57,6 +64,9 @@ function History() {
     const history = UseStyles();
     const [users, setUsers] = useState ([]); 
     const userCollectionRef = collection(db, 'Orders'); 
+    const [entree, setEntree] = React.useState("");
+    const [order, setOrder] = useState('Start')
+    const [filtered, setFiltered] = useState ([]);
 
     useEffect(() => {
         const getUsers = async () => {
@@ -66,13 +76,49 @@ function History() {
         };
         getUsers();
     }, [])
-  
+
+    const filter = (event) => {
+      console.log ("event", event.target.value)
+      setEntree(event.target.value);
+      
+      if (event.target.value === 'All'){
+        setOrder ('Start');
+        const asArray = Object.entries (users); 
+        setFiltered (asArray);
+      }
+      
+      else {
+        setOrder (event.target.value);
+        const asArray = Object.entries(users);
+        const filtered = asArray.filter(user => (user[1].Entree === event.target.value));
+        setFiltered (filtered);
+      }
+    }
+
+    function usersmap () {
+      return (
+        <Grid container spacing={2} p = {3}>
+          {
+            filtered.map ((user) => {
+              return (
+                 <Grid item spacing = {3}>
+                    <div item xs={2}>
+                      {print(user)}
+                    </div>
+                  </Grid>
+              );
+            }) 
+          }
+        </Grid>
+      )
+    }
 
     function print(array) 
     {
       var str = JSON.stringify(array, null);
-      console.log (str)
+      str = str.substring (5)
       str = str.replaceAll('"', '')
+      str = str.replaceAll(']', '')
       str = str.replaceAll(':', ': ')
       str = str.replaceAll('{', '')
       str = str.replaceAll('}', '')
@@ -80,9 +126,7 @@ function History() {
       var MyArray = str.split(',');
       MyArray = MyArray.sort();
       
-      // const foundIdx = MyArray.findIndex();
-
-      // const foundIdx = MyArray.findIndex(el => el === (MyArray[el].startswith('Entree')))
+      console.log ("array", MyArray)
       for (var i = 0; i<MyArray.length; i++){
         if (MyArray[i].startsWith('Entree')){
           var foundIdx = i;
@@ -95,51 +139,46 @@ function History() {
       console.log ("details", details)
 
       return (
-        <div className = {history.output}>
+        <div>
           <div className = {history.entree}> 
             {
               MyArray[0]
             }
           </div>
-          <div>
+          <div className = {history.details}>
           {
             details.map((item) => {
-            return (<div className = {history.details}>{item}</div>);
+            return (<div>{item}</div>);
           })}
           </div>
         </div>
       );
     }
+    
 
-    function usersmap (){
-      users.map ((user) => {
-        return (
-          <div className = {history.details}>
-           {print(user)}
-          </div>
-        );
-      })
-    }
     return (
-      
       <div className = {history.layout}>
         <div className = {history.title}>Your past orders! </div>
-        <FormControl sx={{ minWidth: 500 }}>
-          <InputLabel id="demo-simple-select" sx={{ minWidth: 70}}>Entree</InputLabel>
-          <Select
-            labelId="demo-simple-select-autowidth-label"
-            id="demo-simple-select-autowidth"
-            // value={age}
-            // onChange={handleChange}
-            autoWidth
-            label="Hello"
-          >
-            <MenuItem>Pizza</MenuItem>
-            <MenuItem>Sandwich</MenuItem>
-          </Select>
-        </FormControl>
-
-        {usersmap()}
+         <FormControl sx={{ m:3, minWidth: 500 }}>
+        <InputLabel id="demo-simple-select">Order </InputLabel>
+        <Select
+          labelId="demo-simple-select-autowidth-label"
+          id="demo-simple-select-autowidth"
+          value={entree}
+          onChange={filter}
+          autoWidth
+          label="Hello"
+        >
+          <MenuItem value={"All"}>All</MenuItem>
+          <MenuItem value={"Pizza"}>Pizza</MenuItem>
+          <MenuItem value={"Sandwich"}>Sandwich</MenuItem>
+        </Select>
+        
+      </FormControl>
+      {order === 'Start' && (usersmap())}
+      {order === 'Pizza' && (usersmap())}
+      {order === 'Sandwich' && (usersmap())}
+     
       </div>
     );
 

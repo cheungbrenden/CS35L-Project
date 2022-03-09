@@ -32,8 +32,7 @@
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest"
+      "react-app"
     ]
   },
   "browserslist": {
@@ -47,5 +46,15 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {
+    "parser": "@babel/eslint-parser",
+    "eslint": "^8.10.0"
+  },
+  "parserOptions": {
+   "requireConfigFile": false,
+   "babelOptions": {
+    "presets": "@babel/preset-react"
+    }
+   }
 }
