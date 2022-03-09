@@ -9,6 +9,7 @@ import {
   Home,
   Dashboard,
   PostOrder,
+  Welcome,
   SaladToppings, 
   SaladGreens, 
   SaladProteins, 
@@ -39,6 +40,7 @@ function App() {
           <Route exact path="/home" element={<Home />} />
           <Route exact path="/dashboard" element={<Dashboard />} />
           <Route exact path="/postorder" element={<PostOrder />} />
+          <Route exact path="/welcome" element={< Welcome />} />
           <Route exact path="/StartOrder" element={<StartOrder />} />
           <Route exact path="/PizzaToppings" element={<PizzaToppings />} />
           <Route exact path="/PizzaSauce" element={<PizzaSauce />} />

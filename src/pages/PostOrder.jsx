@@ -16,13 +16,20 @@ const UseStyles = makeStyles((theme) => ({
         alignItems: 'center',
         flexDirection: 'column',
         width: '100vw',
+      height: '50rem',
+        backgroundImage: "url(/coffee.png)",
+        backgroundPosition: 'top',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'contain',
+        verticalAlign: 'top',
       },
      
       title: {
-        font: 'normal 500 4.5rem/4.5rem "Solway"',
+        font: 'normal 500 3.5rem/3.5rem "Solway"',
         color: '#F4A950',
         textAlign: 'center',
-        margin: '5rem 0 2rem 0',
+        marginLeft: '37rem',
+        marginTop: '20rem',
         fontWeight: 'bold',
         width: '100rem',
         height: '6rem',
@@ -69,7 +76,7 @@ function PostOrder() {
     return (
         <div className={postorder.layout}>
         <div className = {postorder.title}>
-        Your order will be ready soon.
+        Your order will be ready soon!
         </div>
         <ThemeProvider theme={studyTheme}>
         <Stack spacing={5}>
@@ -81,7 +88,6 @@ function PostOrder() {
         </Stack>
       </ThemeProvider>
       </div>
-  
     );
   
     
