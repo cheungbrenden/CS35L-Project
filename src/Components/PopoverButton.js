@@ -37,7 +37,7 @@ const studyTheme = createTheme({
     <div>
        <ThemeProvider theme={studyTheme}>
        <Button
-      style={{maxWidth: '300px', maxHeight: '75px', minWidth: '300px', minHeight: '75px'}}
+      style={{maxWidth: '690px', maxHeight: '75px', minWidth: '690px', minHeight: '75px'}}
        sx={{
         color: 'black',
       }}
