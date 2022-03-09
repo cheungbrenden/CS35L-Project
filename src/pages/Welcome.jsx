@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { makeStyles } from '@mui/styles';
 import { Link, useNavigate } from "react-router-dom";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { auth, logout} from "../firebase/config";
+import { useAuthState } from "react-firebase-hooks/auth";
 const UseStyles = makeStyles((theme) => ({
     layout: {
       display: 'flex',
@@ -79,7 +81,12 @@ const UseStyles = makeStyles((theme) => ({
 function Welcome() {
     const home = UseStyles();
     console.log ("home")
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
+    const [user, loading, error] = useAuthState(auth);
+    useEffect(() => {
+      if (loading) return;
+      if (!user) return navigate("/home");
+    }, [user,loading]);
     return (
       <div className={home.layout}>
         <div className = {home.title}>
@@ -94,6 +101,10 @@ function Welcome() {
         <Button onClick={() => navigate("/StartOrder")}
             variant = "contained">
             New Order
+        </Button>
+        <Button onClick={() => navigate("/Home")}
+            variant = "contained">
+            Logout
         </Button>
         </Stack>
        </ThemeProvider>
