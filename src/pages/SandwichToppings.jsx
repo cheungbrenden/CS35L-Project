@@ -5,7 +5,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import PublicIcon from '@mui/icons-material/Public';
 import Checkbox from '@mui/material/Checkbox';
-import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
@@ -106,40 +105,33 @@ function SandwichToppings() {
     }
   }
 
-  const [count, setCount] = useState(0);
-
   useEffect(() => {
     getIngredients();
     console.log("test")
   }, []);
 
-  // var checked = {} //dict of names and booleans
-  // var options = [] //array of names
-  // {ingredients.map ((ingredients) => {
-  //   checked[ingredients.Name] = false;
-  //   options.push(ingredients.Name);
-  // })}
+  var options = [] //array of names
+  {ingredients.map ((ingredients) => {
+    options.push(ingredients.Name);
+  })}
 
-  // const checkedObject = () => {
-
-  // }
-  // const [state, setState] = React.useState();
-
-  // const handleChange = (event) => {
-  //   setState({
-  //     ...state,
-  //     [event.target.name]: event.target.checked,
-  //   });
-  // };
-  // console.log('state: ' + state);
-  // options = state;
-  // console.log('options: ' + options)
-  // //const error = options.filter((v) => v).length !== 2;
+  const [ checkedBoxes, setCheckedBoxes ] = React.useState([])
+  
+  const onChange = (name, e) => {
+    const isChecked = e.target.checked
+    if (isChecked) {
+      console.log(checkedBoxes)
+      setCheckedBoxes(checkedBoxes.concat(name))
+      console.log(checkedBoxes)
+    } else {
+      setCheckedBoxes(checkedBoxes.filter(x => x !== name))
+    }
+  }
 
   return (
     <div className={style.layout}>
       <div className = {style.title}>
-      Toppings
+      Sandwich Toppings
       </div>
       <ThemeProvider theme={studyTheme}>
         <Stack spacing={1}>
@@ -149,12 +141,12 @@ function SandwichToppings() {
                 <Button 
                   variant = "contained" 
                   endIcon={<PublicIcon color = 'low'/>}
-                  onChange={() => setCount(count + 1)}
                 >
                   <FormGroup>
                     <FormControlLabel 
                     control = {<Checkbox 
                       size = "small"
+                      onChange={onChange.bind(ingredients.Name, ingredients.Name)}
                       />} 
                     label = {ingredients.Name} />
                   </FormGroup>
@@ -171,6 +163,7 @@ function SandwichToppings() {
                     <FormControlLabel 
                     control = {<Checkbox 
                       size = "small"
+                      onChange={onChange.bind(ingredients.Name, ingredients.Name)}
                       />} 
                       label = {ingredients.Name} />
                   </FormGroup>
@@ -186,6 +179,7 @@ function SandwichToppings() {
                     <FormControlLabel 
                     control = {<Checkbox 
                       size = "small"
+                      onChange={onChange.bind(ingredients.Name, ingredients.Name)}
                     />} 
                       label = {ingredients.Name} />
                   </FormGroup>
@@ -197,8 +191,9 @@ function SandwichToppings() {
           <Button 
             variant = "contained" 
             component={Link} to="../SandwichAddOns"
+            disabled = {checkedBoxes.length > 2}
           >
-            Next
+            Next (Pick up to 2)
           </Button>
           <Button 
             variant = "contained" 

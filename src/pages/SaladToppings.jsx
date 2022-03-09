@@ -5,7 +5,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import PublicIcon from '@mui/icons-material/Public';
 import Checkbox from '@mui/material/Checkbox';
-import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
@@ -116,7 +115,6 @@ function SaladToppings() {
   })}
 
   const [ checkedBoxes, setCheckedBoxes ] = React.useState([])
-  const [flag, setFlag] = React.useState(true) //disable next button
   
   const onChange = (name, e) => {
     const isChecked = e.target.checked
@@ -132,7 +130,7 @@ function SaladToppings() {
   return (
     <div className={style.layout}>
       <div className = {style.title}>
-      Toppings
+      Salad Toppings
       </div>
       <ThemeProvider theme={studyTheme}>
         <Stack spacing={1}>
@@ -194,7 +192,7 @@ function SaladToppings() {
             component={Link} to="../SaladProteins"
             disabled = {checkedBoxes.length > 4}
           >
-            Next
+            Next (Pick up to 4)
           </Button>
           <Button 
             variant = "contained" 
