@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {makeStyles, styled} from '@mui/styles';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {Grid, ButtonBase, Button} from "@mui/material";
-import { auth, logout} from "../firebase/config";
+import { auth} from "../firebase/config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -100,7 +100,7 @@ function StartOrder() {
                             <Button variant = "contained" component={Link} to="../European">European Dishes</Button>
                         </Grid>
                     </Grid>
-                    <Button onClick={logout} variant = "contained">Logout</Button>
+                    <Button variant = "contained" component={Link} to="../Welcome">Back</Button>
                 </ThemeProvider>
             </div>
         </div>
