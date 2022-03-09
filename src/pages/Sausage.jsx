@@ -104,7 +104,7 @@ function Sausage() {
         } else {
 
             addDoc(collection(db, 'Orders'), {Entree: sausageMeal[0], Drink: sausageMeal[1], Side: sausageMeal[2], UID: userid});
-            let path = `newPath`; //change to correct path
+            let path = `/PostOrder`; //change to correct path
             navigate(path);
         }
     }

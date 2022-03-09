@@ -74,13 +74,9 @@ function PostOrder() {
         <ThemeProvider theme={studyTheme}>
         <Stack spacing={5}>
             <Button 
-            component={Link} to="../dashboard"
+            component={Link} to="../StartOrder"
             variant = "contained">
                 Go Back Home
-            </Button>
-            <Button 
-            variant = "contained">
-                Add to Favorites
             </Button>
         </Stack>
       </ThemeProvider>
