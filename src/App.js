@@ -14,7 +14,7 @@ import {
   SaladProteins, 
   SaladDressings
 } from "./pages";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 function App() {
   return (
@@ -22,6 +22,7 @@ function App() {
       <Router>
         <Routes>
           {/* Default path goes to WhatMajor page */}
+          <Route path="/" element={<Navigate to="/home" replace />} />
           <Route exact path="/history" element={<History/>} />
           <Route exact path="/sausage" element={<Sausage/>} />
           <Route exact path="/european" element={<European/>} />
