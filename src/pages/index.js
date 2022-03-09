@@ -10,3 +10,11 @@ export { default as Home } from "./Home";
 export { default as Welcome } from "./Welcome";
 export { default as Dashboard } from "./Dashboard";
 export { default as PostOrder } from "./PostOrder";
+export { default as StartOrder } from "./StartOrder";
+export { default as PizzaSauce } from "./pizzaSauce";
+export { default as PizzaCheese } from "./pizzaCheese";
+export { default as PizzaToppings } from "./pizzaToppings";
+export { default as PizzaAddons } from "./pizzaAddOns";
+
+
+

@@ -139,6 +139,9 @@ function Dashboard() {
          variant = "contained">
           Logout 
          </Button>
+         <Button>
+           {userid}
+         </Button>
          </ThemeProvider>
        </div>
     </div>
