@@ -112,7 +112,7 @@ function PizzaSauce() {
     return (
         <div className={style.layout}>
             <div className = {style.title}>
-                Sauce
+                Pizza Sauce
             </div>
             <ThemeProvider theme={studyTheme}>
                 <Stack spacing={1}>
