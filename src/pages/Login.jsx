@@ -104,7 +104,7 @@ function Login() {
         // maybe trigger a loading screen
         return;
       }
-      if (user) navigate("/StartOrder");
+      if (user) navigate("/Welcome");
     },[user, loading]);
     return (
       <div className={login.layout}>
