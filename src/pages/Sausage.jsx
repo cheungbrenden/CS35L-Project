@@ -1,11 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
-import { db } from '../firebase/config';
+import {auth, db} from '../firebase/config';
 import { useState, useEffect } from 'react';
-import {collection, doc, getDocs, setDoc} from 'firebase/firestore';
+import {addDoc, collection, doc, getDocs, setDoc} from 'firebase/firestore';
 import MouseOverPopover from '../Components/PopoverButton';
 import { useNavigate } from "react-router-dom";
 import {Radio, RadioGroup, FormControl, FormControlLabel, FormLabel, createTheme, ThemeProvider, Button, Grid } from '@mui/material';
+import {onAuthStateChanged} from "firebase/auth";
 
 const UseStyles = makeStyles((theme) => ({
     layout: {
@@ -58,7 +59,7 @@ let sausageMeal = [];
 
 function Sausage() {
 
-
+    const [userid, setUserid] = useState("");
     const [errorMessage, setErrorMessage] = useState('');
 
     function addEntree(value) {
@@ -77,7 +78,8 @@ function Sausage() {
     function addSide(value) {
         console.log(value);
         sausageMeal[2] = value;
-        console.log(sausageMeal)
+        console.log(sausageMeal);
+        console.log("userid: " + userid);
 
     }
 
@@ -100,25 +102,41 @@ function Sausage() {
         if (!isChecked1 || !isChecked2 || !isChecked3) {
             setErrorMessage('Please select an option');
         } else {
-            // TODO: figure out waht to do for users
-            setDoc(doc(db, 'Orders', 'dx'), {Entree: sausageMeal[0], Drink: sausageMeal[1], Side: sausageMeal[2]});
 
-
+            addDoc(collection(db, 'Orders'), {Entree: sausageMeal[0], Drink: sausageMeal[1], Side: sausageMeal[2], UID: userid});
             let path = `newPath`; //change to correct path
             navigate(path);
         }
     }
+
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // User is signed in, see docs for a list of available properties
+            // https://firebase.google.com/docs/reference/js/firebase.User
+            const uid = user.uid;
+            setUserid(uid);
+
+        } else {
+            // User is signed out
+            // ...
+        }
+    });
     const sausage = UseStyles();
     const [sausages, setSausages] = useState ([]);
     const sausageCollectionRef = collection(db, 'Sausage');
     useEffect(() => {
+
         const getSausages = async () => {
             const data = await getDocs (sausageCollectionRef);   //return all documents inside of it 
             console.log (data);
             setSausages (data.docs.map ((doc) => ({ ...doc.data()}))); 
         };
         getSausages();
+
     }, [])
+
+
 
     const [drinks, setDrinks] = useState ([]);
     const drinksCollectionRef = collection(db, 'Drinks');
@@ -142,52 +160,56 @@ function Sausage() {
         getSides();
     }, [])
 
+
+
     return (
+
       <div className={sausage.layout}>
         <div className = {sausage.title}>
         Craft-Your-Own Sausage
         </div>
-            <Grid container spacing={2} columns={15}> <Grid item xs={5}><h2 className={sausage.subtitle}> Sausage: </h2>
-                  <FormControl>
-            <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
-                <RadioGroup
+            <Grid container spacing={2} columns={15}> <Grid item xs={5}>
+                <h2 className={sausage.subtitle}> Sausage: </h2>
+                <FormControl>
+                    <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
+                    <RadioGroup
                     aria-labelledby="demo-radio-buttons-group-label"
                     name="radio-buttons-group"
                     defaultValue="noselect"
                     onChange={() => handleChange("sausage")}
-                >
-                    {sausages.map ((sausage) => {
-                        if (sausage.Footprint == 'low') {
-                            return (
-                                <MouseOverPopover 
-                                label={'Calories: ' + sausage.Nutrition}>
-                                    <FormControlLabel 
-                                    value={sausage.Name}    
-                                    control={
-                                    <Radio style ={{
-                                        color: "#F4A950",
-                                    }}/>
-                                    
-                                    } 
-                                    label={sausage.Name}
-                                    onChange={(e) => addEntree(sausage.Name)}/>
-                                </MouseOverPopover>
-                            );
-                        }
-                        else {  
-                            return (
-                                <MouseOverPopover label={'Calories: ' + sausage.Nutrition}>
-                                    <FormControlLabel 
-                                    value={sausage.Name} 
-                                    control={
-                                    <Radio style ={{
-                                        color: "#F4A950",
-                                    }}/>
-                                    } 
-                                    label={sausage.Name} />
-                                </MouseOverPopover>
-                            );
-                        }
+                    >
+                        {sausages.map((sausage) => {
+                            if (sausage.Footprint === 'low') {
+                                return (
+                                    <MouseOverPopover
+                                        label={'Calories: ' + sausage.Nutrition}>
+                                        <FormControlLabel
+                                            value={sausage.Name}
+                                            control={
+                                                <Radio style={{
+                                                    color: "#F4A950",
+                                                }}/>
+
+                                            }
+                                            label={sausage.Name}
+                                            onChange={(e) => addEntree(sausage.Name)}/>
+                                    </MouseOverPopover>
+                                );
+                            } else {
+                                return (
+                                    <MouseOverPopover label={'Calories: ' + sausage.Nutrition}>
+                                        <FormControlLabel
+                                            value={sausage.Name}
+                                            control={
+                                                <Radio style={{
+                                                    color: "#F4A950",
+                                                }}/>
+                                            }
+                                            label={sausage.Name}
+                                            onChange={(e) => addEntree(sausage.Name)}/>
+                                    </MouseOverPopover>
+                                );
+                            }
                         })}
                 </RadioGroup>
             </FormControl>

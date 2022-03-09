@@ -1,7 +1,7 @@
 import React from 'react';
-import { doc, setDoc } from "firebase/firestore";
+import {addDoc, doc, setDoc} from "firebase/firestore";
 import {makeStyles} from '@mui/styles';
-import {db} from '../firebase/config';
+import {auth, db} from '../firebase/config';
 import {useState, useEffect} from 'react';
 import {collection, getDocs} from 'firebase/firestore';
 import MouseOverPopover from '../Components/PopoverButton';
@@ -17,6 +17,7 @@ import {
     Button,
     Grid
 } from '@mui/material';
+import {onAuthStateChanged} from "firebase/auth";
 
 const UseStyles = makeStyles((theme) => ({
     layout: {
@@ -68,6 +69,7 @@ const euroMeal = [];
 // need to add backend config to get specific button data
 function European() {
 
+    const [userid, setUserid] = useState("");
     const [errorMessage, setErrorMessage] = useState('');
 
 
@@ -110,12 +112,26 @@ function European() {
         if (!isChecked1 || !isChecked2 || !isChecked3) {
             setErrorMessage('Please select an option');
         } else {
-            // TODO: figure out waht to do for users
-            setDoc(doc(db, 'Orders', 'xd'), {Entree: euroMeal[0], Drink: euroMeal[1], Side: euroMeal[2]});
+
+            addDoc(collection(db, 'Orders'), {Entree: euroMeal[0], Drink: euroMeal[1], Side: euroMeal[2], UID: userid});
             let path = `newPath`; //change to correct path
             navigate(path);
         }
     }
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // User is signed in, see docs for a list of available properties
+            // https://firebase.google.com/docs/reference/js/firebase.User
+            const uid = user.uid;
+            setUserid(uid);
+
+        } else {
+            // User is signed out
+            // ...
+        }
+    });
+
     const european = UseStyles();
     const [europeans, setEuropeans] = useState([]);
     const europeansCollectionRef = collection(db, 'European');
