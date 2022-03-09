@@ -194,7 +194,7 @@ function SandwichSpreads() {
             component={Link} to="../PostOrder"
             disabled = {checkedBoxes.length > 2}
           >
-            Place Order (Pick up to 2)
+            Place Order (Pick up to 2 Spreads)
           </Button>
           <Button 
             variant = "contained" 
