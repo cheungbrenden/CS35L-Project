@@ -85,7 +85,7 @@ function StartOrder() {
                 <ThemeProvider theme={studyTheme}>
                     <Grid container spacing={4}>
                         <Grid item xs={6}>
-                            <Button variant = "contained" component={Link} to="../Pizza">Craft Your Own Pizza</Button>
+                            <Button variant = "contained" component={Link} to="../pizzaSauce">Craft Your Own Pizza</Button>
                         </Grid>
                         <Grid item xs={6}>
                             <Button variant = "contained" component={Link} to="../Sausage" >Craft Your Own Sausage</Button>
