@@ -75,11 +75,13 @@ const UseStyles = makeStyles((theme) => ({
         }, 
       },
     });
-  
+
+let isChecked1 = false;
+let isChecked2 = false;
+let isChecked3 = false;
+
 function Sausage() {
-    let isChecked1 = false;
-    let isChecked2 = false;
-    let isChecked3 = false;
+
     const [errorMessage, setErrorMessage] = useState('');
     function handleChange(id){
         if(id == "sausage"){
@@ -90,14 +92,15 @@ function Sausage() {
             isChecked3 = true;
         }
     }
-    let navigate = useNavigate(); 
+    let navigate = useNavigate();
     const routeChange = () =>{
       if(!isChecked1 || !isChecked2 || !isChecked3){
         setErrorMessage('Please select an option');  
       }
   else{
+
     let path = `/postorder`; //change to correct path
-  navigate(path);}
+    navigate(path);}
   }
     const sausage = UseStyles();
     const [sausages, setSausages] = useState ([]);
