@@ -61,13 +61,12 @@ const studyTheme = createTheme({
     typography: {
         fontFamily: 'Solway',
     },
-});
-
+  });
+  let isChecked1 = false;
+  let isChecked2 = false;
+  let isChecked3 = false;  
 // need to add backend config to get specific button data
 function European() {
-    let isChecked1 = false;
-    let isChecked2 = false;
-    let isChecked3 = false;
     const [errorMessage, setErrorMessage] = useState('');
     const euroMeal = [];
 
