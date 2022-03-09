@@ -4,15 +4,11 @@ import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import PublicIcon from '@mui/icons-material/Public';
-import Checkbox from '@mui/material/Checkbox';
-import FormControl from '@mui/material/FormControl';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
 
 import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import { collection, getDocs, query, where, doc, setDoc } from 'firebase/firestore';
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 
 const UseStyles = makeStyles((theme) => ({
   layout: {
@@ -34,7 +30,7 @@ const UseStyles = makeStyles((theme) => ({
     height: '6rem',
   },
   
-  }));
+}));
 
 const studyTheme = createTheme({
   palette: {
@@ -54,7 +50,7 @@ const studyTheme = createTheme({
   },
   typography: {
     fontFamily: 'Solway',
-    fontSize: 12,
+    fontSize: 14,
     button: {
       textTransform:'none',
     },
@@ -87,17 +83,18 @@ const studyTheme = createTheme({
   },
 });
 
-function SaladToppings() {
+function SandwichBread() {
   const style = UseStyles();
   const [ingredients, setIngredients] = useState([]);
-  console.log ("saladToppings")
+  console.log ("saladGreens")
 
   const getIngredients = async () => {
     try{
       const ingredientsArr = [];
-      const q = query(collection(db, "Toppings"), where("salad", "==", true));
+      const q = query(collection(db, "Bread"), orderBy("Name"));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
+        console.log(doc.data());
         ingredientsArr.push(doc.data());
       });
       setIngredients([...ingredientsArr]);
@@ -106,40 +103,14 @@ function SaladToppings() {
     }
   }
 
-  const [count, setCount] = useState(0);
-
   useEffect(() => {
     getIngredients();
-    console.log("test")
   }, []);
-
-  // var checked = {} //dict of names and booleans
-  // var options = [] //array of names
-  // {ingredients.map ((ingredients) => {
-  //   checked[ingredients.Name] = false;
-  //   options.push(ingredients.Name);
-  // })}
-
-  // const checkedObject = () => {
-
-  // }
-  // const [state, setState] = React.useState();
-
-  // const handleChange = (event) => {
-  //   setState({
-  //     ...state,
-  //     [event.target.name]: event.target.checked,
-  //   });
-  // };
-  // console.log('state: ' + state);
-  // options = state;
-  // console.log('options: ' + options)
-  // //const error = options.filter((v) => v).length !== 2;
-
+  
   return (
     <div className={style.layout}>
       <div className = {style.title}>
-      Toppings
+      Bread
       </div>
       <ThemeProvider theme={studyTheme}>
         <Stack spacing={1}>
@@ -149,16 +120,9 @@ function SaladToppings() {
                 <Button 
                   variant = "contained" 
                   endIcon={<PublicIcon color = 'low'/>}
-                  onChange={() => setCount(count + 1)}
-                  onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Toppings: ingredients.Name}, {merge: true})}
+                  component={Link} to="../SaladToppings"
                 >
-                  <FormGroup>
-                    <FormControlLabel 
-                    control = {<Checkbox 
-                      size = "small"
-                      />} 
-                    label = {ingredients.Name} />
-                  </FormGroup>
+                  {ingredients.Name}
                 </Button>
               )
             }
@@ -166,16 +130,10 @@ function SaladToppings() {
               return(
                 <Button 
                   variant = "contained" 
+                  component={Link} to="../SaladToppings"
                   endIcon={<PublicIcon color = 'high'/>}
-                  onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Toppings: ingredients.Name}, {merge: true})}
                 >
-                  <FormGroup>
-                    <FormControlLabel 
-                    control = {<Checkbox 
-                      size = "small"
-                      />} 
-                      label = {ingredients.Name} />
-                  </FormGroup>
+                  {ingredients.Name}
                 </Button>
               )
             }
@@ -183,15 +141,9 @@ function SaladToppings() {
               return(
                 <Button 
                   variant = "contained" 
-                  onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Toppings: ingredients.Name}, {merge: true})}
+                  component={Link} to="../SaladToppings"
                 >
-                  <FormGroup>
-                    <FormControlLabel 
-                    control = {<Checkbox 
-                      size = "small"
-                    />} 
-                      label = {ingredients.Name} />
-                  </FormGroup>
+                  {ingredients.Name}
                 </Button>
               )
             }
@@ -199,22 +151,20 @@ function SaladToppings() {
         <Stack spacing={5}>
           <Button 
             variant = "contained" 
-            component={Link} to="../SaladProteins"
+            component={Link} to="../SaladToppings"
           >
-            Next
+            Skip
           </Button>
           <Button 
             variant = "contained" 
-            component={Link} to="../SaladGreens"
           >
             Back
           </Button>
         </Stack>
       </Stack>
     </ThemeProvider>
-    </div>
-
+  </div>
   );
 }; 
 
-export default SaladToppings; 
+export default SandwichBread; 
