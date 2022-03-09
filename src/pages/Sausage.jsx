@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@mui/styles';
 import { db } from '../firebase/config';
 import { useState, useEffect } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import {collection, doc, getDocs, setDoc} from 'firebase/firestore';
 import MouseOverPopover from '../Components/PopoverButton';
 import { useNavigate } from "react-router-dom";
 import {Radio, RadioGroup, FormControl, FormControlLabel, FormLabel, createTheme, ThemeProvider, Button, Grid } from '@mui/material';
@@ -50,30 +50,64 @@ const UseStyles = makeStyles((theme) => ({
       fontFamily: 'Solway',
     },
   });
-  
+
+let isChecked1 = false;
+let isChecked2 = false;
+let isChecked3 = false;
+let sausageMeal = [];
+
 function Sausage() {
-    let isChecked1 = false;
-    let isChecked2 = false;
-    let isChecked3 = false;
+
+
     const [errorMessage, setErrorMessage] = useState('');
+
+    function addEntree(value) {
+        console.log(value);
+        sausageMeal[0] = value;
+        console.log(sausageMeal)
+    }
+
+    function addDrink(value) {
+        console.log(value);
+        sausageMeal[1] = value;
+        console.log(sausageMeal)
+
+    }
+
+    function addSide(value) {
+        console.log(value);
+        sausageMeal[2] = value;
+        console.log(sausageMeal)
+
+    }
+
     function handleChange(id){
-        if(id == "sausage"){
+        if (id === "sausage"){
             isChecked1 = true;
-        }else if(id == "drink"){
+        } else if(id === "drink"){
             isChecked2 = true;
-        }else if(id == "side"){
+        } else if(id === "side"){
             isChecked3 = true;
         }
     }
-    let navigate = useNavigate(); 
-    const routeChange = () =>{
-      if(!isChecked1 || !isChecked2 || !isChecked3){
-        setErrorMessage('Please select an option');  
-      }
-  else{
-    let path = `/postorder`; //change to correct path
-  navigate(path);}
-  }
+    let navigate = useNavigate();
+    const routeChange = () => {
+        console.log(isChecked1)
+        console.log(isChecked2)
+        console.log(isChecked3)
+        console.log(sausageMeal)
+
+        if (!isChecked1 || !isChecked2 || !isChecked3) {
+            setErrorMessage('Please select an option');
+        } else {
+            // TODO: figure out waht to do for users
+            setDoc(doc(db, 'Orders', 'dx'), {Entree: sausageMeal[0], Drink: sausageMeal[1], Side: sausageMeal[2]});
+
+
+            let path = `newPath`; //change to correct path
+            navigate(path);
+        }
+    }
     const sausage = UseStyles();
     const [sausages, setSausages] = useState ([]);
     const sausageCollectionRef = collection(db, 'Sausage');
@@ -120,7 +154,7 @@ function Sausage() {
                     aria-labelledby="demo-radio-buttons-group-label"
                     name="radio-buttons-group"
                     defaultValue="noselect"
-                    onChange={() => handleChange("drink")}
+                    onChange={() => handleChange("sausage")}
                 >
                     {sausages.map ((sausage) => {
                         if (sausage.Footprint == 'low') {
@@ -135,7 +169,8 @@ function Sausage() {
                                     }}/>
                                     
                                     } 
-                                    label={sausage.Name} />
+                                    label={sausage.Name}
+                                    onChange={(e) => addEntree(sausage.Name)}/>
                                 </MouseOverPopover>
                             );
                         }
@@ -168,9 +203,14 @@ function Sausage() {
                     >
                         {drinks.map ((drink) => {
                         return (
-                            <MouseOverPopover label={'Calories: ' + drink.Nutrition}><FormControlLabel value={drink.Name} control={<Radio style ={{
+                            <MouseOverPopover label={'Calories: ' + drink.Nutrition}><FormControlLabel
+                                value={drink.Name}
+                                control={<Radio style ={{
                             color: "#F4A950",
-                            }}/>} label={drink.Name} /></MouseOverPopover>
+                            }}/>}
+                                label={drink.Name}
+                                onChange={(e) => addDrink(drink.Name)}
+                            /></MouseOverPopover>
                         );
                         })}
                     </RadioGroup>
@@ -187,9 +227,13 @@ function Sausage() {
                     >
                         {sides.map ((side) => {
                                 return (
-                                <MouseOverPopover label={'Calories: ' + side.Nutrition}><FormControlLabel value={side.Name} control={<Radio style ={{
+                                <MouseOverPopover label={'Calories: ' + side.Nutrition}><FormControlLabel
+                                    value={side.Name}
+                                    control={<Radio style ={{
                                     color: "#F4A950",
-                                }}/>} label={side.Name} /></MouseOverPopover>
+                                }}/>}
+                                    label={side.Name}
+                                    onChange={(e) => addSide(side.Name)}/></MouseOverPopover>
                                 );
                             })}
                     </RadioGroup>
@@ -197,7 +241,7 @@ function Sausage() {
             </Grid></Grid>
         
             <ThemeProvider theme={studyTheme}>
-                <Button sx={{mt: 6}}onClick={routeChange}variant="contained" color= "generic" fontFamily="true">
+                <Button sx={{mt: 6}} onClick={routeChange} variant="contained" color= "generic" fontFamily="true">
                     Place Order
                 </Button>
             </ThemeProvider>

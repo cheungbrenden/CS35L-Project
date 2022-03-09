@@ -7,7 +7,7 @@ import Stack from '@mui/material/Stack';
 import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import { collection, getDocs, query, orderBy} from 'firebase/firestore';
+import {collection, getDocs, query, orderBy, setDoc, doc} from 'firebase/firestore';
 
 const UseStyles = makeStyles((theme) => ({
     layout: {
@@ -75,14 +75,15 @@ function SaladProteins() {
       <Stack spacing={1}>
         {protein.map ((protein) => {
         return(
-          <ThemeProvider theme={studyTheme}>
-            <Button variant="contained" 
-            color= "generic" 
-            fontFamily="true" 
-            component={Link} to="../SaladDressings">
-              {protein.Name}
-            </Button>
-          </ThemeProvider>
+            <ThemeProvider theme={studyTheme}>
+                <Button variant="contained"
+                      color="generic"
+                      fontFamily="true"
+                      component={Link} to="../SaladDressings"
+                      onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Protein: protein.Name}, {merge: true})}>
+                  {protein.Name}
+                </Button>
+            </ThemeProvider>
         )
       })}
     </Stack>
