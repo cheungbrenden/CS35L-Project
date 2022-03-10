@@ -8,7 +8,7 @@ import PublicIcon from '@mui/icons-material/Public';
 import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import {collection, getDocs, query, orderBy, setDoc, doc} from 'firebase/firestore';
+import {collection, getDocs, query, orderBy, setDoc, doc, deleteDoc} from 'firebase/firestore';
 import { orderRefID } from './StartOrder';
 
 const UseStyles = makeStyles((theme) => ({
@@ -161,7 +161,7 @@ function SandwichBread() {
           </Button>
           <Button 
             variant = "contained" 
-            component={Link} to="../StartOrder"
+            component={Link} to="../StartOrder"onClick={() => deleteDoc(doc(db, 'Orders', orderRefID))}
           >
             Back
           </Button>
