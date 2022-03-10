@@ -3,6 +3,7 @@ import { makeStyles } from '@mui/styles';
 import { db, auth } from '../firebase/config';
 import { useState, useEffect } from 'react';
 import { addDoc, collection, doc, getDocs, setDoc } from 'firebase/firestore';
+import { useAuthState } from "react-firebase-hooks/auth";
 import MouseOverPopover from '../Components/PopoverButton';
 import { Link, useNavigate } from "react-router-dom";
 import {Radio, RadioGroup, FormControl, FormControlLabel, FormLabel, createTheme, ThemeProvider, Button, Grid } from '@mui/material';
@@ -87,6 +88,7 @@ function Sausage() {
 
     const [userid, setUserid] = useState("");
     const [errorMessage, setErrorMessage] = useState('')
+    const [user, loading, error] = useAuthState(auth);
 
     function addEntree(value) {
         console.log(value);
@@ -141,6 +143,10 @@ function Sausage() {
     const sausage = UseStyles();
     const [sausages, setSausages] = useState ([]);
     const sausageCollectionRef = collection(db, 'Sausage');
+    useEffect(() => {
+        if (loading) return;
+        if (!user) return navigate("/home");
+      }, [user,loading]);
     useEffect(() => {
         const getSausages = async () => {
             const data = await getDocs (sausageCollectionRef);   //return all documents inside of it 

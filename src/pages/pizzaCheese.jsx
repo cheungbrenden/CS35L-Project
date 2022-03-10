@@ -5,9 +5,10 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import PublicIcon from '@mui/icons-material/Public';
 
-import { db } from '../firebase/config';
+import { db, auth } from '../firebase/config';
+import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { collection, getDocs, query, orderBy, doc, setDoc, where } from 'firebase/firestore';
 import { orderRefID } from './StartOrder'
 
@@ -88,7 +89,8 @@ const studyTheme = createTheme({
 function PizzaCheese() {
     const style = UseStyles();
     const [cheese, setCheese] = useState([]);
-
+    const [user, loading, error] = useAuthState(auth);
+    const navigate = useNavigate();
     function handleSubmit(specifiedCheese) {
         db.collection("Orders").doc('asdfasdf').set({
             cheese: specifiedCheese
@@ -109,7 +111,10 @@ function PizzaCheese() {
             console.log(error);
         }
     }
-
+    useEffect(() => {
+        if (loading) return;
+        if (!user) return navigate("/home");
+      }, [user, loading]);
     useEffect(() => {
         getCheeses();
     }, []);

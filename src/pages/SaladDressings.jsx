@@ -5,12 +5,12 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import PublicIcon from '@mui/icons-material/Public';
 
-import { db } from '../firebase/config';
+import { db, auth } from '../firebase/config';
 import { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { collection, getDocs, query, orderBy, doc, setDoc } from 'firebase/firestore';
 import { orderRefID } from './StartOrder'
-
+import { useAuthState } from "react-firebase-hooks/auth";
 const UseStyles = makeStyles((theme) => ({
   layout: {
     display: 'flex',
@@ -88,7 +88,8 @@ function SaladDressings() {
   const style = UseStyles();
   const [ingredients, setIngredients] = useState([]);
   console.log ("saladGreens")
-
+  const [user, loading, error] = useAuthState(auth);
+  const navigate = useNavigate();
   const getIngredients = async () => {
     try{
       const ingredientsArr = [];
@@ -103,6 +104,10 @@ function SaladDressings() {
       console.log(error);
     }
   }
+  useEffect(() => {
+    if (loading) return;
+    if (!user) return navigate("/home");
+  }, [user, loading]);
 
   useEffect(() => {
     getIngredients();

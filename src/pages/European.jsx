@@ -4,6 +4,7 @@ import {makeStyles} from '@mui/styles';
 import {auth, db} from '../firebase/config';
 import {useState, useEffect} from 'react';
 import {collection, getDocs} from 'firebase/firestore';
+import { useAuthState } from "react-firebase-hooks/auth";
 import MouseOverPopover from '../Components/PopoverButton';
 import {Link, useNavigate} from "react-router-dom";
 import PublicIcon from '@mui/icons-material/Public';
@@ -164,6 +165,11 @@ function European() {
     const european = UseStyles();
     const [europeans, setEuropeans] = useState([]);
     const europeansCollectionRef = collection(db, 'European');
+    const [user, loading, error] = useAuthState(auth);
+    useEffect(() => {
+        if (loading) return;
+        if (!user) return navigate("/home");
+      }, [user, loading]);
     useEffect(() => {
         const getEuropeans = async () => {
             const data = await getDocs(europeansCollectionRef);   //return all documents inside of it

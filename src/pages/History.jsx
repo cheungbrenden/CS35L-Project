@@ -10,9 +10,10 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {onAuthStateChanged} from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 
 const studyTheme = createTheme({
@@ -109,7 +110,8 @@ function History() {
     const [entree, setEntree] = React.useState("");
     const [order, setOrder] = useState('Start')
     const [filtered, setFiltered] = useState ([]);
-
+    const [user, loading, error] = useAuthState(auth);
+    const navigate = useNavigate();
 
   //   onAuthStateChanged(auth, (user) => {
   //     if (user) {
@@ -123,7 +125,10 @@ function History() {
   //         // ...
   //     }
   // });
-
+  useEffect(() => {
+    if (loading) return;
+    if (!user) return navigate("/home");
+  }, [user, loading]);
     useEffect(() => {
         const getUsers = async () => {
             const data = await getDocs (userCollectionRef);   //return all documents inside of it 

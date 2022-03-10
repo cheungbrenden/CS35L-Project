@@ -120,7 +120,7 @@ function StartOrder() {
     useEffect(() => {
         if (loading) return;
         if (!user) return navigate("/home");
-      }, [user, loading, navigate]);
+      }, [user, loading]);
 
     return (
         <div className={startOrder.layout}>

@@ -2,13 +2,14 @@ import React from 'react';
 import { makeStyles } from '@mui/styles';
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Stack from '@mui/material/Stack';
 import PublicIcon from '@mui/icons-material/Public';
 
-import { db } from '../firebase/config';
+import { db,auth } from '../firebase/config';
 import { useEffect, useState } from "react";
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const UseStyles = makeStyles((theme) => ({
     layout: {
@@ -73,6 +74,12 @@ const UseStyles = makeStyles((theme) => ({
 function PostOrder() {
     const postorder = UseStyles();
     console.log ("postorder")
+    const [user, loading, error] = useAuthState(auth);
+    const navigate = useNavigate();
+    useEffect(() => {
+      if (loading) return;
+      if (!user) return navigate("/home");
+    }, [user, loading]);
     return (
         <div className={postorder.layout}>
         <div className = {postorder.title}>

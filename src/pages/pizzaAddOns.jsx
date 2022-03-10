@@ -8,11 +8,12 @@ import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-import { db } from '../firebase/config';
+import { db,auth } from '../firebase/config';
 import { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { collection, getDocs, query, where, doc, setDoc } from 'firebase/firestore';
 import { orderRefID } from './StartOrder';
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const UseStyles = makeStyles((theme) => ({
   layout: {
@@ -91,6 +92,8 @@ function SaladToppings() {
   const style = UseStyles();
   const [ingredients, setIngredients] = useState([]);
   console.log ("saladToppings")
+  const [user, loading, error] = useAuthState(auth);
+  const navigate = useNavigate();
 
   const getIngredients = async () => {
     try{
@@ -106,6 +109,10 @@ function SaladToppings() {
     }
   }
 
+  useEffect(() => {
+    if (loading) return;
+    if (!user) return navigate("/home");
+  }, [user, loading]);
   useEffect(() => {
     getIngredients();
   }, []);

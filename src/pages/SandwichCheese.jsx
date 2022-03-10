@@ -5,9 +5,10 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import PublicIcon from '@mui/icons-material/Public';
 
-import { db } from '../firebase/config';
+import { db, auth } from '../firebase/config';
+import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {collection, doc, getDocs, query, setDoc, where} from 'firebase/firestore';
 import { orderRefID } from './StartOrder';
 
@@ -88,7 +89,8 @@ function SandwichCheese() {
   const style = UseStyles();
   const [ingredients, setIngredients] = useState([]);
   console.log ("sandwichCheese")
-
+  const [user, loading, error] = useAuthState(auth);
+  const navigate = useNavigate();
   const getIngredients = async () => {
     try{
       const ingredientsArr = [];
@@ -103,6 +105,11 @@ function SandwichCheese() {
       console.log(error);
     }
   }
+
+  useEffect(() => {
+    if (loading) return;
+    if (!user) return navigate("/home");
+  }, [user, loading]);
 
   useEffect(() => {
     getIngredients();
