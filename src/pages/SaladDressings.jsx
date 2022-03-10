@@ -154,7 +154,7 @@ function SaladDressings() {
             variant = "contained" 
             component={Link} to="../PostOrder"
           >
-            Skip
+            Skip and Place Order
           </Button>
           <Button 
             variant = "contained" 

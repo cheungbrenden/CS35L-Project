@@ -117,7 +117,7 @@ function PizzaCheese() {
     return (
         <div className={style.layout}>
             <div className = {style.title}>
-                Cheese
+            Pizza Cheeses
             </div>
             <ThemeProvider theme={studyTheme}>
                 <Stack spacing={1}>
