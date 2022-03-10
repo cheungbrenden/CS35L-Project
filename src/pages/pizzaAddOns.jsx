@@ -203,7 +203,7 @@ function SaladToppings() {
             disabled = {checkedBoxes.length > 3}
             onClick={e => postToDB(checkedBoxes)}
           >
-            Next (Pick up to 3)
+            Place Order (Pick up to 3 Add-Ons)
           </Button>
           <Button 
             variant = "contained" 
