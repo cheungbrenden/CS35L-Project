@@ -6,7 +6,10 @@ import {useState, useEffect} from 'react';
 import {collection, getDocs} from 'firebase/firestore';
 import MouseOverPopover from '../Components/PopoverButton';
 import {Link, useNavigate} from "react-router-dom";
+import PublicIcon from '@mui/icons-material/Public';
 import Stack from '@mui/material/Stack';
+
+
 import {
     Radio,
     RadioGroup,
@@ -26,7 +29,7 @@ const UseStyles = makeStyles((theme) => ({
         alignItems: 'center',
         flexDirection: 'column',
         width: '100vw',
-        height: '50rem',
+        height: '100vw',
         backgroundColor: '#FDF9F9',
     },
 
@@ -51,20 +54,42 @@ const UseStyles = makeStyles((theme) => ({
     },
 
 }));
+
 const studyTheme = createTheme({
     palette: {
-        generic: {
-            main: '#594A47',
-            contrastText: '#fff',
+        primary: {
+          main: '#594A47',
+          contrastText: '#fff',
         },
-    },
-    typography: {
+        low: {
+          main: '#0f9600',
+        },
+        high: {
+          main: '#bf0404',
+        },
+        background: {
+          default: '#F1ECEC',
+        }
+      },
+      typography: {
         fontFamily: 'Solway',
         button: {
-            textTransform:'none',
+          textTransform:'none',
         },
-    },
-});
+      },
+      subtitle1:{
+        fontFamily: 'Solway',
+      },
+      components: {
+        MuiButton: {
+          styleOverrides: {
+            root: {
+              borderRadius: 8,
+            },
+          }, 
+        }, 
+      },
+    });
 
 let isChecked1 = false;
 let isChecked2 = false;
@@ -117,7 +142,7 @@ function European() {
             setErrorMessage('Please select an option');
         } else {
 
-            addDoc(collection(db, 'Orders'), {Entree: "European", European: euroMeal[0], Drink: euroMeal[1], Side: euroMeal[2], UID: userid});
+            addDoc(collection(db, 'Orders'), {Entree: euroMeal[0], Drink: euroMeal[1], Side: euroMeal[2], UID: userid});
             let path = `/PostOrder`; //change to correct path
             navigate(path);
         }
@@ -186,14 +211,66 @@ function European() {
                         onChange={() => handleChange("european")}
                     >
                         {europeans.map((european) => {
-                            return (
-                                <MouseOverPopover label={'Calories: ' + european.Nutrition}>
-                                    <FormControlLabel
-                                    value={european.Name} control={<Radio style={{
-                                    color: "#F4A950",
-                                }}/>} label={european.Name} onChange={(e) => addEntree(european.Name)}/>
-                                </MouseOverPopover>
-                            );
+                            if (european.Footprint === 'low'){
+                                return (
+                                    <ThemeProvider theme={studyTheme}>
+                                        <MouseOverPopover label={'Calories: ' + european.Nutrition}>
+                                            <FormControlLabel
+                                            value={european.Name} 
+                                            control={
+                                            <Radio style={{
+                                                color: "#F4A950",
+                                            }}/>
+                                            } 
+                                            label={european.Name} 
+                                            onChange={(e) => addEntree(european.Name)}
+                                            />
+                                            <ThemeProvider theme={studyTheme}>
+                                                {<PublicIcon color = 'low'/>}
+                                            </ThemeProvider>
+                                        </MouseOverPopover>
+                                    </ThemeProvider>
+                                );
+                            }
+                            else if (european.Footprint === 'high'){
+                                return (
+                                    <ThemeProvider theme={studyTheme}>
+                                        <MouseOverPopover label={'Calories: ' + european.Nutrition}>
+                                            <FormControlLabel
+                                            value={european.Name} 
+                                            control={
+                                            <Radio style={{
+                                                color: "#F4A950",
+                                            }}/>
+                                            } 
+                                            label={european.Name} 
+                                            onChange={(e) => addEntree(european.Name)}
+                                            />
+                                            <ThemeProvider theme={studyTheme}>
+                                                {<PublicIcon color = 'high'/>}
+                                            </ThemeProvider>
+                                        </MouseOverPopover>
+                                    </ThemeProvider>
+                                );
+                            }
+                            else{
+                                return (
+                                    <ThemeProvider theme={studyTheme}>
+                                        <MouseOverPopover label={'Calories: ' + european.Nutrition}>
+                                            <FormControlLabel
+                                            value={european.Name} 
+                                            control={
+                                            <Radio style={{
+                                                color: "#F4A950",
+                                            }}/>
+                                            } 
+                                            label={european.Name} 
+                                            onChange={(e) => addEntree(european.Name)}
+                                            />
+                                        </MouseOverPopover>
+                                    </ThemeProvider>
+                                );
+                            }
                         })}
                     </RadioGroup>
                 </FormControl>
@@ -208,12 +285,57 @@ function European() {
                             onChange={() => handleChange("drink")}
                         >
                             {drinks.map((drink) => {
-                                return (
-                                    <MouseOverPopover label={'Calories: ' + drink.Nutrition}><FormControlLabel
-                                        value={drink.Name} control={<Radio style={{
-                                        color: "#F4A950"
-                                    }}/>} label={drink.Name} onChange={(e) => addDrink(drink.Name)}/></MouseOverPopover>
-                                );
+                                if (drinks.Footprint == 'low'){
+                                    return (
+                                        <ThemeProvider theme={studyTheme}>
+                                            <MouseOverPopover label={'Calories: ' + drink.Nutrition}>
+                                                <FormControlLabel
+                                                value={drink.Name} 
+                                                control={<Radio style={{
+                                                color: "#F4A950"
+                                                }}/>} 
+                                            label={drink.Name} 
+                                            onChange={(e) => addDrink(drink.Name)}/>
+                                            <ThemeProvider theme={studyTheme}>
+                                                {<PublicIcon color = 'low'/>}
+                                            </ThemeProvider>
+                                            </MouseOverPopover>
+                                        </ThemeProvider>
+                                    );
+                                }
+                                else if (drinks.Footprint == 'high'){
+                                    return (
+                                        <ThemeProvider theme={studyTheme}>
+                                            <MouseOverPopover label={'Calories: ' + drink.Nutrition}>
+                                                <FormControlLabel
+                                                value={drink.Name} 
+                                                control={<Radio style={{
+                                                color: "#F4A950"
+                                                }}/>} 
+                                            label={drink.Name} 
+                                            onChange={(e) => addDrink(drink.Name)}/>
+                                            <ThemeProvider theme={studyTheme}>
+                                                {<PublicIcon color = 'high'/>}
+                                            </ThemeProvider>
+                                            </MouseOverPopover>
+                                        </ThemeProvider>
+                                    );
+                                }
+                                else {
+                                    return (
+                                        <ThemeProvider theme={studyTheme}>
+                                            <MouseOverPopover label={'Calories: ' + drink.Nutrition}>
+                                                <FormControlLabel
+                                                value={drink.Name} 
+                                                control={<Radio style={{
+                                                color: "#F4A950"
+                                                }}/>} 
+                                            label={drink.Name} 
+                                            onChange={(e) => addDrink(drink.Name)}/>
+                                            </MouseOverPopover>
+                                        </ThemeProvider>
+                                    );
+                                }
                             })}
                         </RadioGroup>
                     </FormControl>
@@ -227,12 +349,57 @@ function European() {
                             onChange={() => handleChange("side")}
                         >
                             {sides.map((side) => {
-                                return (
-                                    <MouseOverPopover label={'Calories: ' + side.Nutrition}><FormControlLabel
-                                        value={side.Name} control={<Radio style={{
-                                        color: "#F4A950",
-                                    }}/>} label={side.Name} onChange={(e) => addSide(side.Name)}/></MouseOverPopover>
-                                );
+                                if (side.Footprint == 'low'){
+                                    return (
+                                        <ThemeProvider theme={studyTheme}> 
+                                            <MouseOverPopover label={'Calories: ' + side.Nutrition}>
+                                                <FormControlLabel
+                                                value={side.Name} 
+                                                control={<Radio style={{
+                                                color: "#F4A950",
+                                                }}/>} 
+                                                label={side.Name} 
+                                                onChange={(e) => addSide(side.Name)}/>
+                                                <ThemeProvider theme={studyTheme}>
+                                                    {<PublicIcon color = 'low'/>}
+                                                </ThemeProvider>
+                                            </MouseOverPopover>
+                                        </ThemeProvider>
+                                    );
+                                }
+                                else if (side.Footprint == 'high'){
+                                    return (
+                                        <ThemeProvider theme={studyTheme}> 
+                                            <MouseOverPopover label={'Calories: ' + side.Nutrition}>
+                                                <FormControlLabel
+                                                value={side.Name} 
+                                                control={<Radio style={{
+                                                color: "#F4A950",
+                                                }}/>} 
+                                                label={side.Name} 
+                                                onChange={(e) => addSide(side.Name)}/>
+                                                <ThemeProvider theme={studyTheme}>
+                                                    {<PublicIcon color = 'high'/>}
+                                                </ThemeProvider>
+                                            </MouseOverPopover>
+                                        </ThemeProvider>
+                                    );
+                                }
+                                else {
+                                    return (
+                                        <ThemeProvider theme={studyTheme}> 
+                                            <MouseOverPopover label={'Calories: ' + side.Nutrition}>
+                                                <FormControlLabel
+                                                value={side.Name} 
+                                                control={<Radio style={{
+                                                color: "#F4A950",
+                                                }}/>} 
+                                                label={side.Name} 
+                                                onChange={(e) => addSide(side.Name)}/>
+                                            </MouseOverPopover>
+                                        </ThemeProvider>
+                                    );
+                                }
                             })}
                         </RadioGroup>
                     </FormControl>
@@ -240,11 +407,11 @@ function European() {
 
             <ThemeProvider theme={studyTheme}>
             <Stack spacing={1}>
-                <Button sx={{mt: 6}} onClick={routeChange} variant="contained" color="generic" fontFamily="true">
+                <Button sx={{mt: 6}} onClick={routeChange} variant="contained" color="primary" fontFamily="true">
                     Place Order
                 </Button>
-                <Button variant = "contained" component={Link} to="../StartOrder" color="generic" fontFamily="true"> Back</Button>
-                </Stack>
+                <Button variant = "contained" component={Link} to="../StartOrder" color="primary" fontFamily="true"> Back</Button>
+                </Stack>            
             </ThemeProvider>
             {errorMessage && <div className="error"> {errorMessage} </div>}
         </div>
