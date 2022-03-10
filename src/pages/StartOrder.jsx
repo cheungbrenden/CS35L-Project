@@ -96,11 +96,6 @@ function StartOrder() {
 
 
 
-
-
-
-
-
     return (
         <div className={startOrder.layout}>
             <div className={startOrder.title}>
