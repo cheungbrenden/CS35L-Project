@@ -13,6 +13,7 @@ import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import { collection, getDocs, query, orderBy, doc, setDoc } from 'firebase/firestore';
+import { orderRefID } from './StartOrder';
 
 const UseStyles = makeStyles((theme) => ({
   layout: {
@@ -129,6 +130,15 @@ function SandwichSpreads() {
     }
   }
 
+  function postToDB(toppingsArray) {
+    for (let i = 0; i <= 1; i++) {
+      if (toppingsArray[i] === undefined) {
+        toppingsArray[i] = 'N/A';
+      }
+    }
+    setDoc(doc(db, 'Orders', orderRefID), {'Spread 1': checkedBoxes[0], 'Spread 2': checkedBoxes[1]},  {merge: true})
+  }
+
   return (
     <div className={style.layout}>
       <div className = {style.title}>
@@ -193,6 +203,7 @@ function SandwichSpreads() {
             variant = "contained" 
             component={Link} to="../PostOrder"
             disabled = {checkedBoxes.length > 2}
+            onClick={e => postToDB(checkedBoxes)}
           >
             Place Order (Pick up to 2 Spreads)
           </Button>

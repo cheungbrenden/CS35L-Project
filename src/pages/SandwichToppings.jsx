@@ -12,6 +12,7 @@ import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import { collection, getDocs, query, where, doc, setDoc } from 'firebase/firestore';
+import { orderRefID } from './StartOrder';
 
 const UseStyles = makeStyles((theme) => ({
   layout: {
@@ -105,6 +106,15 @@ function SandwichToppings() {
     }
   }
 
+  function postToDB(toppingsArray) {
+    for (let i = 0; i <= 1; i++) {
+      if (toppingsArray[i] === undefined) {
+        toppingsArray[i] = 'N/A';
+      }
+    }
+    setDoc(doc(db, 'Orders', orderRefID), {'Topping 1': checkedBoxes[0], 'Topping 2': checkedBoxes[1]}, {merge: true})
+  }
+
   useEffect(() => {
     getIngredients();
     console.log("test")
@@ -192,6 +202,7 @@ function SandwichToppings() {
             variant = "contained" 
             component={Link} to="../SandwichAddOns"
             disabled = {checkedBoxes.length > 2}
+            onClick={e => postToDB(checkedBoxes)}
           >
             Next (Pick up to 2)
           </Button>

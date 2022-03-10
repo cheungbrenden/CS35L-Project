@@ -8,7 +8,8 @@ import PublicIcon from '@mui/icons-material/Public';
 import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import {collection, getDocs, query, orderBy, setDoc, doc} from 'firebase/firestore';
+import { orderRefID } from './StartOrder';
 
 const UseStyles = makeStyles((theme) => ({
   layout: {
@@ -121,6 +122,7 @@ function SandwichBread() {
                   variant = "contained" 
                   endIcon={<PublicIcon color = 'low'/>}
                   component={Link} to="../SandwichCheese"
+                  onClick={() => setDoc(doc(db, 'Orders', orderRefID), {Bread: ingredients.Name}, {merge: true})}
                 >
                   {ingredients.Name}
                 </Button>
@@ -132,6 +134,7 @@ function SandwichBread() {
                   variant = "contained" 
                   component={Link} to="../SandwichCheese"
                   endIcon={<PublicIcon color = 'high'/>}
+                  onClick={() => setDoc(doc(db, 'Orders', orderRefID), {Bread: ingredients.Name}, {merge: true})}
                 >
                   {ingredients.Name}
                 </Button>
@@ -142,6 +145,7 @@ function SandwichBread() {
                 <Button 
                   variant = "contained" 
                   component={Link} to="../SandwichCheese"
+                  onClick={() => setDoc(doc(db, 'Orders', orderRefID), {Bread: ingredients.Name}, {merge: true})}
                 >
                   {ingredients.Name}
                 </Button>
