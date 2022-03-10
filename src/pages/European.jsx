@@ -285,7 +285,7 @@ function European() {
                             onChange={() => handleChange("drink")}
                         >
                             {drinks.map((drink) => {
-                                if (drinks.Footprint == 'low'){
+                                if (drink.Footprint == 'low'){
                                     return (
                                         <ThemeProvider theme={studyTheme}>
                                             <MouseOverPopover label={'Calories: ' + drink.Nutrition}>
@@ -303,7 +303,7 @@ function European() {
                                         </ThemeProvider>
                                     );
                                 }
-                                else if (drinks.Footprint == 'high'){
+                                else if (drink.Footprint == 'high'){
                                     return (
                                         <ThemeProvider theme={studyTheme}>
                                             <MouseOverPopover label={'Calories: ' + drink.Nutrition}>
