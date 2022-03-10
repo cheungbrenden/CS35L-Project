@@ -9,6 +9,7 @@ import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import { collection, getDocs, query, orderBy, doc, setDoc } from 'firebase/firestore';
+import { orderRefID } from './StartOrder'
 
 const UseStyles = makeStyles((theme) => ({
   layout: {
@@ -121,7 +122,7 @@ function SaladProteins() {
                   variant = "contained" 
                   endIcon={<PublicIcon color = 'low'/>}
                   component={Link} to="../SaladDressings"
-                  onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Protein: ingredients.Name}, {merge: true})}
+                  onClick={() => setDoc(doc(db, 'Orders', orderRefID), {Protein: ingredients.Name}, {merge: true})}
                 >
                   {ingredients.Name}
                 </Button>
@@ -133,8 +134,7 @@ function SaladProteins() {
                   variant = "contained" 
                   component={Link} to="../SaladDressings"
                   endIcon={<PublicIcon color = 'high'/>}
-                  onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Protein: ingredients.Name}, {merge: true})}
-                >
+                  onClick={() => setDoc(doc(db, 'Orders', orderRefID), {Protein: ingredients.Name}, {merge: true})}                >
                   {ingredients.Name}
                 </Button>
               )
@@ -144,8 +144,7 @@ function SaladProteins() {
                 <Button 
                   variant = "contained" 
                   component={Link} to="../SaladDressings"
-                  onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Protein: ingredients.Name}, {merge: true})}
-                >
+                  onClick={() => setDoc(doc(db, 'Orders', orderRefID), {Protein: ingredients.Name}, {merge: true})}                >
                   {ingredients.Name}
                 </Button>
               )

@@ -12,6 +12,7 @@ import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import { collection, getDocs, query, where, doc, setDoc } from 'firebase/firestore';
+import { orderRefID } from './StartOrder'
 
 const UseStyles = makeStyles((theme) => ({
   layout: {
@@ -105,6 +106,15 @@ function SaladToppings() {
     }
   }
 
+  function postToDB(toppingsArray) {
+    for (let i = 0; i <= 3; i++) {
+      if (toppingsArray[i] === undefined) {
+        toppingsArray[i] = 'N/A';
+      }
+    }
+    setDoc(doc(db, 'Orders', orderRefID), {'Topping 1': checkedBoxes[0], 'Topping 2': checkedBoxes[1], 'Topping 3': checkedBoxes[2], 'Topping 4': checkedBoxes[3]}, {merge: true})
+  }
+
   useEffect(() => {
     getIngredients();
   }, []);
@@ -123,6 +133,7 @@ function SaladToppings() {
       setCheckedBoxes(checkedBoxes.concat(name))
       console.log(checkedBoxes)
     } else {
+      console.log(checkedBoxes)
       setCheckedBoxes(checkedBoxes.filter(x => x !== name))
     }
   }
@@ -191,6 +202,7 @@ function SaladToppings() {
             variant = "contained" 
             component={Link} to="../SaladProteins"
             disabled = {checkedBoxes.length > 4}
+            onClick={e => postToDB(checkedBoxes)}
           >
             Next (Pick up to 4)
           </Button>

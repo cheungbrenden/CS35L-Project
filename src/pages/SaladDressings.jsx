@@ -9,6 +9,7 @@ import { db } from '../firebase/config';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import { collection, getDocs, query, orderBy, doc, setDoc } from 'firebase/firestore';
+import { orderRefID } from './StartOrder'
 
 const UseStyles = makeStyles((theme) => ({
   layout: {
@@ -120,9 +121,8 @@ function SaladDressings() {
                 <Button 
                   variant = "contained" 
                   endIcon={<PublicIcon color = 'low'/>}
-                  component={Link} to="../SaladDressings"
-                  onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Dressing: ingredients.Name}, {merge: true})}
-                >
+                  component={Link} to="../PostOrder"
+                  onClick={() => setDoc(doc(db, 'Orders', orderRefID), {Dressings: ingredients.Name}, {merge: true})}                >
                   {ingredients.Name}
                 </Button>
               )
@@ -131,10 +131,9 @@ function SaladDressings() {
               return(
                 <Button 
                   variant = "contained" 
-                  component={Link} to="../SaladDressings"
+                  component={Link} to="../PostOrder"
                   endIcon={<PublicIcon color = 'high'/>}
-                  onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Dressing: ingredients.Name}, {merge: true})}
-                >
+                  onClick={() => setDoc(doc(db, 'Orders', orderRefID), {Dressings: ingredients.Name}, {merge: true})}                >
                   {ingredients.Name}
                 </Button>
               )
@@ -144,8 +143,7 @@ function SaladDressings() {
                 <Button 
                   variant = "contained" 
                   component={Link} to="../PostOrder"
-                  onClick={() => setDoc(doc(db, 'Orders', 'aaaa'), {Dressing: ingredients.Name}, {merge: true})}
-                >
+                  onClick={() => setDoc(doc(db, 'Orders', orderRefID), {Dressings: ingredients.Name}, {merge: true})}                >
                   {ingredients.Name}
                 </Button>
               )
