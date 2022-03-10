@@ -6,6 +6,7 @@ import {useState, useEffect} from 'react';
 import {collection, getDocs} from 'firebase/firestore';
 import MouseOverPopover from '../Components/PopoverButton';
 import {Link, useNavigate} from "react-router-dom";
+import Stack from '@mui/material/Stack';
 import {
     Radio,
     RadioGroup,
@@ -59,6 +60,9 @@ const studyTheme = createTheme({
     },
     typography: {
         fontFamily: 'Solway',
+        button: {
+            textTransform:'none',
+        },
     },
 });
 
@@ -235,10 +239,12 @@ function European() {
                 </Grid></Grid>
 
             <ThemeProvider theme={studyTheme}>
+            <Stack spacing={1}>
                 <Button sx={{mt: 6}} onClick={routeChange} variant="contained" color="generic" fontFamily="true">
                     Place Order
                 </Button>
                 <Button variant = "contained" component={Link} to="../StartOrder" color="generic" fontFamily="true"> Back</Button>
+                </Stack>
             </ThemeProvider>
             {errorMessage && <div className="error"> {errorMessage} </div>}
         </div>

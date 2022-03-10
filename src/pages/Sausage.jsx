@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import {Radio, RadioGroup, FormControl, FormControlLabel, FormLabel, createTheme, ThemeProvider, Button, Grid } from '@mui/material';
 import PublicIcon from '@mui/icons-material/Public';
 import {onAuthStateChanged} from "firebase/auth";
+import Stack from '@mui/material/Stack';
 
 const UseStyles = makeStyles((theme) => ({
     layout: {
@@ -372,6 +373,7 @@ function Sausage() {
                 </FormControl>
             </Grid></Grid>
             <ThemeProvider theme={studyTheme}>
+                <Stack spacing={1}>
                 <Button sx={{mt: 6}} onClick={routeChange} variant="contained" color= "primary" fontFamily="true">
                     Place Order
                 </Button>
@@ -381,6 +383,7 @@ function Sausage() {
           >
             Back
           </Button>
+          </Stack>
             </ThemeProvider>
             {errorMessage && <div className="error"> {errorMessage} </div>}
         </div>
