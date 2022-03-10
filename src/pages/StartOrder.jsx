@@ -7,6 +7,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from 'react-router-dom';
 import {addDoc, collection, doc, setDoc} from "firebase/firestore";
 import {onAuthStateChanged} from "firebase/auth";
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
 
 const UseStyles = makeStyles((theme) => ({
     layout: {
@@ -14,7 +16,8 @@ const UseStyles = makeStyles((theme) => ({
         alignItems: 'center',
         flexDirection: 'column',
         width: '100vw',
-
+        backgroundColor: '#FDF9F9',
+        height: '100vh',
     },
 
     title: {
@@ -31,31 +34,56 @@ const UseStyles = makeStyles((theme) => ({
 }));
 
 const studyTheme = createTheme({
-    palette: {
-        primary: {
-            main: '#594A47',
-            contrastText: '#fff',
-        },
+  palette: {
+    primary: {
+      main: '#594A47',
+      contrastText: '#fff',
     },
-    typography: {
-        button: {
-            fontFamily: 'Solway',
-            textTransform: 'none',
-            fontSize: '2em'
-        },
+    low: {
+      main: '#0f9600',
     },
-    components: {
-        MuiButton: {
-            styleOverrides: {
-                root: {
-                    borderRadius: 8,
-                },
-            },
-        },
+    high: {
+      main: '#bf0404',
     },
+    background: {
+      default: '#F1ECEC',
+    }
+  },
+  typography: {
+    fontFamily: 'Solway',
+    fontSize: '2em',
+    button: {
+      textTransform:'none',
+    },
+  },
+  subtitle1:{
+    fontFamily: 'Solway',
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+          minWidth: '250px', 
+          maxWidth: '250px',
+          maxHeight: '35px',
+          minHeight: '35px',
+        },
+      }, 
+    }, 
+    MuiCheckbox: {
+      styleOverrides: {
+        root: {
+          color: '#fff',
+          '&.Mui-checked': {
+            color: '#fff',
+          },
+          transform: "scale(0.85)",
+        }
+      }
+    }
+  },
 });
-
-
 
 
 export let orderRefID = "";
@@ -94,13 +122,6 @@ function StartOrder() {
         if (!user) return navigate("/home");
       }, [user, loading, navigate]);
 
-
-
-
-
-
-
-
     return (
         <div className={startOrder.layout}>
             <div className={startOrder.title}>
@@ -133,7 +154,13 @@ function StartOrder() {
                             <Button variant = "contained" component={Link} to="../European">European Dishes</Button>
                         </Grid>
                     </Grid>
-                    <Button variant = "contained" component={Link} to="../Welcome">Back</Button>
+                    <Grid item p = {9}>
+                      <Stack spacing = {2}>
+                      <Box textAlign='center'>
+                        <Button variant = "contained" component={Link} to="../Welcome">Back</Button>
+                      </Box>
+                      </Stack>
+                    </Grid>
                 </ThemeProvider>
             </div>
         </div>
