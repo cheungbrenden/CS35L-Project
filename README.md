@@ -1,11 +1,11 @@
 # Description
 
-The Study is an online food ordering application for the UCLA takeout dining hall The Study. There is a logon portal for UCLA students and faculty. A user can customize and place an order, as well as view previous orders.
+The Study is an online food ordering application for the UCLA takeout dining hall The Study. There is a logon portal for UCLA students and faculty. Users can customize and place an order, as well as view previous orders.
 
 ## Key Features
 1. User accounts with the ability to login, logout and have orders associated with valid user 
 2. Customize and place your own Sandwich, Salad, European, Sausage or Pizza order with dynamic display of menu items 
-3. Multiple toppings can be selected and a limit on number of toppings is placed on certain pages 
+3. Multiple toppings can be selected and a limit on number of toppings is placed on certain pages where applicable
 4. Caloric information of European and Sausage dishes is displayed 
 5. Carbon Footprint of each menu item is displayed 
 6. Dynamic history page that displays all past orders (including any incomplete ones) under the user account 
